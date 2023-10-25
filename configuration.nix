@@ -41,6 +41,13 @@
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
       LC_TIME = "de_DE.UTF-8";
+      LC_ADDRESS = "de_DE.UTF-8";
+      LC_IDENTIFICATION = "de_DE.UTF-8";
+      LC_MEASUREMENT = "de_DE.UTF-8";
+      LC_NAME = "de_DE.UTF-8";
+      LC_NUMERIC = "de_DE.UTF-8";
+      LC_PAPER = "de_DE.UTF-8";
+      LC_TELEPHONE = "de_DE.UTF-8";
       LC_MONETARY = "de_DE.UTF-8";
     };
   };
@@ -100,7 +107,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" "docker" "vboxusers"]; # Enable ‘sudo’ for the user.
     initialPassword = "7353";
   #   packages = with pkgs; [
   #     firefox
@@ -117,9 +124,46 @@
     firefox
     git 
     texlive.combined.scheme-full
-    
+    podman-compose
+    neofetch
+    starship
+    nextcloud-client
+    spotify
+    distrobox
+
   ];
 
+  virtualisation = {
+    podman = {
+      enable = true;
+      #rootless = {
+       # enable = true;
+       # setSocketVariable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+    oci-containers = {
+      backend = "podman";
+#      containers = {
+#        container-name = {
+#          image = "stuff";
+#          autostart = true;
+#          ports = [ "127.0.0.1:1234:1234"];
+#        };
+#      };
+    };
+
+    virtualbox = {
+      host = {
+        enable = true;
+        enableExtensionPack = true;
+      };
+      guest = {
+        enable = true;
+        x11 = true;
+      };
+    };
+  };
 
   environment.etc."fwupd/uefi_capsule.conf" = pkgs.lib.mkForce {
     source = pkgs.writeText "uefi_capsule.conf" ''
