@@ -9,9 +9,15 @@
  
   home.packages = with pkgs; [ thunderbird ];
   programs.vscode = {
-  enable = true;
-  extensions = with pkgs.vscode-extensions; [
-    james-yu.latex-workshop
-  ];
-};
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+      james-yu.latex-workshop
+    ];
+  };
+  dconf.settings = {
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = ["qemu:///system"];
+      uris = ["qemu:///system"];
+    };
+  };
 }

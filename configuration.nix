@@ -71,9 +71,9 @@
       enable = true;
       displayManager = {
         lightdm.enable = true;
-        defaultSession = "xfce+bspwm";
+        defaultSession = "plasma";
       };
-      desktopManager.xfce.enable = true;
+      desktopManager.plasma5.enable = true;
       windowManager.bspwm.enable = true;
     };
     fwupd = { 
@@ -81,7 +81,7 @@
       extraRemotes=["lvfs-testing"];
       # enableTestRemote = true;
     };
-    # flatpak.enable = true;
+    flatpak.enable = true;
   };
   
   fonts.packages = with pkgs; [
@@ -107,7 +107,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" "vboxusers"]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
     initialPassword = "7353";
   #   packages = with pkgs; [
   #     firefox
@@ -130,7 +130,8 @@
     nextcloud-client
     spotify
     distrobox
-    (python3.withPackages(ps: with ps; [ pip ]))
+    discord
+    (python3.withPackages(ps: with ps; [ pip dbus-python numpy ]))
   ];
 
   virtualisation = {
@@ -152,7 +153,6 @@
 #        };
 #      };
     };
-
 #    virtualbox = {
 #      host = {
 #        enable = true;
