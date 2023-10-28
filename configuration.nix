@@ -70,11 +70,11 @@
       libinput.enable = true;
       enable = true;
       displayManager = {
-        lightdm.enable = true;
-        defaultSession = "plasma";
+        gdm.enable = true;
+        defaultSession = "gnome";
       };
-      desktopManager.plasma5.enable = true;
-      windowManager.bspwm.enable = true;
+      desktopManager.gnome.enable = true;
+      #windowManager.sway.enable = true;
     };
     fwupd = { 
       enable = true;
@@ -84,6 +84,9 @@
     flatpak.enable = true;
   };
   
+  security.polkit.enable = true; #to enable sway
+  #programs.light.enable = true; #to make sway use light keys
+
   fonts.packages = with pkgs; [
     source-code-pro
     font-awesome
@@ -107,7 +110,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" "docker" "video" ]; # Enable ‘sudo’ for the user.
     initialPassword = "7353";
   #   packages = with pkgs; [
   #     firefox
