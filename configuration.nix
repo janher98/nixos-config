@@ -66,15 +66,17 @@
   # services.xserver.desktopManager.plasma5.enable = true;
   services = {
     xserver = {
-      layout = "de";
-      libinput.enable = true;
-      enable = true;
+    #  layout = "de";
+    #  libinput.enable = true;
+    #  enable = true;
       displayManager = {
-        gdm.enable = true;
-        defaultSession = "gnome";
+        gdm = {
+           enable = true;
+           wayland = true;
+        };
+    #    defaultSession = "gnome";
       };
-      desktopManager.gnome.enable = true;
-      #windowManager.sway.enable = true;
+    #  desktopManager.gnome.enable = true;
     };
     fwupd = { 
       enable = true;
@@ -83,6 +85,7 @@
     };
     flatpak.enable = true;
   };
+  programs.hyprland.enable = true;
   
   security.polkit.enable = true; #to enable sway
   #programs.light.enable = true; #to make sway use light keys
