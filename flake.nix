@@ -6,10 +6,10 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable"; 
 
     home-manager = {
-      url = github:nix-community/home-manager;
+      url = github:nix-community/home-manager/release-23.05;
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ^
+    
     nixgl = {                                                             # Fixes OpenGL With Other Distros.
       url = "github:guibou/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -39,7 +39,6 @@
   };
 
   outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, nixgl, doom-emacs, hyprland, plasma-manager, ...}: 
-
     let 
       vars = {                                                              # Variables Used In Flake
         user = "jan";
@@ -47,14 +46,14 @@
         terminal = "kitty";
         editor = "nvim";
       };
-      
-    in {
-      nixosConfigurations = {
+    in 
+    {
+      nixosConfigurations = (                                               # NixOS Configurations
         import ./hosts {
           inherit (nixpkgs) lib;
           inherit inputs nixpkgs nixpkgs-unstable home-manager doom-emacs hyprland plasma-manager vars; 
         }
-      };
+      );
         
       homeConfigurations = (                                                # Nix Configurations
         import ./nix {

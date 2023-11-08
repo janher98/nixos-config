@@ -1,9 +1,7 @@
-{pkgs, unstable, ...}:
+{config, pkgs, unstable, ...}:
 {
-  import = [
-    ./hardware-configuration.nix
-  ]++
-  ( import ../../modules/desktops/virtualisation );
+  imports = [ ./hardware-configuration.nix ] ++
+           ( import ../../modules/desktops/virtualisation );
 
   # Use the systemd-boot EFI boot loader.
   boot = {
@@ -56,7 +54,7 @@
       discord = prev.discord.overrideAttrs (
         _: { src = builtins.fetchTarball {
           url = "https://discord.com/api/download?platform=linux&format=tar.gz";
-          sha256 = "0pml1x6pzmdp6h19257by1x5b25smi2y60l1z40mi58aimdp59ss";
+          sha256 = "1091nv1lwqlcs890vcil8frx6j87n4mig1xdrfxi606cxkfirfbh";
         };}
       );
     })

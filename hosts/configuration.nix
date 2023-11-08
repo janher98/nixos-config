@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ config, pkgs, user, ... }:
+{ config, lib, pkgs, unstable, inputs, vars, ... }:
 
 {
   imports = (
@@ -40,7 +40,7 @@
     sudo.wheelNeedsPassword =  false;
   };
 
-  fonts.packages = with pkgs; [
+  fonts.fonts = with pkgs; [
     carlito                                 # NixOS
     vegur                                   # NixOS
     jetbrains-mono
@@ -59,7 +59,7 @@
   hardware.pulseaudio.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.${user} = {
+  users.users.${vars.user} = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "audio" "camera"  ]; # Enable ‘sudo’ for the user.
     initialPassword = "7353";
@@ -171,7 +171,7 @@
 
   home-manager.users.${vars.user} = {       # Home-Manager Settings
     home = {
-      stateVersion = "22.05";
+      stateVersion = "23.05";
     };
 
     programs = {
