@@ -2,57 +2,66 @@
   description = "A very basic flake";
   
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable"; 
+
     home-manager = {
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ^
+    nixgl = {                                                             # Fixes OpenGL With Other Distros.
+      url = "github:guibou/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    emacs-overlay = {                                                     # Emacs Overlays
+      url = "github:nix-community/emacs-overlay";
+      flake = false;
+    };
+
+    doom-emacs = {                                                        # Nix-Community Doom Emacs
+      url = "github:nix-community/nix-doom-emacs";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.emacs-overlay.follows = "emacs-overlay";
+    };
+
+    hyprland = {                                                          # Official Hyprland Flake
+      url = "github:hyprwm/Hyprland";                                     # Requires "hyprland.nixosModules.default" to be added the host modules
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    plasma-manager = {                                                    # KDE Plasma User Settings Generator
+      url = "github:pjones/plasma-manager";                               # Requires "inputs.plasma-manager.homeManagerModules.plasma-manager" to be added to the home-manager.users.${user}.imports
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager }: 
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, nixgl, doom-emacs, hyprland, plasma-manager, ...}: 
 
     let 
-      system = "x86_64-linux";
-      user = "jan";
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
+      vars = {                                                              # Variables Used In Flake
+        user = "jan";
+        location = "$HOME/.setup";
+        terminal = "kitty";
+        editor = "nvim";
       };
-      lib = nixpkgs.lib;
+      
     in {
       nixosConfigurations = {
-        ${user} = lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit user; };
-          modules = [ 
-            ./configuration.nix 
-            home-manager.nixosModules.home-manager {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.${user} = {
-                  imports = [ ./home.nix ];
-                };
-              };
-            }
-          ];
-        };
-        # other = lib.nixosSystem {
-        #   inherit system;
-        #   modules = [ ./otherconfiguration.nix];
-        # };
-        # hmConfig = {
-        #   jan = home-manager.lib.homeManagerConfiguration {
-        #     inherit system pkgs;
-        #     username = "jan";
-        #     homeDirectory = "/home/jan";
-        #     configuration = {
-        #       imports = [
-        #         ./home.nix
-        #       ];
-        #     };
-        #   };
-        # };
+        import ./hosts {
+          inherit (nixpkgs) lib;
+          inherit inputs nixpkgs nixpkgs-unstable home-manager doom-emacs hyprland plasma-manager vars; 
+        }
       };
+        
+      homeConfigurations = (                                                # Nix Configurations
+        import ./nix {
+          inherit (nixpkgs) lib;
+          inherit inputs nixpkgs nixpkgs-unstable home-manager nixgl vars;
+        }
+      );
+      
     };
 }
