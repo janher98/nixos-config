@@ -2,7 +2,7 @@
 #  Bash
 #
 
-{ pkgs, vars, ... }:
+{ pkgs, vars, unstable, ... }:
 
 {
   users.users.${vars.user} = {
@@ -10,16 +10,18 @@
   };
 
   environment.systemPackages = with pkgs; [
-    neofetch
     starship
-  ]; 
+  ]++
+  (with unstable; [
+    fastfetch         # Neofetch replacement
+  ]); 
 
   programs = {
     bash = {
       enableCompletion = true;
 
       shellInit = ''
-        neofetch
+        fastfetch
         eval "$(starship init bash)"
       '';                                       # Theming
     };

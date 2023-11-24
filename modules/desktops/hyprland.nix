@@ -38,7 +38,7 @@ with host;
         XDG_SESSION_TYPE="wayland";
         XDG_SESSION_DESKTOP="Hyprland";
       };
-      sessionVariables = if hostName == "work" then {
+      sessionVariables = if hostName == "framework" then {
         #GBM_BACKEND = "nvidia-drm";
         #__GL_GSYNC_ALLOWED = "0";
         #__GL_VRR_ALLOWED = "0";
@@ -77,15 +77,15 @@ with host;
       '';
     };
 
-    services.greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --time-format '%I:%M %p | %a • %h | %F' --cmd Hyprland";
-        };
-      };
-      vt = 7;
-    };
+    #services.greetd = {
+    #  enable = true;
+    #  settings = {
+    #    default_session = {
+    #      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --time-format '%I:%M %p | %a • %h | %F' --cmd Hyprland";
+    #    };
+    #  };
+    #  vt = 7;
+    #};
 
     programs = {
       hyprland = {                            # Window Manager
@@ -110,7 +110,7 @@ with host;
     home-manager.users.${vars.user} =
     let
       touchpad =
-        if hostName == "laptop" || hostName == "work" then ''
+        if hostName == "framework" then ''
             touchpad {
               natural_scroll=true
               middle_button_emulation=true
@@ -119,7 +119,7 @@ with host;
           }
           '' else "";
       gestures =
-        if hostName == "laptop" || hostName == "work" then ''
+        if hostName == "framework" then ''
           gestures {
             workspace_swipe=true
             workspace_swipe_fingers=3
@@ -127,18 +127,15 @@ with host;
           }
         '' else "";
       workspaces =
-        if hostName == "desktop" || hostName == "beelink" then ''
-          monitor=${toString mainMonitor},1920x1080@60,1920x0,1
-          monitor=${toString secondMonitor},1920x1080@60,0x0,1
-        '' else if hostName == "work" then ''
-          monitor=${toString mainMonitor},1920x1080@60,0x0,1
-          monitor=${toString secondMonitor},1920x1200@60,1920x0,1
-          monitor=${toString thirdMonitor},1920x1200@60,3840x0,1
+        if hostName == "framework" then ''
+          monitor=${toString mainMonitor},2256x1504@60,0x0,1
+          monitor=${toString secondMonitor},2560x1440@60,1504x0,1
+          monitor=${toString thirdMonitor},2560x1440@60,4064x0,1
         '' else ''
-          monitor=${toString mainMonitor},1920x1080@60,0x0,1
+          monitor=${toString mainMonitor},1920x1200@60,0x0,1
         '';
       monitors =
-        if hostName == "desktop" || hostName == "beelink" then ''
+        if hostName == "framework" then ''
           workspace=${toString mainMonitor},1
           workspace=${toString mainMonitor},2
           workspace=${toString mainMonitor},3
@@ -147,25 +144,13 @@ with host;
           workspace=${toString secondMonitor},6
           workspace=${toString secondMonitor},7
           workspace=${toString secondMonitor},8
-        '' else if hostName == "work" then ''
-          workspace=${toString mainMonitor},1
-          workspace=${toString mainMonitor},2
-          workspace=${toString mainMonitor},3
-          workspace=${toString secondMonitor},4
-          workspace=${toString secondMonitor},5
-          workspace=${toString secondMonitor},6
-          workspace=${toString thirdMonitor},7
+          workspace=${toString thirdMonitor},9
 
           bindl=,switch:Lid Switch,exec,$HOME/.config/hypr/script/clamshell.sh
         '' else "";
       execute =
-        if hostName == "desktop" || hostName == "beelink" then ''
+        if hostName == "framework" then ''
           exec-once=${pkgs.swayidle}/bin/swayidle -w timeout 600 '${pkgs.swaylock}/bin/swaylock -f' timeout 1200 '${pkgs.systemd}/bin/systemctl suspend' after-resume '${config.programs.hyprland.package}/bin/hyprctl dispatch dpms on' before-sleep '${pkgs.swaylock}/bin/swaylock -f && ${config.programs.hyprland.package}/bin/hyprctl dispatch dpms off'
-        '' else if hostName == "work" then ''
-          exec-once=${pkgs.networkmanagerapplet}/bin/nm-applet --indicator
-          #exec-once=${pkgs.google-drive-ocamlfuse}/bin/google-drive-ocamlfuse /GDrive
-          exec-once=${pkgs.rclone}/bin/rclone mount --daemon gdrive: /GDrive
-          exec-once=${pkgs.swayidle}/bin/swayidle -w timeout 60 '${pkgs.swaylock}/bin/swaylock -f' timeout 600 '${pkgs.systemd}/bin/systemctl suspend' after-resume '${config.programs.hyprland.package}/bin/hyprctl dispatch dpms on' before-sleep '${pkgs.swaylock}/bin/swaylock -f && ${config.programs.hyprland.package}/bin/hyprctl dispatch dpms off'
         '' else "";
     in
     let
@@ -319,7 +304,7 @@ with host;
 
         exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
         exec-once=${unstable.waybar}/bin/waybar
-        exec-once=${unstable.eww-wayland}/bin/eww daemon
+        #exec-once=${unstable.eww-wayland}/bin/eww daemon
         #exec-once=$HOME/.config/eww/scripts/eww        # When running eww as a bar
         exec-once=${pkgs.blueman}/bin/blueman-applet
         ${execute}
@@ -360,7 +345,7 @@ with host;
             #!/bin/sh
 
             if grep open /proc/acpi/button/lid/LID/state; then
-              ${config.programs.hyprland.package}/bin/hyprctl keyword monitor "eDP-1, 1920x1080, 0x0, 1"
+              ${config.programs.hyprland.package}/bin/hyprctl keyword monitor "eDP-1, 2256x1504, 0x0, 1"
             else
               if [[ `hyprctl monitors | grep "Monitor" | wc -l` != 1 ]]; then
                 ${config.programs.hyprland.package}/bin/hyprctl keyword monitor "eDP-1, disable"

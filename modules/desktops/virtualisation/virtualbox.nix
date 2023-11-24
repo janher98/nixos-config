@@ -5,11 +5,11 @@
 { config, pkgs, vars, ... }:
 
 {
-  users.groups.vboxusers.members = [ "${vars.user}" ];
+  users.extraGroups.vboxusers.members = [ "${vars.user}" ];
 
-  environment.systemPackages = with pkgs; [
-    virtualbox
-  ];  
+#  environment.systemPackages = with pkgs; [
+#    virtualbox
+#  ];  
   
   virtualisation = {
     virtualbox = {

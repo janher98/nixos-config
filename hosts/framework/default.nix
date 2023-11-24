@@ -17,6 +17,7 @@
   hardware.opengl.enable = true; # when using QEMU KVM
 
   hyprland.enable = true;                       # Window Manager
+#  gnome.enable = true;
 
   environment = {
     systemPackages = with pkgs; [               # System-Wide Packages

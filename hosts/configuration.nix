@@ -111,7 +111,7 @@
 
       texlive.combined.scheme-full
 
-      
+      vscode 
       nextcloud-client
       
       kitty
@@ -124,6 +124,7 @@
       (with unstable; [
         # Apps
         firefox           # Browser
+        fastfetch         # Neofetch replacement
       ]);
   };
   

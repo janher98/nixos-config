@@ -23,8 +23,8 @@ in
       host = {
         hostName = "framework";
         mainMonitor = "eDP-1";
-        secondMonitor = "HDMI-A-1";
-        thirdMonitor = "DP-1";
+        secondMonitor = "DP-11";
+        thirdMonitor = "DP-9";
       };
     };
     modules = [ 
