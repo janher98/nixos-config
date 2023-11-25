@@ -24,6 +24,7 @@
       fwupd
       discord
       spotify
+      dolphin
     ];
     etc."fwupd/uefi_capsule.conf" = pkgs.lib.mkForce {
       source = pkgs.writeText "uefi_capsule.conf" ''

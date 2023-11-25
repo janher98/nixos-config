@@ -242,7 +242,8 @@ with host;
         bind=SUPER,F,fullscreen,
         bind=SUPER,R,forcerendererreload
         bind=SUPERSHIFT,R,exec,${pkgs.hyprland}/bin/hyprctl reload
-        bind=SUPER,T,exec,${pkgs.emacs}/bin/emacsclient -c
+        bind=SUPER,T,exec,${pkgs.neovim}/bin/nvim
+        bind=SUPER,D,exec,${pkgs.dolphin}/bin/dolphin
 
         bind=SUPER,left,movefocus,l
         bind=SUPER,right,movefocus,r
@@ -315,7 +316,7 @@ with host;
 
       programs.swaylock.settings = {
         #image = "$HOME/.config/wall";
-        color = "000000f0";
+        color = "000000";
         font-size = "24";
         indicator-idle-visible = false;
         indicator-radius = 100;
