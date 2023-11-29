@@ -7,10 +7,7 @@
 with host;
 let
   output =
-    if hostName == "beelink" || hostName == "desktop" then [
-      mainMonitor
-      secondMonitor
-    ] else if hostName == "work" then [
+    if hostName == "framework" then [
       mainMonitor
       secondMonitor
       thirdMonitor
@@ -25,8 +22,8 @@ let
     ] else [];
 
   modules-right =
-    if hostName == "beelink" || hostName == "desktop" then [
-      "custom/ds4" "custom/mouse" "custom/kb" "custom/pad" "network" "cpu" "memory" "custom/pad" "pulseaudio" "custom/sink" "custom/pad" "clock" "tray"
+    if hostName == "framework" then [
+      "cpu" "memory" "custom/pad" "battery" "custom/pad" "backlight" "custom/pad" "pulseaudio" "custom/pad" "clock" "tray"
     ] else [
       "cpu" "memory" "custom/pad" "battery" "custom/pad" "backlight" "custom/pad" "pulseaudio" "custom/pad" "clock" "tray"
     ];
@@ -53,6 +50,38 @@ in
         };
 
         style = ''
+          /*Cattppuccin latte theme*/ 
+
+          @define-color base   #eff1f5;
+          @define-color mantle #e6e9ef;
+          @define-color crust  #dce0e8;
+
+          @define-color text     #4c4f69;
+          @define-color subtext0 #6c6f85;
+          @define-color subtext1 #5c5f77;
+
+          @define-color surface0 #ccd0da;
+          @define-color surface1 #bcc0cc;
+          @define-color surface2 #acb0be;
+
+          @define-color overlay0 #9ca0b0;
+          @define-color overlay1 #8c8fa1;
+          @define-color overlay2 #7c7f93;
+
+          @define-color blue      #1e66f5;
+          @define-color lavender  #7287fd;
+          @define-color sapphire  #209fb5;
+          @define-color sky       #04a5e5;
+          @define-color teal      #179299;
+          @define-color green     #40a02b;
+          @define-color yellow    #df8e1d;
+          @define-color peach     #fe640b;
+          @define-color maroon    #e64553;
+          @define-color red       #d20f39;
+          @define-color mauve     #8839ef;
+          @define-color pink      #ea76cb;
+          @define-color flamingo  #dd7878;
+          @define-color rosewater #dc8a78;
           * {
             border: none;
             font-family: FiraCode Nerd Font Mono;

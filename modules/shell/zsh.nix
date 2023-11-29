@@ -2,12 +2,19 @@
 #  Shell
 #
 
-{ pkgs, vars, ... }:
+{ pkgs, vars, unstable, ... }:
 
 {
   users.users.${vars.user} = {
     shell = pkgs.zsh;
   };
+
+    environment.systemPackages = with pkgs; [
+    starship
+  ]++
+  (with unstable; [
+    fastfetch         # Neofetch replacement
+  ]); 
 
   programs = {
     zsh = {
@@ -26,9 +33,11 @@
         # Spaceship
         source ${pkgs.spaceship-prompt}/share/zsh/site-functions/prompt_spaceship_setup
         autoload -U promptinit; promptinit
+        
+        #eval "$(starship init zsh)"
         # Hook direnv
         #emulate zsh -c "$(direnv hook zsh)"
-
+        fastfetch
         #eval "$(direnv hook zsh)"
       '';                                       # Theming
     };

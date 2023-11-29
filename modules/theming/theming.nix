@@ -12,9 +12,9 @@
   #    pointerCursor = {                     # System-Wide Cursor
   #      gtk.enable = true;
   #      #name = "Dracula-cursors";
-  #      name = "Catppuccin-Mocha-Light-Cursors";
+  #      name = "Catppuccin-Latte-Light-Cursors";
   #      #package = pkgs.dracula-theme;
-  #      package = pkgs.catppuccin-cursors.mochaLight;
+  #      package = pkgs.catppuccin-cursors.latteLight;
   #      size = 16;
   #    };
   #  };
@@ -23,12 +23,12 @@
       enable = true;
       theme = {
         #name = "Dracula";
-        name = "Catppuccin-Mocha-Compact-Blue-Light";
+        name = "Catppuccin-Latte-Compact-Blue-Light";
         #package = pkgs.dracula-theme;
         package = pkgs.catppuccin-gtk.override {
           accents = ["blue"];
           size = "compact";
-          variant = "mocha";
+          variant = "latte";
         };
       };
       iconTheme = {

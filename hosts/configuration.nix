@@ -123,7 +123,7 @@
       ]++
       (with unstable; [
         # Apps
-        firefox           # Browser
+        firefox-wayland           # Browser
         fastfetch         # Neofetch replacement
       ]);
   };

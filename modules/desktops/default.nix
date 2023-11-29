@@ -15,5 +15,5 @@
   ./hyprland.nix
   ./kde.nix
   ./options.nix
-  ./sway.nix
+  #./sway.nix
 ]

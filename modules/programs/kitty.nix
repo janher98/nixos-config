@@ -9,7 +9,9 @@
     programs = {
       kitty = {
         enable = true;
-        theme = "Afterglow";
+        #theme = "Cattppuccin Latte";
+        theme = "Clrs";
+        #theme = "Tango Light";
         settings = {
           confirm_os_window_close=0;
         };
