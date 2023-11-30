@@ -6,18 +6,18 @@
 
 {
   home-manager.users.${vars.user} = {
-  #  home = {
-#      file.".config/wall".source = ./wall;
+    home = {
+      file.".config/wall.png".source = ./wall.png;
 #      file.".config/wall.mp4".source = ./wall.mp4;
-  #    pointerCursor = {                     # System-Wide Cursor
-  #      gtk.enable = true;
+      pointerCursor = {                     # System-Wide Cursor
+        gtk.enable = true;
   #      #name = "Dracula-cursors";
-  #      name = "Catppuccin-Latte-Light-Cursors";
+        name = "Catppuccin-Latte-Light-Cursors";
   #      #package = pkgs.dracula-theme;
-  #      package = pkgs.catppuccin-cursors.latteLight;
-  #      size = 16;
-  #    };
-  #  };
+        package = pkgs.catppuccin-cursors.latteLight;
+        size = 16;
+      };
+    };
 
     gtk = {                                 # Theming
       enable = true;
