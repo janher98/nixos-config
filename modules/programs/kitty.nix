@@ -10,7 +10,7 @@
       kitty = {
         enable = true;
         #theme = "Cattppuccin Latte";
-        theme = "Clrs";
+        #theme = "Clrs";
         #theme = "Tango Light";
         settings = {
           confirm_os_window_close=0;
