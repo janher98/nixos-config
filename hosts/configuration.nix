@@ -40,7 +40,7 @@
     sudo.wheelNeedsPassword =  false;
   };
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     carlito                                 # NixOS
     vegur                                   # NixOS
     jetbrains-mono

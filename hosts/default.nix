@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, nixpkgs-unstable, home-manager, doom-emacs, hyprland, plasma-manager, vars, ... }:
+{ lib, inputs, nixpkgs, nixpkgs-unstable, home-manager, hyprland, plasma-manager, vars, ... }:
 
 let 
   system = "x86_64-linux";
