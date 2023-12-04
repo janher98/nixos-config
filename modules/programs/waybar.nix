@@ -16,14 +16,38 @@ let
     ];
   modules-left = with config.programs;
     if hyprland.enable == true then [
-      "custom/menu" "hyprland/workspaces"
+      "custom/menu" 
+      "cpu" 
+      "temperature" 
+      "memory" 
+      #"disk" 
+      "custom/weather"
     ] else if sway.enable == true then [
       "sway/workspaces" "sway/window" "sway/mode"
     ] else [];
 
+  modules-center = [ 
+    "hyprland/workspaces" 
+    #"clock"
+    #"custom/cycle_wall"
+    #"custom/lock";
+    ];
+
   modules-right =
     if hostName == "framework" then [
-      "cpu" "memory" "custom/pad" "battery" "custom/pad" "backlight" "custom/pad" "pulseaudio" "custom/pad" "clock" "tray"
+      #"cpu" "memory" "custom/pad" 
+      "tray"
+      "network"
+      "battery" 
+      #"custom/pad" 
+      "backlight" 
+      #"custom/pad" 
+      "pulseaudio" 
+      #"pulseaudio#microphone"
+      #"custom/pad" 
+      "clock" 
+      #"tray"
+      "custom/power"
     ] else [
       "cpu" "memory" "custom/pad" "battery" "custom/pad" "backlight" "custom/pad" "pulseaudio" "custom/pad" "clock" "tray"
     ];
@@ -85,89 +109,259 @@ in
           * {
             border: none;
             font-family: FiraCode Nerd Font Mono;
-            /*font-weight: bold;*/
-            font-size: 12px;
-            text-shadow: 0px 0px 5px #000000;
-          }
-          button:hover {
-            background-color: rgba(80,100,100,0.4);
+            font-weight: bold;
+            min-height: 0;
+            /* set font-size to 100% if font scaling is set to 1.00 using nwg-look */
+            font-size: 100%;
+            text-shadow: none;
+            font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+            padding: 0px;
+            margin-top: 1px;
+            margin-bottom: 1px;
           }
           window#waybar {
-            background-color: rgba(0,0,0,0.5);
-            background: transparent;
-            transition-property: background-color;
-            transition-duration: .5s;
-            border-bottom: none;
+              background: rgba(0, 0, 0, 0);
+              /*border-bottom: 1px solid @unfocused_borders;*/
+              /*border-radius: 10px;*/
+              /*color: #cba6f7;*/
+              /*border: 1px solid #cba6f7;*/
           }
+
           window#waybar.hidden {
-            opacity: 0.2;
+              opacity: 0.5;
           }
-          #workspace,
-          #mode,
-          #clock,
-          #pulseaudio,
-          #custom-sink,
-          #network,
-          #mpd,
-          #memory,
-          #network,
-          #window,
-          #cpu,
-          #disk,
-          #backlight,
-          #battery,
-          #custom-mouse,
-          #custom-kb,
-          #custom-ds4,
-          #tray {
-            color: #999999;
-            background-clip: padding-box;
+            
+          tooltip {
+              background: rgba(0, 0, 0, 0.6);
+              border-radius: 10px;
+              /*border: 1px solid #cba6f7;*/
           }
-          #custom-menu {
-            color: #A7C7E7;
-            padding: 0px 5px 0px 5px;
+
+          tooltip label {
+              color: #cba6f7;
+              margin-right: 2px;
+              margin-left: 2px;
           }
+
+          /*-----module groups----*/
+          .modules-right {
+              background-color: @surface0;
+              border: 0px solid @overlay2;
+              border-radius: 10px;
+          }
+
+          .modules-center {
+              background-color: @surface0;
+              border: 0px solid @overlay2;
+              border-radius: 10px;
+          }
+
+          .modules-left {
+              background-color: @surface0;
+              border: 0px solid @overlay2;
+              border-radius: 10px;
+            
+          }
+
           #workspaces button {
-            padding: 0px 5px;
-            min-width: 5px;
-            color: rgba(255,255,255,0.8);
+              padding: 2px;
+              color: @lavender;
+              margin-right: 5px;
           }
-          #workspaces button:hover {
-            background-color: rgba(0,0,0,0.2);
-          }
-          /*#workspaces button.focused {*/
+            
           #workspaces button.active {
-            color: rgba(255,255,255,0.8);
-            background-color: rgba(80,100,100,0.4);
+              color: @teal;
+              border-radius: 15px 15px 15px 15px;
           }
-          #workspaces button.visible {
-            color: #ccffff;
+            
+          #workspaces button.focused {
+              color: @lavender;
           }
-          #workspaces button.hidden {
-            color: #999999;
+            
+          #workspaces button.urgent {
+              color: #11111b;
+              border-radius: 10px;
           }
-          #battery.warning {
-            color: #ff5d17;
-            background-color: rgba(0,0,0,0);
+                
+          #workspaces button:hover {
+              color: @lavender;
+              border-radius: 15px;
           }
-          #battery.critical {
-            color: #ff200c;
-            background-color: rgba(0,0,0,0);
+
+          #clock,
+          #battery,
+          #cpu,
+          #memory,
+          #disk,
+          #temperature,
+          #network,
+          #pulseaudio,
+          #wireplumber,
+          #mode,
+          #tray,
+          #cava,
+          #backlight,
+          #window,
+          #idle_inhibitor,
+          #mpd,
+          #bluetooth,
+          #taskbar,
+          #taskbar button,
+          #workspaces,
+          #custom-light_dark,
+          #custom-updater,
+          #custom-menu,
+          #custom-cycle_wall,
+          #custom-power,
+          #custom-spotify,
+          #custom-weather,
+          #custom-power,
+          #custom-lock,
+          #custom-sink
+          #custom-weather.severe,
+          #custom-weather.sunnyDay,
+          #custom-weather.clearNight,
+          #custom-weather.cloudyFoggyDay,
+          #custom-weather.cloudyFoggyNight,
+          #custom-weather.rainyDay,
+          #custom-weather.rainyNight,
+          #custom-weather.showyIcyDay,
+          #custom-weather.snowyIcyNight,
+          #custom-weather.default, 
+          #idle_inhibitor {
+            color:  @text;
+            padding: 0px 10px;
+            border-radius: 10px;
           }
-          #battery.charging {
-            color: #9ece6a;
-            background-color: rgba(0,0,0,0);
+
+          #clock {
+              color: @mauve;
+            }
+          
+          #network {
+              color: @mauve;
+          }
+
+          #battery{
+              color: @green;
+          }
+
+          #battery.warning{
+              color: @peach;
+          }
+
+          #backlight {
+              color: @yellow;
+            }
+
+          #pulseaudio {
+              color: @lavender;
+          } 
+
+          #cpu {
+              color: @peach;
+            }
+
+          #temperature {
+              color: @blue;
+          }
+
+          #memory {
+              color: @green;
+            }
+
+          #disk {
+              color: @lavender;
+          }
+
+          #custom-menu {
+            color: @lavender
+          }
+
+          #temperature.critical {
+            background-color: @red;
+          }
+
+          @keyframes blink {
+            to {
+              color: #000000;
+            }
+          }
+
+          #taskbar button.active {
+            background-color: @surface2;
+          }
+
+          #battery.critical:not(.charging) {
+            color: @maroon;
+            animation-name: blink;
+            animation-duration: 0.5s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+          }
+          #tray {
+              background-color: @surface2;
+            }
+          #workspaces button:nth-child(1) label {
+            color: @lavender;
+            margin: 0px 8px;
+          }
+
+          #workspaces button:nth-child(2) label {
+            color: @maroon;
+            margin: 0px 8px;
+          }
+
+          #workspaces button:nth-child(3) label {
+            color: @green;
+            margin: 0px 8px;
+          }
+
+          #workspaces button:nth-child(4) label {
+            color: @mauve;
+            margin: 0px 8px;
+          }
+
+          #workspaces button:nth-child(5) label {
+            color: @yellow;
+            margin: 0px 8px;
+          }
+
+          #workspaces button:nth-child(6) label {
+            color: @flamingo;
+            margin: 0px 8px;
+          }
+
+          #workspaces button:nth-child(7) label {
+            color: @teal;
+            margin: 0px 8px;
+          }
+
+          #workspaces button:nth-child(8) label {
+            color: @yellow;
+            margin: 0px 8px;
+          }
+
+          #workspaces button:nth-child(9) label {
+            color: @sky;
+            margin: 0px 8px;
+          }
+
+          #workspaces button:nth-child(10) label {
+            color: @rosewater;
+            margin: 0px 8px;
           }
         '';
         settings = {
           Main = {
             layer = "top";
             position = "top";
-            height = 16;
+            #height = 16;
             output = output;
 
-            tray = { spacing = 5; };
             modules-left = modules-left;
+            modules-center = modules-center;
             modules-right = modules-right;
 
             "custom/pad" = {
@@ -175,7 +369,8 @@ in
               tooltip = false;
             };
             "custom/menu" = {
-              format = "<span font='16'></span>";
+              format = "";
+              #format = "<span font='16'></span>";
               on-click = ''${unstable.eww-wayland}/bin/eww open --toggle menu --screen 0'';
               on-click-right = "${pkgs.wofi}/bin/wofi --show drun";
               tooltip = false;
@@ -204,31 +399,31 @@ in
               on-click = "activate";
             };
             "hyprland/workspaces" = {
-              format = "<span font='11'>{name}</span>";
-            };
-            clock = {
-              format = "{:%b %d %H:%M}  ";
-              on-click = "${unstable.eww-wayland}/bin/eww open --toggle calendar --screen 0";
-            };
-            cpu = {
-              format = " {usage}% <span font='11'></span> ";
-              interval = 1;
-            };
-            disk = {
-              format = "{percentage_used}% <span font='11'></span>";
-              path = "/";
-              interval = 30;
-            };
-            memory = {
-              format = "{}% <span font='11'></span>";
-              interval = 1;
+              #format = "<span font='11'>{name}</span>";
+              all-outputs = true;
+              format = "{icon}";
+              format-icons = {
+                "1" = "";
+                "2" = "";
+                "3" = "";
+                "4" = "";
+                "5" = "";
+                "6" = "";
+                "7" = "";
+                "8" = "";
+                "9" = "";
+                "10" = "";
+
+                "urgent" = "";
+                "active" = "";
+                "default" = "";
+              };
             };
             backlight = {
-              device = "intel_backlight";
-              format= "{percent}% <span font='11'>{icon}</span>";
-              format-icons = ["" ""];
-              on-scroll-down = "${pkgs.light}/bin/light -U 5";
-              on-scroll-up = "${pkgs.light}/bin/light -A 5";
+              format= "{icon} {percent}%";
+              icon-size = "10";
+              #format-icons = ["" "" "" "" "" "" "" "" ""];
+              format-icons = ["󰃞" "󰃟" "󰃠"];
             };
             battery = {
               interval = 60;
@@ -236,64 +431,142 @@ in
                 warning = 30;
                 critical = 15;
               };
-              format = "{capacity}% <span font='11'>{icon}</span>";
-              format-charging = "{capacity}% <span font='11'></span>";
+              format = "{icon} {capacity}%";
+              format-charging = " {capacity}%";
+              format-plugged = " {capacity}%";
+              format-full = "{icon} Full";
+              format-alt = "{icon} {time}";
+              format-time = "{H}h {M}min";
+              tooltip = true;
+              tooltip-format = "{timeTo} {power}w";
               format-icons = ["" "" "" "" ""];
-              max-length = 25;
+              #max-length = 25;
+            };
+            bluetooth = {
+                format = "";
+                format-disabled = "";
+                format-connected = " {num_connections}";
+                tooltip-format = " {device_alias}";
+                tooltip-format-connected ="{device_enumerate}";
+                tooltip-format-enumerate-connected = " {device_alias}";
+              };
+            clock = {
+              format = "{:%b %d %H:%M}";
+              on-click = "${unstable.eww-wayland}/bin/eww open --toggle calendar --screen 0";
+            };
+            cpu = {
+              format = " {usage}% 󰍛";
+              interval = 1;
+            };
+            disk = {
+              format = "{percentage_used}% ";
+              path = "/";
+              interval = 30;
+            };
+            memory = {
+              format = "{percentage}% ";
+              format-alt = "{used:0.1f}G ";
+              #format = "{}% <span font='11'></span>";
+              interval = 1;
+              tooltip = true;
+              tooltip-format = "{used:0.1f}GB/{total:0.1f}G";
+              on-click-right = "foot --title btop sh -c 'btop'";
             };
             network = {
-              format-wifi = "<span font='11'></span>";
-              format-ethernet = "<span font='11'>󰈀</span>";
-              format-linked = "<span font='11'>󱘖</span> {ifname} (No IP)";
-              format-disconnected = "<span font='11'>󱘖</span> Not connected";
-              tooltip-format = "{essid} {ipaddr}/{cidr}";
+              format-wifi = "";
+              format-ethernet = "󰈀";
+              format-linked = "󱘖 {ifname} (No IP)";
+              format-disconnected = "";
+              tooltip-format-wifi = "{essid} ({signalStrength}%) {ipaddr}/{cidr}";
+              tooltip-format-ethernet = "{ifname} 󰈁";
+              tooltip-format-disconnected = "󰈂 Disconnected";
             };
             pulseaudio = {
-              format = "<span font='11'>{icon}</span> {volume}% {format_source} ";
-              format-bluetooth = "<span font='11'>{icon}</span> {volume}% {format_source} ";
-              format-bluetooth-muted = "<span font='11'>x</span> {volume}% {format_source} ";
-              format-muted = "<span font='11'>x</span> {volume}% {format_source} ";
-              format-source = "<span font='10'></span> ";
-              format-source-muted = "<span font='11'> </span> ";
+              format = "{icon} {volume}%";#" {format-source}";
+              format-bluetooth = "{icon} {volume}%";#" {format-source}";
+              format-bluetooth-muted = "x {volume}%";#" {format-source}";
+              format-muted = "x {volume}%";#" {format-source}";
+              #format-source = "<span font='10'></span> ";
+              #format-source-muted = "<span font='11'> </span> ";
               format-icons = {
                 default = [ "" "" "" ];
                 headphone = "";
               };
               tooltip-format = "{desc}, {volume}%";
               on-click = "${pkgs.pamixer}/bin/pamixer -t";
-              on-click-right = "${pkgs.pamixer}/bin/pamixer --default-source -t";
+              #on-click-right = "${pkgs.pamixer}/bin/pamixer --default-source -t";
               on-click-middle = "${pkgs.pavucontrol}/bin/pavucontrol";
             };
-            "custom/sink" = {
-              format = "{}";
-              exec = "$HOME/.config/waybar/script/sink.sh";
-              interval = 2;
-              on-click = "$HOME/.config/waybar/script/switch.sh";
+            "pulseaudio#microphone" = {
+              format = "{format-source}";
+              format-source = " {volume}%";
+              format-source-muted = " ";
+              on-click = "${pkgs.pamixer}/bin/pamixer --default-source -t";
+            };
+            temperature = {
+              interval = 10;
+              tooltip = false;
+              critical-threshold = 85;
+              format-critical = "{temperatureC}°C {icon}";
+              format = "{temperatureC}°C {icon}";
+              format-icons = "󰈸";
+            };
+            "custom/cycle_wall" = {
+              format = " ";
+              tooltip = true;
+              tooltip-format = "Change wallpaper";
+              on-click = "$HOME/.config/waybar/scripts/Wallpaper.sh";
+
+            };
+            "custom/lock" = {
+              format = "";
+              on-click = "$HOME//.config/hypr/scripts/LockScreen.sh";
               tooltip = false;
             };
-            "custom/mouse" = {
-              format = "{}";
-              exec = "$HOME/.config/waybar/script/mouse.sh";
-              interval = 60;
+            "custom/power" = {
+              format = "  ";
+              tooltip = false;
+              #on-click = "sh -c '(sleep 0.5s; wlogout --protocol layer-shell)' & disown";
+              #on-click = "$HOME/.config/hypr/scripts/WofiPower.sh";
+              #on-click-right = "$HOME//.config/hypr/scripts/ChangeBlur.sh";
             };
-            "custom/kb" = {
-              format = "{}";
-              exec = "$HOME/.config/waybar/script/kb.sh";
-              interval = 60;
+            "custom/updater" = {
+              format = " {}";
+              exec = "checkupdates | wc -l";
+              exec-if = "[[ $(checkupdates | wc -l) ]]";
+              interval = 15;
+              on-click = "foot -T update paru -Syu || yay -Syu && notify-send 'The system has been updated'";
+              on-click-right = "$HOME//.config/hypr/scripts/WallpaperSwitch.sh";
             };
-            "custom/ds4" = {
+              
+            "custom/weather" = {
               format = "{}";
-              exec = "$HOME/.config/waybar/script/ds4.sh";
-              interval = 60;
+              format-alt = "{alt}: {}";
+              format-alt-click = "click";
+              interval = 360;
+              return-type = "json";
+              exec = "$HOME/.config/waybar/scripts/Weather.sh";
+              #"exec = "$HOME//.config/hypr/scripts/Weather.py";
+              exec-if = "ping wttr.in -c1";
+              tooltip = true;
+            };
+
+            "custom/sink" = {
+              format = "{}";
+              exec = "$HOME/.config/waybar/scripts/sink.sh";
+              interval = 2;
+              on-click = "$HOME/.config/waybar/scripts/switch.sh";
+              tooltip = false;
             };
             tray = {
-              icon-size = 13;
+              icon-size = 17;
+              spacing = 8;
             };
           };
         };
       };
       home.file = {
-        ".config/waybar/script/sink.sh" = {
+        ".config/waybar/scripts/sink.sh" = {
           text = ''
             #!/bin/sh
 
@@ -309,7 +582,7 @@ in
           '';
           executable = true;
         };
-        ".config/waybar/script/switch.sh" = {
+        ".config/waybar/scripts/switch.sh" = {
           text = ''
             #!/bin/sh
 
@@ -328,79 +601,24 @@ in
           '';
           executable = true;
         };
-        ".config/waybar/script/mouse.sh" = {
-          text = ''
-            #!/bin/sh
-
-            for cap in /sys/class/power_supply/hidpp_battery_*/capacity; do
-              BATT=$(cat "$cap")
-            done
-            for stat in /sys/class/power_supply/hidpp_battery_*/status; do
-              STAT=$(cat "$stat")
-            done
-
-            if [[ "$STAT" = "Charging" ]] then
-              printf "<span font='13'> 󰍽</span><span font='10'></span> $BATT%%\n"
-            elif [[ "$STAT" = "Full" ]] then
-              printf "<span font='13'> 󰍽</span><span font='10'></span> Full\n"
-            elif [[ "$STAT" = "Discharging" ]] then
-              printf "<span font='13'> 󰍽</span> $BATT%%\n"
-            else
-              printf "\n"
-            fi
-
-            exit 0
-          '';
+        ".config/waybar/scripts/LockScreen.sh" = {
+          source = ../../config/hypr/scripts/LockScreen.sh;
           executable = true;
         };
-        ".config/waybar/script/kb.sh" = {
-          text = ''
-            #!/bin/sh
-
-            for cap in /sys/class/power_supply/hid-dc:2c:26:36:79:9b-battery/capacity; do
-              BATT=$(cat "$cap")
-            done
-            for stat in /sys/class/power_supply/hid-dc:2c:26:36:79:9b-battery/status; do
-              STAT=$(cat "$stat")
-            done
-
-            if [[ "$STAT" == "Charging" ]] then
-              printf "<span font='13'> 󰌌</span><span font='10'></span> $BATT%%\n"
-            elif [[ "$STAT" == "Full" ]] then
-              printf "<span font='13'> 󰌌</span><span font='10'></span> Full\n"
-            elif [[ "$STAT" = "Discharging" ]] then
-              printf "<span font='13'> 󰌌</span> $BATT%%\n"
-            else
-              printf "\n"
-            fi
-
-            exit 0
-          '';
+        ".config/waybar/scripts/Weather.sh" = {
+          source = ../../config/hypr/scripts/Weather.sh;
           executable = true;
         };
-        ".config/waybar/script/ds4.sh" = {
-          text = ''
-            #!/bin/sh
-
-            for cap in /sys/class/power_supply/*e8:47:3a:05:c0:2b/capacity; do
-              BATT=$(cat "$cap")
-            done
-            for stat in /sys/class/power_supply/*e8:47:3a:05:c0:2b/status; do
-              STAT=$(cat "$stat")
-            done
-
-            if [[ "$STAT" == "Charging" ]] then
-              printf "<span font='13'> 󰊴</span><span font='10'></span> $BATT%%\n"
-            elif [[ "$STAT" == "Full" ]] then
-              printf "<span font='13'> 󰊴</span><span font='10'></span> Full\n"
-            elif [[ "$STAT" = "Discharging" ]] then
-              printf "<span font='13'> 󰊴</span> $BATT%%\n"
-            else
-              printf "\n"
-            fi
-
-            exit 0
-          '';
+        ".config/waybar/scripts/WofiPower.sh" = {
+          source = ../../config/hypr/scripts/WofiPower.sh;
+          executable = true;
+        };
+        ".config/waybar/scripts/Wallpaper.sh" = {
+          source = ../../config/hypr/scripts/Wallpaper.sh;
+          executable = true;
+        };
+        ".config/waybar/scripts/WallpaperSelect.sh" = {
+          source = ../../config/hypr/scripts/WallpaperSelect.sh;
           executable = true;
         };
       };
