@@ -1,0 +1,29 @@
+.cal {
+  @include window;
+  padding: 0.2em;
+  background-color: #ccd0da;
+  border-radius: 10px;
+}
+
+calendar {
+  padding: 5px;
+  background-color: #ccd0da;
+  color: #4c4f69;
+  border-radius: 10px;
+  :selected {
+    color: #7287fd;
+  }
+  .header {
+    color: #4c4f69;
+  }
+  .highlight {
+    color: #4c4f69;
+    font-weight: bold;
+  }
+  .button {
+    color: #4c4f69;
+  }
+  :indeterminate {
+    color: #5c5f77;
+  }
+}

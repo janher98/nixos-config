@@ -47,7 +47,7 @@ let
       #"custom/pad" 
       "clock" 
       #"tray"
-      "custom/power"
+      #"custom/power"
     ] else [
       "cpu" "memory" "custom/pad" "battery" "custom/pad" "backlight" "custom/pad" "pulseaudio" "custom/pad" "clock" "tray"
     ];
@@ -108,16 +108,16 @@ in
           @define-color rosewater #dc8a78;
           * {
             border: none;
-            font-family: FiraCode Nerd Font Mono;
-            font-weight: bold;
+            font-family: FiraCode Nerd Font;
+            /*font-weight: bold*/;
             min-height: 0;
             /* set font-size to 100% if font scaling is set to 1.00 using nwg-look */
-            font-size: 100%;
+            /*font-size: 100%;*/
+            font-size: 16px;
             text-shadow: none;
             font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
-            padding: 0px;
-            margin-top: 1px;
-            margin-bottom: 1px;
+            padding: 0;
+            margin: 0;
           }
           window#waybar {
               background: rgba(0, 0, 0, 0);
@@ -138,7 +138,7 @@ in
           }
 
           tooltip label {
-              color: #cba6f7;
+              /*color: #cba6f7;*/
               margin-right: 2px;
               margin-left: 2px;
           }
@@ -146,19 +146,19 @@ in
           /*-----module groups----*/
           .modules-right {
               background-color: @surface0;
-              border: 0px solid @overlay2;
+              border: 0px solid @lavender;
               border-radius: 10px;
           }
 
           .modules-center {
               background-color: @surface0;
-              border: 0px solid @overlay2;
+              border: 0px solid @lavender;
               border-radius: 10px;
           }
 
           .modules-left {
               background-color: @surface0;
-              border: 0px solid @overlay2;
+              border: 0px solid @lavender;
               border-radius: 10px;
             
           }
@@ -235,11 +235,11 @@ in
           }
 
           #clock {
-              color: @mauve;
+              color: @blue;
             }
           
           #network {
-              color: @mauve;
+              color: @red;
           }
 
           #battery{
@@ -255,7 +255,7 @@ in
             }
 
           #pulseaudio {
-              color: @lavender;
+              color: @mauve;
           } 
 
           #cpu {
@@ -424,6 +424,7 @@ in
               icon-size = "10";
               #format-icons = ["" "" "" "" "" "" "" "" ""];
               format-icons = ["󰃞" "󰃟" "󰃠"];
+              tooltip = false;
             };
             battery = {
               interval = 60;
@@ -435,7 +436,7 @@ in
               format-charging = " {capacity}%";
               format-plugged = " {capacity}%";
               format-full = "{icon} Full";
-              format-alt = "{icon} {time}";
+              #format-alt = "{icon} {time}";
               format-time = "{H}h {M}min";
               tooltip = true;
               tooltip-format = "{timeTo} {power}w";
@@ -451,7 +452,10 @@ in
                 tooltip-format-enumerate-connected = " {device_alias}";
               };
             clock = {
-              format = "{:%b %d %H:%M}";
+              format = "{:%H:%M %p}";
+              #format = "{%H:%M}";
+              tooltip = false;
+              tooltip-format = "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>";
               on-click = "${unstable.eww-wayland}/bin/eww open --toggle calendar --screen 0";
             };
             cpu = {
@@ -495,6 +499,7 @@ in
               tooltip-format = "{desc}, {volume}%";
               on-click = "${pkgs.pamixer}/bin/pamixer -t";
               #on-click-right = "${pkgs.pamixer}/bin/pamixer --default-source -t";
+              on-click-right = ''${unstable.eww-wayland}/bin/eww open --toggle audio_menu --screen 0'';
               on-click-middle = "${pkgs.pavucontrol}/bin/pavucontrol";
             };
             "pulseaudio#microphone" = {

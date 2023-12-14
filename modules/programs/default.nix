@@ -12,6 +12,7 @@
 
 [
   ./alacritty.nix
+  ./eww.nix
   ./flatpak.nix
   ./kitty.nix
   ./rofi.nix

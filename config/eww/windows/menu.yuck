@@ -1,0 +1,34 @@
+(defwindow menu
+  :exclusive "false"
+  :stacking "overlay"
+  :focusable false
+;  :geometry (geometry :anchor "top left")
+  (hover :window "menu"
+    (menu)))
+
+(defwidget menu []
+  (box :class "parent"
+       :space-evenly "false"
+       :orientation "v"
+    (box :class "body"
+         :space-evenly "false"
+         :orientation "x"
+      (button :class "btn_logout"
+              :vexpand "false"
+              :onclick "${EWW_CMD} open --toggle menu && exec hyprctl dispatch exit"
+        (label :text "󰍃"))
+      (button :class "btn_sleep"
+              :vexpand "false"
+              :onclick "${EWW_CMD} open --toggle menu && exec systemctl suspend"
+        (label :text "󰒲")))
+    (box :class "body"
+         :space-evenly "false"
+         :orientation "x"
+      (button :class "btn_reboot"
+              :vexpand "false"
+              :onclick "exec systemctl reboot"
+        (label :text ""))
+      (button :class "btn_shutdown"
+              :hexpand "false"
+              :onclick "poweroff"
+        (label :text "⏻")))))

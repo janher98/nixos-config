@@ -1,0 +1,52 @@
+.header {
+  font-weight: bold;
+  font-size: large;
+}
+.title {
+  margin-right: 50px;
+  margin-left: 1px;
+}
+.btn_logout,
+.btn_sleep,
+.btn_reboot,
+.btn_shutdown {
+  margin: 20px;
+  background-color: #ccd0da;
+  border-radius: 25px;
+  padding: 40px 120px 40px 120px;
+  font-size: 150px;
+}
+
+.btn_logout:hover,
+.btn_sleep:hover,
+.btn_reboot:hover,
+.btn_shutdown:hover {
+  background-color: #bcc0cc;
+}
+
+.btn_logout:active,
+.btn_sleep:active,
+.btn_reboot:active,
+.btn_shutdown:active {
+  background-color: #acb0be;
+}
+
+.btn_logout {
+  color: #40a02b;
+}
+.btn_sleep {
+  color: #8839ef;
+}
+.btn_reboot {
+  color: #7287fd;
+}
+.btn_shutdown {
+  color: #fe640b;
+}
+.exit:hover {
+  color: #f66;
+}
+.exit,
+.button {
+  transition: all 0.2s ease;
+}
