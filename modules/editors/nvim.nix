@@ -12,6 +12,9 @@
         ripgrep
         fd
         lazygit
+        nodejs_21
+        cmake
+        gnumake42
       ];
       
       file.".config/nvim/lua" = { 
