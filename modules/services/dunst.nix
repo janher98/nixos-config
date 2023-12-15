@@ -17,7 +17,7 @@ in
         package = pkgs.papirus-icon-theme;
         size = "16x16";
       };
-      settings = with colors.scheme.doom; {               # Settings
+      settings = with colors.scheme.catppuccin_latte; {               # Settings
         global = {
           monitor = 0;
           # geometry [{width}x{height}][+/-{x}+/-{y}]
@@ -31,7 +31,7 @@ in
           padding = 16;
           horizontal_padding = 16;
           frame_width = 3;
-          frame_color = "#${bg}";
+          frame_color = "#${surface0}";
           separator_color = "frame";
           font = "FiraCode Nerd Font 10";
           line_height = 4;
@@ -50,17 +50,17 @@ in
           hide_duplicate_count = true;
         };
         urgency_low = {                                   # Colors
-          background = "#${bg}";
+          background = "#${surface0}";
           foreground = "#${text}";
           timeout = 4;
         };
         urgency_normal = {
-          background = "#${bg}";
+          background = "#${surface0}";
           foreground = "#${text}";
           timeout = 4;
         };
         urgency_critical = {
-          background = "#${bg}";
+          background = "#${surface0}";
           foreground = "#${text}";
           frame_color = "#${red}";
           timeout = 10;

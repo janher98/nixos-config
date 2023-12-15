@@ -19,11 +19,8 @@ in
       home.file = {
         ".config/wofi/config" = {
           text = ''
-            width=280
+            width=380
             lines=10
-            xoffset=5
-            yoffset=5
-            location=1
             prompt=Search...
             filter_rate=100
             allow_markup=false
@@ -33,27 +30,28 @@ in
             content_halign=fill
             insensitive=true
             allow_images=true
-            image_size=20
+            image_size=40
             hide_scroll=true
           '';
         };
-        ".config/wofi/style.css" = with colors.scheme.doom; {
+        ".config/wofi/style.css" = with colors.scheme.catppuccin_latte; {
           text = ''
             window {
               margin: 0px;
-              background-color: #${bg};
+              background-color: #${surface0};
+              font-size: 18px;
             }
 
             #input {
               all: unset;
-              min-height: 20px;
-              padding: 4px 10px;
-              margin: 4px;
+              min-height: 40px;
+              padding: 8px 20px;
+              margin: 8px;
               border: none;
-              color: #dfdfdf;
+              color: #${text};
               font-weight: bold;
-              background-color: #${bg};
-              outline: #dfdfdf;
+              background-color: #${surface0};
+              outline: #${text};
             }
 
             #inner-box {
@@ -63,23 +61,23 @@ in
 
             #outer-box {
               margin: 0px;
-              padding: 3px;
+              padding: 6px;
               border: none;
-              border-radius: 10px;
+              border-radius: 20px;
               border: 3px solid #${text};
             }
 
             #text:selected {
-              color: #282c34;
+              color: #${surface0};
               background-color: transparent;
             }
 
             #entry:selected {
-              background-color: #${text};
+              background-color: #${lavender};
             }
           '';
         };
-        ".config/wofi/power.sh" = with colors.scheme.doom; {
+        ".config/wofi/power.sh" = with colors.scheme.catppuccin_latte; {
           executable = true;
           text = ''
             #!/bin/sh
