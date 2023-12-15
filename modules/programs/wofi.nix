@@ -40,6 +40,7 @@ in
               margin: 0px;
               background-color: #${surface0};
               font-size: 18px;
+              border-radius: 20px;
             }
 
             #input {
