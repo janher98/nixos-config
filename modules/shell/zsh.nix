@@ -11,6 +11,7 @@
 
     environment.systemPackages = with pkgs; [
     starship
+    nitch
   ]++
   (with unstable; [
     fastfetch         # Neofetch replacement
@@ -26,18 +27,18 @@
 
       ohMyZsh = {                               # Plug-ins
         enable = true;
-        plugins = [ "git" ];
+        plugins = [ "git" "zsh-interactive-cd"];
       };
 
       shellInit = ''
         # Spaceship
-        source ${pkgs.spaceship-prompt}/share/zsh/site-functions/prompt_spaceship_setup
+        # source ${pkgs.spaceship-prompt}/share/zsh/site-functions/prompt_spaceship_setup
         autoload -U promptinit; promptinit
         
-        #eval "$(starship init zsh)"
+        eval "$(starship init zsh)"
         # Hook direnv
         #emulate zsh -c "$(direnv hook zsh)"
-        fastfetch
+        nitch
         #eval "$(direnv hook zsh)"
       '';                                       # Theming
     };
