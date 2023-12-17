@@ -59,7 +59,7 @@
         hostname = {
           ssh_only = false;
           ssh_symbol = "";
-          format = "[@](bold green)[$hostname](bold lavender)";
+          format = "@[$hostname](bold lavender)";
           disabled = false;
         };
 
