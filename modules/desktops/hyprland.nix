@@ -68,6 +68,9 @@ with host;
         swaylock        # Lock Screen
         wl-clipboard    # Clipboard
         wlr-randr       # Monitor Settings
+        swww            # Wallpaper
+        networkmanagerapplet
+        bash
       ];
     };
 
@@ -131,45 +134,47 @@ with host;
           monitor=${toString mainMonitor},2256x1504@60,0x0,1
           monitor=${toString secondMonitor},2560x1440@60,1504x0,1
           monitor=${toString thirdMonitor},2560x1440@60,4064x0,1
+          #monitor=${toString secondMonitor},2560x1440@60,0x0,1
+          #monitor=${toString thirdMonitor},2560x1440@60,2560x0,1
         '' else ''
           monitor=${toString mainMonitor},1920x1200@60,0x0,1
         '';
       monitors =
         if hostName == "framework" then ''
-          workspace=${toString mainMonitor},1
-          workspace=${toString mainMonitor},2
-          workspace=${toString mainMonitor},3
-          workspace=${toString mainMonitor},4
+          workspace=${toString secondMonitor},1
+          workspace=${toString secondMonitor},2
+          workspace=${toString secondMonitor},3
+          workspace=${toString secondMonitor},4
           workspace=${toString secondMonitor},5
-          workspace=${toString secondMonitor},6
-          workspace=${toString secondMonitor},7
-          workspace=${toString secondMonitor},8
+          workspace=${toString thirdMonitor},6
+          workspace=${toString thirdMonitor},7
+          workspace=${toString thirdMonitor},8
           workspace=${toString thirdMonitor},9
 
           bindl=,switch:Lid Switch,exec,$HOME/.config/hypr/script/clamshell.sh
         '' else "";
       execute =
         if hostName == "framework" then ''
-          exec-once=${pkgs.swayidle}/bin/swayidle -w timeout 600 '${pkgs.swaylock}/bin/swaylock -f' timeout 1200 '${pkgs.systemd}/bin/systemctl suspend' after-resume '${config.programs.hyprland.package}/bin/hyprctl dispatch dpms on' before-sleep '${pkgs.swaylock}/bin/swaylock -f && ${config.programs.hyprland.package}/bin/hyprctl dispatch dpms off'
+          exec-once=${pkgs.swayidle}/bin/swayidle -w timeout 300 '${pkgs.swaylock}/bin/swaylock -f' timeout 600 '${pkgs.systemd}/bin/systemctl suspend' after-resume '${config.programs.hyprland.package}/bin/hyprctl dispatch dpms on' before-sleep '${pkgs.swaylock}/bin/swaylock -f && ${config.programs.hyprland.package}/bin/hyprctl dispatch dpms off'
         '' else "";
 
       hyprlandConf = ''
-        ${workspaces}
+        ${workspaces} 
         ${monitors}
         monitor=,highres,auto,auto
 
         general {
           #main_mod=SUPER
           border_size=3
-          gaps_in=5
-          gaps_out=7
-          col.active_border=0x80ffffff
-          col.inactive_border=0x66333333
+          gaps_in=2
+          gaps_out=2
+          col.active_border=0xff7287fd
+          col.inactive_border=0xff585b70
           layout=dwindle
         }
 
         decoration {
-          rounding=5
+          rounding=8
           active_opacity=0.93
           inactive_opacity=0.93
           fullscreen_opacity=1
@@ -232,7 +237,7 @@ with host;
         bind=SUPER,Q,killactive,
         bind=SUPER,Escape,exit,
         bind=SUPER,S,exec,${pkgs.systemd}/bin/systemctl suspend
-        bind=SUPER,L,exec,${pkgs.swaylock}/bin/swaylock 
+        bind=SUPER,L,exec,${pkgs.swaylock}/bin/swaylock
         bind=SUPER,E,exec,${pkgs.pcmanfm}/bin/pcmanfm
         bind=SUPER,H,togglefloating,
         #bind=SUPER,Space,exec,${pkgs.rofi}/bin/rofi -show drun
@@ -307,6 +312,7 @@ with host;
         #exec-once=${unstable.eww-wayland}/bin/eww daemon
         #exec-once=$HOME/.config/eww/scripts/eww        # When running eww as a bar
         exec-once=${pkgs.blueman}/bin/blueman-applet
+        exec-once=${pkgs.bash}/bin/bash $HOME/.config/hypr/script/swww.sh
         ${execute}
       '';
     in
@@ -340,6 +346,10 @@ with host;
               fi
             fi
           '';
+          executable = true;
+        };
+        ".config/hypr/script/swww.sh" = {
+          source = ../../config/hypr/scripts/swww.sh;
           executable = true;
         };
       };

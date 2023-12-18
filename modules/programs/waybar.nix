@@ -146,19 +146,19 @@ in
           /*-----module groups----*/
           .modules-right {
               background-color: @surface0;
-              border: 0px solid @lavender;
+              border: 1px solid @text;
               border-radius: 10px;
           }
 
           .modules-center {
               background-color: @surface0;
-              border: 0px solid @lavender;
+              border: 1px solid @text;
               border-radius: 10px;
           }
 
           .modules-left {
               background-color: @surface0;
-              border: 0px solid @lavender;
+              border: 1px solid @text;
               border-radius: 10px;
             
           }
@@ -425,6 +425,7 @@ in
               #format-icons = ["" "" "" "" "" "" "" "" ""];
               format-icons = ["󰃞" "󰃟" "󰃠"];
               tooltip = false;
+              on-click = "$HOME/.config/hypr/script/swww.sh";
             };
             battery = {
               interval = 60;
@@ -606,24 +607,8 @@ in
           '';
           executable = true;
         };
-        ".config/waybar/scripts/LockScreen.sh" = {
-          source = ../../config/hypr/scripts/LockScreen.sh;
-          executable = true;
-        };
         ".config/waybar/scripts/Weather.sh" = {
           source = ../../config/hypr/scripts/Weather.sh;
-          executable = true;
-        };
-        ".config/waybar/scripts/WofiPower.sh" = {
-          source = ../../config/hypr/scripts/WofiPower.sh;
-          executable = true;
-        };
-        ".config/waybar/scripts/Wallpaper.sh" = {
-          source = ../../config/hypr/scripts/Wallpaper.sh;
-          executable = true;
-        };
-        ".config/waybar/scripts/WallpaperSelect.sh" = {
-          source = ../../config/hypr/scripts/WallpaperSelect.sh;
           executable = true;
         };
       };
