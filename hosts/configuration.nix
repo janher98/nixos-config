@@ -62,7 +62,6 @@
   users.users.${vars.user} = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "audio" "camera"  ]; # Enable ‘sudo’ for the user.
-    initialPassword = "7353";
   };
 
   # List packages installed in system profile. To search, run:
@@ -86,7 +85,6 @@
       tldr              # Helper
       usbutils          # Manage USB
       wget              # Retriever
-      vim 
       lshw
       
 
@@ -111,7 +109,7 @@
 
       texlive.combined.scheme-full
 
-      vscode 
+      #vscode 
       nextcloud-client
       
       kitty
@@ -124,7 +122,7 @@
       (with unstable; [
         # Apps
         firefox-wayland           # Browser
-        fastfetch         # Neofetch replacement
+        #fastfetch         # Neofetch replacement
       ]);
   };
   
@@ -167,12 +165,12 @@
       enable = true;
       channel = "https://nixos.org/channels/nixos-unstable";
     };
-    stateVersion = "23.05"; #dont change
+    stateVersion = "23.11"; #dont change
   };
 
   home-manager.users.${vars.user} = {       # Home-Manager Settings
     home = {
-      stateVersion = "23.05";
+      stateVersion = "23.11";
     };
 
     programs = {

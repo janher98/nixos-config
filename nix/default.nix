@@ -18,16 +18,10 @@ in
           username = "${vars.user}";
           homeDirectory = "/home/${vars.user}";
     #      packages = [ pkgs.home-manager ];
-          stateVersion = "22.05";
+          stateVersion = "23.11";
           packages = with pkgs; [ thunderbird ];
         };
     #    programs.home-manager.enable = true;
-        programs.vscode = {
-          enable = true;
-          extensions = with pkgs.vscode-extensions; [
-            james-yu.latex-workshop
-          ];
-        };
       }
     ];
   };

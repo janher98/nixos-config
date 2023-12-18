@@ -246,8 +246,8 @@ with host;
         bind=SUPER,F,fullscreen,
         bind=SUPER,R,forcerendererreload
         bind=SUPERSHIFT,R,exec,${pkgs.hyprland}/bin/hyprctl reload
-        bind=SUPER,T,exec,${pkgs.neovim}/bin/nvim
-        bind=SUPER,D,exec,${pkgs.dolphin}/bin/dolphin
+        bind=SUPER,T,exec,${pkgs.${vars.terminal}}/bin/${vars.terminal} -e nvim
+        bind=SUPER,B,exec,firefox
 
         bind=SUPER,left,movefocus,l
         bind=SUPER,right,movefocus,r
