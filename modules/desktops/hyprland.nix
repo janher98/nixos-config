@@ -313,6 +313,7 @@ with host;
         #exec-once=$HOME/.config/eww/scripts/eww        # When running eww as a bar
         exec-once=${pkgs.blueman}/bin/blueman-applet
         exec-once=${pkgs.bash}/bin/bash $HOME/.config/hypr/script/swww.sh
+        exec-once=${pkgs.networkmanagerapplet}/bin/nm-applet --indicator
         ${execute}
       '';
     in

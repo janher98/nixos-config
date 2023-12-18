@@ -21,7 +21,7 @@ let
       "temperature" 
       "memory" 
       #"disk" 
-      "custom/weather"
+      #"custom/weather"
     ] else if sway.enable == true then [
       "sway/workspaces" "sway/window" "sway/mode"
     ] else [];
@@ -37,7 +37,7 @@ let
     if hostName == "framework" then [
       #"cpu" "memory" "custom/pad" 
       "tray"
-      "network"
+      #"network"
       "battery" 
       #"custom/pad" 
       "backlight" 
@@ -301,7 +301,7 @@ in
             animation-direction: alternate;
           }
           #tray {
-              background-color: @surface2;
+              background-color: @overlay2;
             }
           #workspaces button:nth-child(1) label {
             color: @lavender;
@@ -524,25 +524,12 @@ in
               on-click = "$HOME/.config/waybar/scripts/Wallpaper.sh";
 
             };
-            "custom/lock" = {
-              format = "";
-              on-click = "$HOME//.config/hypr/scripts/LockScreen.sh";
-              tooltip = false;
-            };
             "custom/power" = {
               format = "  ";
               tooltip = false;
               #on-click = "sh -c '(sleep 0.5s; wlogout --protocol layer-shell)' & disown";
               #on-click = "$HOME/.config/hypr/scripts/WofiPower.sh";
               #on-click-right = "$HOME//.config/hypr/scripts/ChangeBlur.sh";
-            };
-            "custom/updater" = {
-              format = " {}";
-              exec = "checkupdates | wc -l";
-              exec-if = "[[ $(checkupdates | wc -l) ]]";
-              interval = 15;
-              on-click = "foot -T update paru -Syu || yay -Syu && notify-send 'The system has been updated'";
-              on-click-right = "$HOME//.config/hypr/scripts/WallpaperSwitch.sh";
             };
               
             "custom/weather" = {
@@ -565,7 +552,7 @@ in
               tooltip = false;
             };
             tray = {
-              icon-size = 17;
+              icon-size = 20;
               spacing = 8;
             };
           };
