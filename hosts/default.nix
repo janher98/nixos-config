@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, nixpkgs-unstable, home-manager, hyprland, plasma-manager, vars, ... }:
+{ lib, inputs, nixpkgs, nixpkgs-unstable, home-manager, hyprland, plasma-manager, vars, grub2-themes, ... }:
 
 let 
   system = "x86_64-linux";
@@ -30,6 +30,7 @@ in
     modules = [ 
       ./configuration.nix
       ./framework
+      grub2-themes.nixosModules.default
       home-manager.nixosModules.home-manager {
         home-manager = {
           useGlobalPkgs = true;

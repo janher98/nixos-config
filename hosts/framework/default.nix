@@ -6,9 +6,22 @@
   # Use the systemd-boot EFI boot loader.
   boot = {
     loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
+      #systemd-boot.enable = true;
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot/efi";
+      };
       timeout = 2;
+      grub = {
+        enable = true;
+        efiSupport = true;
+        device = "nodev";
+      }; 
+      grub2-theme = {
+        enable = true;
+        theme = "tela";
+        footer = true;
+      };
     };
     kernelPackages = pkgs.linuxPackages_latest;
   };
