@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable"; 
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
@@ -31,7 +32,7 @@
     };
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, home-manager, nixgl, hyprland, plasma-manager, grub2-themes, ...}: 
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, nixgl, hyprland, plasma-manager, grub2-themes, ...}: 
     let 
       vars = {                                                              # Variables Used In Flake
         user = "jan";
@@ -44,7 +45,7 @@
       nixosConfigurations = (                                               # NixOS Configurations
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs nixpkgs-unstable home-manager hyprland plasma-manager vars grub2-themes; 
+          inherit inputs nixpkgs nixpkgs-unstable nixos-hardware home-manager hyprland plasma-manager vars grub2-themes; 
         }
       );
         

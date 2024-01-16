@@ -73,23 +73,51 @@ with host;
         bash
       ];
     };
-
-    security.pam.services.swaylock = {
-      text = ''
-       auth include login
-      '';
-    };
-
-    #services.greetd = {
-    #  enable = true;
-    #  settings = {
-    #    default_session = {
-    #      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --time-format '%I:%M %p | %a • %h | %F' --cmd Hyprland";
-    #    };
-    #  };
-    #  vt = 7;
+    #security.pam.services.swaylock = {
+    #  text = ''
+    #   auth include login
+    #  '';
+    #  enableGnomeKeyring = true;
     #};
-
+    security.pam.services.swaylock = {
+        text = ''
+          auth sufficient pam_unix.so try_first_pass likeauth nullok
+          auth sufficient pam_fprintd.so
+          auth include login
+        '';
+      };
+    
+    programs.regreet = {
+      enable = true;
+      settings = {
+        background = {
+          path = /home/jan/Pictures/wallpapers/shadesofpurple.png;
+          fit = "Cover";
+        };
+        GTK = {
+          cursor_theme_name = "Catppuccin-Latte-Light-Cursors";
+          font_name = "FiraCode Nerd Font Mono Medium";
+          icon_theme_name = "Papirus-Dark";
+          theme_name = "Catppuccin-Latte-Compact-Blue-Light";
+        };
+      };
+    };
+    services.greetd = {
+      enable = true;
+#      settings = {
+#        default_session = {
+#          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --time-format '%I:%M %p | %a • %h | %F' --cmd Hyprland";
+#          #command = "${pkgs.hyprland}/bin/Hyprland";
+#          user = vars.user;
+#          };
+#      };
+      vt = 7;
+    };
+    security.pam.services.greetd = {
+      enableGnomeKeyring = true;
+      fprintAuth = true;
+    };
+    
     programs = {
       hyprland = {                            # Window Manager
         enable = true;
@@ -141,7 +169,7 @@ with host;
         '';
       monitors =
         if hostName == "framework" then ''
-          workspace=${toString secondMonitor},1
+          workspace=${toString mainMonitor},1
           workspace=${toString secondMonitor},2
           workspace=${toString secondMonitor},3
           workspace=${toString secondMonitor},4
@@ -258,7 +286,7 @@ with host;
         bind=SUPERSHIFT,right,movewindow,r
         bind=SUPERSHIFT,up,movewindow,u
         bind=SUPERSHIFT,down,movewindow,d
-
+        
         bind=ALT,1,workspace,1
         bind=ALT,2,workspace,2
         bind=ALT,3,workspace,3
@@ -309,7 +337,7 @@ with host;
 
         exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
         exec-once=${unstable.waybar}/bin/waybar
-        #exec-once=${unstable.eww-wayland}/bin/eww daemon
+        exec-once=${unstable.eww-wayland}/bin/eww daemon
         #exec-once=$HOME/.config/eww/scripts/eww        # When running eww as a bar
         exec-once=${pkgs.blueman}/bin/blueman-applet
         exec-once=${pkgs.bash}/bin/bash $HOME/.config/hypr/script/swww.sh

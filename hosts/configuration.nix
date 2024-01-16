@@ -111,9 +111,14 @@
 
       #vscode 
       nextcloud-client
+      gnome.seahorse
+#      etcher
+#      polkit
+#      libsForQt5.polkit-qt
       
       kitty
-      
+     
+     dolphin
       (python3.withPackages(ps: with ps; [ pip dbus-python numpy ]))
       # Other Packages Found @
       # - ./<host>/default.nix
@@ -125,6 +130,9 @@
         #fastfetch         # Neofetch replacement
       ]);
   };
+#              nixpkgs.config.permittedInsecurePackages = [
+#                "electron-19.1.9"
+#              ];
   
   programs = {
     dconf.enable = true;
@@ -139,6 +147,7 @@
 #        HostKeyAlgorithms +ssh-rsa
 #      '';
     };
+    gvfs.enable = true;
   };
 
   flatpak.enable = true;                    # Enable Flatpak (see module options)  
