@@ -107,18 +107,6 @@
       unrar             # Rar Files
       zip               # Zip
 
-      texlive.combined.scheme-full
-
-      #vscode 
-      nextcloud-client
-      gnome.seahorse
-#      etcher
-#      polkit
-#      libsForQt5.polkit-qt
-      
-      kitty
-     
-     dolphin
       (python3.withPackages(ps: with ps; [ pip dbus-python numpy ]))
       # Other Packages Found @
       # - ./<host>/default.nix
@@ -126,8 +114,7 @@
       ]++
       (with unstable; [
         # Apps
-        firefox-wayland           # Browser
-        #fastfetch         # Neofetch replacement
+        #firefox-wayland           # Browser
       ]);
   };
 #              nixpkgs.config.permittedInsecurePackages = [

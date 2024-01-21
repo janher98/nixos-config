@@ -40,9 +40,24 @@
       spotify
 
       gnome.gnome-keyring
+      gnome.seahorse
       libsecret
-    ]; 
       
+      texlive.combined.scheme-full
+
+      #vscode 
+      nextcloud-client
+      
+      kitty
+     
+      dolphin
+    ]++ 
+    (with unstable; [
+      # Apps
+      firefox-wayland           # Browser
+      #fastfetch         # Neofetch replacement
+    ]);
+  }; 
 
 
 #  flatpak = {                                   # Flatpak Packages (see module options)
