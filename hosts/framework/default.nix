@@ -68,6 +68,7 @@
 #    ];
 #  };
 #
+  flatpak.enable = true;                    # Enable Flatpak (see module options)  
 
   services = {
     fwupd = {

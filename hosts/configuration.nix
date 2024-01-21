@@ -137,7 +137,6 @@
     gvfs.enable = true;
   };
 
-  flatpak.enable = true;                    # Enable Flatpak (see module options)  
 
   nix = {
     settings.auto-optimise-store = true;
