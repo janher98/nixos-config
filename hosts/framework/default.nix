@@ -32,6 +32,7 @@
 
   hyprland.enable = true;                       # Window Manager
   #gnome.enable = true;
+  virtualbox.enable = true;
 
   environment = {
     systemPackages = with pkgs; [               # System-Wide Packages

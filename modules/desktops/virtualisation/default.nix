@@ -14,7 +14,7 @@
 
 [
 #  ./docker.nix
-#  ./qemu.nix
+  ./qemu.nix
 #  ./x11vnc.nix
   ./podman.nix
   ./virtualbox.nix
