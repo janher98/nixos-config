@@ -43,6 +43,28 @@ in
       }
     ];
   };
+  server = lib.nixosSystem {
+    inherit system;
+    specialArgs = { 
+      inherit inputs system unstable hyprland vars; 
+      host = {
+        hostName = "server";
+      };
+    };
+    modules = [ 
+      ./configuration.nix
+      ./server
+      home-manager.nixosModules.home-manager {
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+        #  users.${vars.user} = {
+        #    imports = [ ./home.nix ];
+        #  };
+        };
+      }
+    ];
+  };
   vm = lib.nixosSystem {
     inherit system;
     specialArgs = { 
