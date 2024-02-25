@@ -5,11 +5,11 @@
 { pkgs, vars, ... }:
 
 {
-  boot.extraModprobeConfig = ''
-    options kvm_intel nested=1
-    options kvm_intel emulate_invalid_guest_state=0
-    options kvm ignore_nsrs=1
-  '';                                         # For OSX-KVM
+#  boot.extraModprobeConfig = ''
+#    options kvm_intel nested=1
+#    options kvm_intel emulate_invalid_guest_state=0
+#    options kvm ignore_nsrs=1
+#  '';                                         # For OSX-KVM
 
   users.groups = {
     libvirtd.members = [ "root" "${vars.user}" ];

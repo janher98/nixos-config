@@ -117,7 +117,7 @@ with host;
       enableGnomeKeyring = true;
       fprintAuth = true;
     };
-    
+    programs.seahorse.enable = true;
     programs = {
       hyprland = {                            # Window Manager
         enable = true;

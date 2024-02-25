@@ -43,6 +43,7 @@
       gnome.gnome-keyring
       gnome.seahorse
       libsecret
+      #polkit
       
       texlive.combined.scheme-full
 
@@ -50,12 +51,13 @@
       nextcloud-client
       
       kitty
-     
       dolphin
     ]++ 
     (with unstable; [
       # Apps
+      anki-bin
       firefox-wayland           # Browser
+      thunderbird
       #fastfetch         # Neofetch replacement
     ]);
   }; 
@@ -83,8 +85,8 @@
       }).fwupd;
     };
     gnome = {
-        gnome-keyring.enable = true;
-      };
+      gnome-keyring.enable = true;
+    };
   };
 
 
