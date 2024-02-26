@@ -147,7 +147,7 @@ with host;
               middle_button_emulation=true
               tap-to-click=true
             }
-          }
+          
           '' else "";
       gestures =
         if hostName == "framework" then ''

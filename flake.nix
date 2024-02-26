@@ -21,18 +21,12 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    plasma-manager = {                                                    # KDE Plasma User Settings Generator
-      url = "github:pjones/plasma-manager";                               # Requires "inputs.plasma-manager.homeManagerModules.plasma-manager" to be added to the home-manager.users.${user}.imports
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "nixpkgs";
-    };
-
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";
     };
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, nixgl, hyprland, plasma-manager, grub2-themes, ...}: 
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, nixgl, hyprland, grub2-themes, ...}: 
     let 
       vars = {                                                              # Variables Used In Flake
         user = "jan";
@@ -45,7 +39,7 @@
       nixosConfigurations = (                                               # NixOS Configurations
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs nixpkgs-unstable nixos-hardware home-manager hyprland plasma-manager vars grub2-themes; 
+          inherit inputs nixpkgs nixpkgs-unstable nixos-hardware home-manager hyprland vars grub2-themes; 
         }
       );
         

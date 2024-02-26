@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, hyprland, plasma-manager, vars, grub2-themes, ... }:
+{ lib, inputs, nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, hyprland, vars, grub2-themes, ... }:
 
 let 
   system = "x86_64-linux";

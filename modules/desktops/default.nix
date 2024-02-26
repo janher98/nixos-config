@@ -13,6 +13,5 @@
 [
   ./gnome.nix
   ./hyprland.nix
-  ./kde.nix
   ./options.nix
 ]
