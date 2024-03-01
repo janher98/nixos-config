@@ -32,7 +32,7 @@
 
   hyprland.enable = true;                       # Window Manager
   #gnome.enable = true;
-  virtualbox.enable = true;
+  #virtualbox.enable = true;
 
   environment = {
     systemPackages = with pkgs; [               # System-Wide Packages
@@ -52,12 +52,15 @@
       
       kitty
       dolphin
+      
+      firefox-wayland           # Browser
+      thunderbird
     ]++ 
     (with unstable; [
       # Apps
       anki-bin
-      firefox-wayland           # Browser
-      thunderbird
+#      firefox-wayland           # Browser
+#      thunderbird
       #fastfetch         # Neofetch replacement
     ]);
   }; 

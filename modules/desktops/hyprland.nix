@@ -337,7 +337,7 @@ with host;
 
         exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
         exec-once=${unstable.waybar}/bin/waybar
-        exec-once=${unstable.eww-wayland}/bin/eww daemon
+        exec-once=${unstable.eww}/bin/eww daemon
         #exec-once=$HOME/.config/eww/scripts/eww        # When running eww as a bar
         exec-once=${pkgs.blueman}/bin/blueman-applet
         exec-once=${pkgs.bash}/bin/bash $HOME/.config/hypr/script/swww.sh
