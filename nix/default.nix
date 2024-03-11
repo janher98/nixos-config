@@ -5,21 +5,20 @@ let
   pkgs = nixpkgs.legacyPackages.${system};
 in
 {
-  "jan@nixos" = home-manager.lib.homeManagerConfiguration {
+  "cli" = home-manager.lib.homeManagerConfiguration {
     inherit pkgs;
 #    pkgs = nixpkgs.legacyPackages.x86_64-linux;
     extraSpecialArgs = { inherit inputs vars; };
     modules = [   #
-  #    hyprland.homeManagerModules.default
-  #    {wayland.windowManager.hyprland.enable = true;}                                          # Modules Used
-    
+      ./home.nix
+      #../modules/editors/nvim.nix
+      #../modules/programs/kitty.nix
       {
         home = {
           username = "${vars.user}";
           homeDirectory = "/home/${vars.user}";
     #      packages = [ pkgs.home-manager ];
           stateVersion = "23.11";
-          packages = with pkgs; [ thunderbird ];
         };
     #    programs.home-manager.enable = true;
       }

@@ -31,3 +31,12 @@ login
 sudo rm -r /etc/nixos/configuration.nix
 ```
 move build to desired location
+
+
+```bash
+nix build .#homeConfigurations.cli.activationPackage
+./result/activate
+```
+```bash
+home-manager switch --flake .#cli
+```
