@@ -3,7 +3,7 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    nitch
+    kitty
   ];
   
   gtk.font = {                               # Fonts

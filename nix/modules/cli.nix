@@ -1,35 +1,24 @@
-#
-#  Shell
-#
-
-{ pkgs, vars, unstable, ... }:
-
+{ config, pkgs, inputs, ...}:
 {
-  users.users.${vars.user} = {
-    shell = pkgs.zsh;
-  };
-
-    environment.systemPackages = with pkgs; [
-    starship
+  #import ../../modules/shell/starship.nix
+  
+  home.packages = with pkgs; [
     nitch
-  ]; 
-
+    starship
+  ];
   programs = {
     zsh = {
       enable = true;
-      autosuggestions.enable = true;
+      enableAutosuggestions = true;
       syntaxHighlighting.enable = true;
       enableCompletion = true;
-      histSize = 100000;
+      history.size = 100000;
 
-      ohMyZsh = {                               # Plug-ins
+      oh-my-zsh = {
         enable = true;
         plugins = [ "git" "zsh-interactive-cd"];
       };
-
-      shellInit = ''
-        # Spaceship
-        # source ${pkgs.spaceship-prompt}/share/zsh/site-functions/prompt_spaceship_setup
+      initExtra = ''
         autoload -U promptinit; promptinit
         
         eval "$(starship init zsh)"
@@ -38,6 +27,10 @@
         nitch
         #eval "$(direnv hook zsh)"
       '';                                       # Theming
+      shellAliases = {
+        ll = "ls -l";
+        "cd.." = "cd ..";
+      };
     };
   };
 }

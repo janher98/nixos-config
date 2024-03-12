@@ -11,8 +11,10 @@ in
     extraSpecialArgs = { inherit inputs vars; };
     modules = [   #
       ./home.nix
+      ./modules/cli.nix
       #../modules/editors/nvim.nix
       #../modules/programs/kitty.nix
+      ../modules/shell/starship.nix
       {
         home = {
           username = "${vars.user}";
