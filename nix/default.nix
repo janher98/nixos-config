@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, home-manager, vars, ... }:
+{ lib, inputs, nixpkgs, home-manager, nixvim, vars, ... }:
 
 let
   system = "x86_64-linux";                                  # System Architecture
@@ -12,6 +12,7 @@ in
     modules = [   #
       ./home.nix
       ./modules/cli.nix
+      ./modules/nixvim.nix
       #../modules/editors/nvim.nix
       #../modules/programs/kitty.nix
       ../modules/shell/starship.nix

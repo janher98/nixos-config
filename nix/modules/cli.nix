@@ -1,11 +1,33 @@
 { config, pkgs, inputs, ...}:
 {
-  #import ../../modules/shell/starship.nix
-  
+  #imports = [
+  #  ./nixvim.nix
+  #];  
   home.packages = with pkgs; [
     nitch
     starship
+    
+    ripgrep # Better `grep`
+    fd
+    sd
+    tree
+
+    # Nix dev
+    cachix
+    nil # Nix language server
+    nix-info
+    nixpkgs-fmt
+    nixci
+    nix-health
+
+    # Dev
+    tmate
+
+    git
+    lazygit
   ];
+
+  
   programs = {
     zsh = {
       enable = true;

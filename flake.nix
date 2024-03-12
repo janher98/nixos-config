@@ -10,7 +10,12 @@
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-23.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixgl = {                                                             # Fixes OpenGL With Other Distros.
       url = "github:guibou/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,7 +31,7 @@
     };
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, nixgl, hyprland, grub2-themes, ...}: 
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, nixvim, nixgl, hyprland, grub2-themes, ...}: 
     let 
       vars = {                                                              # Variables Used In Flake
         user = "jan";
@@ -39,14 +44,14 @@
       nixosConfigurations = (                                               # NixOS Configurations
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs nixpkgs-unstable nixos-hardware home-manager hyprland vars grub2-themes; 
+          inherit inputs nixpkgs nixpkgs-unstable nixos-hardware home-manager nixvim hyprland vars grub2-themes; 
         }
       );
         
       homeConfigurations = (                                                # Nix Configurations
         import ./nix {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs nixpkgs-unstable home-manager vars;
+          inherit inputs nixpkgs nixpkgs-unstable home-manager nixvim vars;
         }
       );
       
