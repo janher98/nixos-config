@@ -15,26 +15,8 @@
         nodejs_21
         cmake
         gnumake42
+        asciidoctor
       ];
-      
-      file.".config/nvim/lua" = { 
-        source = ../../config/nvim/lua;
-        executable = true;
-      };
-      file.".config/nvim/init.lua" = { 
-        source = ../../config/nvim/init.lua;
-      }; 
-      file.".config/nvim/stylua.toml" = { 
-        source = ../../config/nvim/stylua.toml;
-      };
     };
-  };
-  
-  programs = {
-    neovim = {
-      enable = true;
-      viAlias = true;
-      vimAlias = true;
-    };
-  };
+  };  
 }

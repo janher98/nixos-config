@@ -16,6 +16,7 @@ in
       #../modules/editors/nvim.nix
       #../modules/programs/kitty.nix
       ../modules/shell/starship.nix
+      nixvim.homeManagerModules.nixvim
       {
         home = {
           username = "${vars.user}";
