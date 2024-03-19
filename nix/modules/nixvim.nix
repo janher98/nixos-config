@@ -1,11 +1,11 @@
 { pkgs, nixvim, inputs, ... }:
 let
-  vim-asciidoctor = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-asciidoctor";
+  vim-roam = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-roam";
     src = pkgs.fetchFromGitHub {
-      owner = "habamax";
-      repo = "vim-asciidoctor";
-      rev = "f553311b5db03440eb8d7035434d0405e4a2c559";
+      owner = "jeffmm";
+      repo = "vim-roam";
+      rev = "ea2c687a708e06005b477402f28c4a3f86b9417e";
       sha256 = "05sbipvsrv4zbgg6k0glr0syj9q5zipp6wylhffln6awq8r7n3j9";
     };
   };
@@ -99,17 +99,30 @@ in {
         options.desc = "Terminal horizontal";
       }
     ];
+    extraPlugins = [
+      vim-roam
+      pkgs.vimPlugins.vimwiki
+      #pkgs.vimPlugins.fzf
+      ];
 
     plugins = {
-
       # UI
       lualine.enable = true;
       barbar.enable = true;
       bufferline.enable = true;
       markdown-preview.enable = true;
+      #image.enable = true;
       nvim-autopairs.enable = true;
+      #typst.enable = true;
+      #cmp.enable = true;
+      cmp-pandoc-nvim.enable = true;
+      fidget.enable = true;
       which-key = {
         enable = true;
+      };
+      airline = {
+        enable = true;
+        powerline = true;
       };
       noice = {
         enable = true;
@@ -188,15 +201,74 @@ in {
           };
         };
       };
-    };
-    extraPlugins = [vim-asciidoctor];
-    globals = {
-      asciidoctor_executable = "${pkgs.asciidoctor}/bin/asciidoctor";
-      asciidoctor_folding = 0;
-      asciidoctor_fold_options = 0;
-      asciidoctor_syntax_conceal = 1;
-      asciidoctor_syntax_indented = 1;
-      asciidoctor_fenced_languages = ["c" "cpp" "haskell" "rust" "ruby" "prolog"];
+      alpha = {
+        enable = true;
+        iconsEnabled = true; # installs nvim-web-devicons.
+        layout = [
+          {
+            type = "padding";
+            val = 2;
+          }
+          {
+            type = "text";
+            val = [
+              "                 ______"
+              "                /     /\\"
+              "               /     /##\\"
+              "              /     /####\\"
+              "             /     /######\\"
+              "            /     /########\\"
+              "           /     /##########\\"
+              "          /     /#####/\\#####\\"
+              "         /     /#####/++\\#####\\"
+              "        /     /#####/++++\\#####\\"
+              "       /     /#####/\\+++++\\#####\\"
+              "      /     /#####/  \\+++++\\#####\\"
+              "     /     /#####/    \\+++++\\#####\\"
+              "    /     /#####/      \\+++++\\#####\\"
+              "   /     /#####/        \\+++++\\#####\\"
+              "  /     /#####/__________\\+++++\\#####\\"
+              " /                        \\+++++\\#####\\"
+              "/__________________________\\+++++\\####/"
+              "\\+++++++++++++++++++++++++++++++++\\##/"
+              " \\+++++++++++++++++++++++++++++++++\\/"
+              "  ``````````````````````````````````"
+              ""
+            ];
+          }
+          {
+            type = "padding";
+            val = 2;
+          }
+          {
+            type = "group";
+            val = [
+              {
+                command = "<CMD>ene <CR>";
+                desc = "  New file";
+                shortcut = "<Leader>cn";
+              }
+              {
+                command = ":qa<CR>";
+                desc = "  Quit Neovim";
+                shortcut = "q";
+              }
+            ];
+          }
+          {
+            type = "padding";
+            val = 2;
+          }
+          {
+            opts = {
+              hl = "Keyword";
+              position = "center";
+            };
+            type = "text";
+            val = "Question authority. Think for yourself.";
+          }
+        ];
+      };
     };
   };
 }
