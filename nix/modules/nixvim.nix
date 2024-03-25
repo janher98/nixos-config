@@ -43,23 +43,9 @@ in {
 		  function _lazygit_toggle()
 		    lazygit:toggle()
 		  end
-      function get_asciidoc_link()
-        -- Finding if there is an url under the cursor
-        local line = vim.api.nvim_get_current_line()
-        local _, c = unpack(vim.api.nvim_win_get_cursor(0))
-        local pattern = "(%a+):(%S*)%[([^%]]+)%]"
-        local first, last, kind, uri, args
-        repeat
-          first, last, kind, uri, args = string.find(line, pattern)
-          if first == nil then return nil end
-        until(first <= c and c <= last)
-
-        -- TODO consider splitting args on ','
-
-        -- Found match on cursor
-        -- TODO actually doing something with it
-        print(string.format("Found link of kind %s", kind))
-      end
+      require('auto-session').setup {
+        pre_save_cmds = {"tabdo Neotree close"}
+      }
       '';
 
     # Keymaps
@@ -404,6 +390,15 @@ in {
         enable = true;
         powerline = true;
       };
+      auto-session = {
+        enable = true;
+        autoRestore.enabled = false;
+        autoSave.enabled = true;
+        autoSession = {
+          enabled = true;
+          createEnabled = true;
+        };
+      };
       noice = {
         enable = true;
         presets = {
@@ -524,9 +519,29 @@ in {
             type = "group";
             val = [
               {
+                command = "<CMD>Telescope find_files<CR>";
+                desc = "  Find file";
+                shortcut = "f";
+              }
+              {
                 command = "<CMD>ene <CR>";
                 desc = "  New file";
-                shortcut = "<Leader>cn";
+                shortcut = "n";
+              }
+              {
+                command = "<>Telescope oldfiles<CR>";
+                desc = "  Recent files";
+                shortcut = "r";
+              }
+              {
+                command = "<cmd>Telescope live_grep<CR>";
+                desc = "  Find text";
+                shortcut = "g";
+              }
+              {
+                command = "<cmd>SessionRestore<cr>";
+                desc = "  Restore Session";
+                shortcut = "s";
               }
               {
                 command = ":qa<CR>";
