@@ -1,58 +1,5 @@
-{ pkgs, nixvim, inputs, ... }:
-let
-  vim-roam = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-roam";
-    src = pkgs.fetchFromGitHub {
-      owner = "jeffmm";
-      repo = "vim-roam";
-      rev = "ea2c687a708e06005b477402f28c4a3f86b9417e";
-      sha256 = "05sbipvsrv4zbgg6k0glr0syj9q5zipp6wylhffln6awq8r7n3j9";
-    };
-  };
-in {
-#  imports = [
-#    inputs.nixvim.homeManagerModules.nixvim
-#  ];
+{
   programs.nixvim = {
-    enable = true;
-
-    # Theme
-    colorschemes.catppuccin = {
-      enable = true;
-      flavour = "latte";
-      #transparentBackground = true;
-    };
-
-
-    # Settings
-    options = {
-      expandtab = true;
-      shiftwidth = 2;
-      smartindent = true;
-      tabstop = 2;
-      number = true;
-    };
-
-    extraConfigLua = ''
-      local Terminal = require('toggleterm.terminal').Terminal
-      local lazygit = Terminal:new({
-		    cmd = "lazygit",
-		    hidden = true,
-		    direction = "float",
-		  })
-		  function _lazygit_toggle()
-		    lazygit:toggle()
-		  end
-      require('auto-session').setup {
-        pre_save_cmds = {"tabdo Neotree close"}
-      }
-      '';
-
-    # Keymaps
-    globals = {
-      mapleader = " ";
-      maplocalleader = " ";
-    };
     keymaps = [
       {
         mode = ["n"];
@@ -192,7 +139,7 @@ in {
       }
       {
         mode = ["n"];
-        key = "<leader>";
+        key = "<leader>bb";
         action = "<cmd>e #<cr>";
         options.desc = "Switch to Other Buffer";
       }
@@ -322,7 +269,7 @@ in {
       {
         mode = ["n"];
         key = "<leader>|";
-        action = "<C-W>v";
+      action = "<C-W>v";
         options.desc = "Split window right";
       }
       # Tabs
@@ -362,208 +309,11 @@ in {
         action = "<cmd>tabprevious<cr>";
         options.desc = "Previous Tab";
       }
-
-
     ];
-    extraPlugins = [
-      vim-roam
-      pkgs.vimPlugins.vimwiki
-      #pkgs.vimPlugins.fzf
-      ];
-
-    plugins = {
-      # UI
-      lualine.enable = true;
-      barbar.enable = true;
-      bufferline.enable = true;
-      markdown-preview.enable = true;
-      #image.enable = true;
-      nvim-autopairs.enable = true;
-      #typst.enable = true;
-      #cmp.enable = true;
-      cmp-pandoc-nvim.enable = true;
-      fidget.enable = true;
-      which-key = {
-        enable = true;
-      };
-      airline = {
-        enable = true;
-        powerline = true;
-      };
-      auto-session = {
-        enable = true;
-        autoRestore.enabled = false;
-        autoSave.enabled = true;
-        autoSession = {
-          enabled = true;
-          createEnabled = true;
-        };
-      };
-      noice = {
-        enable = true;
-        presets = {
-          bottom_search = true;
-          command_palette = true;
-          long_message_to_split = true;
-          #inc_rename = false;
-          #lsp_doc_border = false;
-        }; 
-      };
-      toggleterm = {
-        enable = true;
-      };
-      telescope = {
-        enable = true;
-        keymaps = {
-          "<leader>ff" = {
-            desc = "file finder";
-            action = "find_files";
-          };
-        };
-        extensions = {
-          file_browser.enable = true;
-        };
-      };
-      neo-tree = {
-        enable = true;
-        window.width = 20;
-        closeIfLastWindow = true;
-        extraOptions = {
-          filesystem = {
-            filtered_items = {
-              visible = true;
-            };
-          };
-        };
-      };
-      treesitter = {
-        enable = true;
-        nixvimInjections = true;
-        folding = false;
-        indent = true;
-        nixGrammars = true;
-        ensureInstalled = "all";
-        incrementalSelection.enable = true;
-      };
-      treesitter-refactor = {
-        enable = true;
-      };
-      neorg = {
-        enable = true;
-        lazyLoading = true;
-        modules = {
-          "core.defaults".__empty = null;
-          "core.dirman".config = {
-            workspaces = {
-              notes = "~/notes";
-            };
-            default_workspace = "notes";
-          };
-          "core.concealer".__empty = null;
-          "core.completion".config.engine = "nvim-cmp";
-        };
-      };
-      # Dev
-      lsp = {
-        enable = true;
-        servers = {
-          hls.enable = true;
-          nil_ls.enable = true;
-          rust-analyzer = {
-            enable = true;
-            installCargo = false;
-            installRustc = false;
-          };
-        };
-      };
-      alpha = {
-        enable = true;
-        iconsEnabled = true; # installs nvim-web-devicons.
-        layout = [
-          {
-            type = "padding";
-            val = 2;
-          }
-          {
-            type = "text";
-            val = [
-              "                 ______"
-              "                /     /\\"
-              "               /     /##\\"
-              "              /     /####\\"
-              "             /     /######\\"
-              "            /     /########\\"
-              "           /     /##########\\"
-              "          /     /#####/\\#####\\"
-              "         /     /#####/++\\#####\\"
-              "        /     /#####/++++\\#####\\"
-              "       /     /#####/\\+++++\\#####\\"
-              "      /     /#####/  \\+++++\\#####\\"
-              "     /     /#####/    \\+++++\\#####\\"
-              "    /     /#####/      \\+++++\\#####\\"
-              "   /     /#####/        \\+++++\\#####\\"
-              "  /     /#####/__________\\+++++\\#####\\"
-              " /                        \\+++++\\#####\\"
-              "/__________________________\\+++++\\####/"
-              "\\+++++++++++++++++++++++++++++++++\\##/"
-              " \\+++++++++++++++++++++++++++++++++\\/"
-              "  ``````````````````````````````````"
-              ""
-            ];
-          }
-          {
-            type = "padding";
-            val = 2;
-          }
-          {
-            type = "group";
-            val = [
-              {
-                command = "<CMD>Telescope find_files<CR>";
-                desc = "  Find file";
-                shortcut = "f";
-              }
-              {
-                command = "<CMD>ene <CR>";
-                desc = "  New file";
-                shortcut = "n";
-              }
-              {
-                command = "<>Telescope oldfiles<CR>";
-                desc = "  Recent files";
-                shortcut = "r";
-              }
-              {
-                command = "<cmd>Telescope live_grep<CR>";
-                desc = "  Find text";
-                shortcut = "g";
-              }
-              {
-                command = "<cmd>SessionRestore<cr>";
-                desc = "  Restore Session";
-                shortcut = "s";
-              }
-              {
-                command = ":qa<CR>";
-                desc = "  Quit Neovim";
-                shortcut = "q";
-              }
-            ];
-          }
-          {
-            type = "padding";
-            val = 2;
-          }
-          {
-            opts = {
-              hl = "Keyword";
-              position = "center";
-            };
-            type = "text";
-            val = "Question authority. Think for yourself.";
-          }
-        ];
-      };
+    # Keymaps
+    globals = {
+      mapleader = " ";
+      #maplocalleader = " ";
     };
   };
 }

@@ -12,7 +12,7 @@ in
     modules = [   #
       ./home.nix
       ./modules/cli.nix
-      ./modules/nixvim.nix
+      ./modules/nixvim
       #../modules/editors/nvim.nix
       #../modules/programs/kitty.nix
       ../modules/shell/starship.nix

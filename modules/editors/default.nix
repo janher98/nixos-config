@@ -12,6 +12,6 @@
 
 [
   ./nvim.nix
-  ./../../nix/modules/nixvim.nix
+  ./../../nix/modules/nixvim
 ]
 
