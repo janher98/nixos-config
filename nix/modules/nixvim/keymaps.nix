@@ -309,11 +309,17 @@
         action = "<cmd>tabprevious<cr>";
         options.desc = "Previous Tab";
       }
+      {
+        mode = ["n"];
+        key = "<leader>/";
+        action = "<cmd>Telescope live_grep<CR>";
+        options.desc = "Live grep";
+      }
     ];
     # Keymaps
     globals = {
       mapleader = " ";
-      #maplocalleader = " ";
+      maplocalleader = " ";
     };
   };
 }

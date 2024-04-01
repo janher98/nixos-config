@@ -5,7 +5,6 @@
       lualine.enable = true;
       barbar.enable = true;
       bufferline.enable = true;
-      markdown-preview.enable = true;
       #image.enable = true;
       nvim-autopairs.enable = true;
       #typst.enable = true;

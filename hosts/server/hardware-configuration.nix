@@ -40,6 +40,8 @@
       {  
         address = "10.0.0.8";
         prefixLength = 24;
+        gateway = "10.0.0.1";
+        dns = "1.1.1.1";
       }
     ];
   };

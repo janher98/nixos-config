@@ -15,7 +15,7 @@
         nodejs_21
         cmake
         gnumake42
-        asciidoctor
+        pandoc
       ];
     };
   };  

@@ -1,24 +1,16 @@
 { pkgs, nixvim, inputs, ... }:
-let
-  vim-roam = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-roam";
-    src = pkgs.fetchFromGitHub {
-      owner = "jeffmm";
-      repo = "vim-roam";
-      rev = "ea2c687a708e06005b477402f28c4a3f86b9417e";
-      sha256 = "05sbipvsrv4zbgg6k0glr0syj9q5zipp6wylhffln6awq8r7n3j9";
-    };
-  };
-in {
+{
   imports = [
     ./keymaps.nix
     ./plugins/alpha.nix
     ./plugins/autosession.nix
     ./plugins/lsp.nix
+    ./plugins/markdownprev.nix
     #./plugins/neorg.nix
     ./plugins/neotree.nix
     ./plugins/noice.nix
     ./plugins/other.nix
+    ./plugins/roam.nix
     ./plugins/telescope.nix
     ./plugins/treesitter.nix
   ];
@@ -60,11 +52,6 @@ in {
       }
       '';
 
-    extraPlugins = [
-      #vim-roam
-      #pkgs.vimPlugins.vimwiki
-      #pkgs.vimPlugins.fzf
-      ];
 
   };
 }
