@@ -6,7 +6,7 @@ let
       owner = "jeffmm";
       repo = "vim-roam";
       rev = "ea2c687a708e06005b477402f28c4a3f86b9417e";
-      sha256 = "05sbipvsrv4zbgg6k0glr0syj9q5zipp6wylhffln6awq8r7n3j9";
+      sha256 = "sha256-cidF+oSHbtfn5ihIIkxTanvrsZF8fhIRcL75xou8A6Y=";
     };
   };
   wikivim = pkgs.vimUtils.buildVimPlugin {
