@@ -13,7 +13,7 @@
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
-  networking.hostName = "server"; # Define your hostname.
+  #networking.hostName = "server"; # Define your hostname.
 
   hardware.opengl.enable = true; # when using QEMU KVM
   environment.systemPackages = with pkgs; [
