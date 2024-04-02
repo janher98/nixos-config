@@ -21,7 +21,7 @@ let
 in{
   programs.nixvim = {
     extraPlugins = [
-      vim-roam
+      #vim-roam
       wikivim
       #pkgs.vimPlugins.fzf
       ];

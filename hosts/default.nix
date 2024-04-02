@@ -55,6 +55,7 @@ in
     modules = [ 
       ./configuration.nix
       ./server
+      nixvim.nixosModules.nixvim
       home-manager.nixosModules.home-manager {
         home-manager = {
           useGlobalPkgs = true;
