@@ -13,6 +13,7 @@
 [
   ./alacritty.nix
   ./eww.nix
+  ./firefox.nix
   ./flatpak.nix
   ./kitty.nix
   ./rofi.nix

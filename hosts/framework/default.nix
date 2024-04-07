@@ -1,4 +1,14 @@
 {config, pkgs, unstable, pkgs_2305, ...}:
+let
+  lock-false = {
+    Value = false;
+    Status = "locked";
+  };
+  lock-true = {
+    Value = true;
+    Status = "locked";
+  };
+in
 {
   imports = [ ./hardware-configuration.nix ] ++
            ( import ../../modules/desktops/virtualisation );
@@ -53,7 +63,7 @@
       kitty
       dolphin
       
-      firefox-wayland           # Browser
+      #firefox-wayland           # Browser
       thunderbird
     ]++ 
     (with unstable; [
