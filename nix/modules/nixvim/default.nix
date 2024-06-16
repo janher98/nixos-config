@@ -23,13 +23,13 @@
     # Theme
     colorschemes.catppuccin = {
       enable = true;
-      flavour = "latte";
+      settings.flavour = "latte";
       #transparentBackground = true;
     };
 
 
     # Settings
-    options = {
+    opts = {
       expandtab = true;
       shiftwidth = 2;
       smartindent = true;

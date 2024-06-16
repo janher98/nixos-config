@@ -12,7 +12,7 @@
         ripgrep
         fd
         lazygit
-        nodejs_21
+        #nodejs_21
         cmake
         gnumake42
         pandoc

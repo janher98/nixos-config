@@ -61,7 +61,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${vars.user} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" "audio" "camera"  ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" "video" "audio" "camera" "dialout" ]; # Enable ‘sudo’ for the user.
   };
 
   # List packages installed in system profile. To search, run:
@@ -107,7 +107,7 @@
       unrar             # Rar Files
       zip               # Zip
 
-      (python3.withPackages(ps: with ps; [ pip dbus-python numpy ]))
+      #(python3.withPackages(ps: with ps; [ pip dbus-python numpy ]))
       # Other Packages Found @
       # - ./<host>/default.nix
       # - ../modules
@@ -145,7 +145,7 @@
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
-    package = pkgs.nixVersions.unstable;    # Enable Flakes
+    package = pkgs.nixVersions.git;    # Enable Flakes
     registry.nixpkgs.flake = inputs.nixpkgs;
     extraOptions = ''
       experimental-features = nix-command flakes

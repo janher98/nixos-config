@@ -16,7 +16,7 @@
       };
       airline = {
         enable = true;
-        powerline = true;
+        #powerline = true;
       };
       toggleterm = {
         enable = true;

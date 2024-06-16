@@ -26,7 +26,7 @@
           Cryptomining = true;
           Fingerprinting = true;
         };
-        #BlockAboutAddons = true;
+        BlockAboutAddons = true;
         DisablePrivateBrowsing = true;
         DisablePocket = true;
         OverrideFirstRunPage = "";

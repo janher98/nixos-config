@@ -42,7 +42,7 @@ in
 
   hyprland.enable = true;                       # Window Manager
   #gnome.enable = true;
-  #virtualbox.enable = true;
+  virtualbox.enable = true;
 
   environment = {
     systemPackages = with pkgs; [               # System-Wide Packages
@@ -57,11 +57,13 @@ in
       
       texlive.combined.scheme-full
 
-      #vscode 
+      vscode 
       nextcloud-client
       
       kitty
       dolphin
+
+      android-tools 
       
       #firefox-wayland           # Browser
       thunderbird
