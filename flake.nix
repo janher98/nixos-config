@@ -21,10 +21,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland = {                                                          # Official Hyprland Flake
-      url = "github:hyprwm/Hyprland";                                     # Requires "hyprland.nixosModules.default" to be added the host modules
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    #hyprland = {                                                          # Official Hyprland Flake
+    #  url = "github:hyprwm/Hyprland";                                     # Requires "hyprland.nixosModules.default" to be added the host modules
+    #  inputs.nixpkgs.follows = "nixpkgs-unstable";
+    #};
+    hyprland = {
+        url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+      };
 
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";

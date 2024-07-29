@@ -51,11 +51,11 @@ with lib;
       ];
       gnome.excludePackages = (with pkgs; [             # Ignored Packages
         gnome-tour
+        gedit
       ]) ++ (with pkgs.gnome; [
         atomix
         epiphany
         geary
-        gedit
         gnome-characters
         gnome-contacts
         gnome-initial-setup

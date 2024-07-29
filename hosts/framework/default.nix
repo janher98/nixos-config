@@ -28,7 +28,7 @@ in
         device = "nodev";
       }; 
       grub2-theme = {
-        enable = true;
+       enable = true;
         theme = "tela";
         footer = true;
       };
@@ -42,7 +42,7 @@ in
 
   hyprland.enable = true;                       # Window Manager
   #gnome.enable = true;
-  virtualbox.enable = true;
+  #virtualbox.enable = true;
 
   environment = {
     systemPackages = with pkgs; [               # System-Wide Packages
@@ -55,7 +55,7 @@ in
       libsecret
       #polkit
       
-      texlive.combined.scheme-full
+      #texlive.combined.scheme-full
 
       vscode 
       nextcloud-client
