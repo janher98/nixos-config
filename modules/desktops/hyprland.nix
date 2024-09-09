@@ -119,11 +119,16 @@ with host;
         #nvidiaPatches = if hostName == "work" then true else false;
       };
     };
-    security.pam.services.hyprlock = {
-      # text = "auth include system-auth";
-      text = "auth include login";
-      fprintAuth = if hostName == "framework" then true else false;
-      enableGnomeKeyring = true;
+    security.pam.services = {
+      hyprlock = {
+        # text = "auth include system-auth";
+        text = "auth include login";
+        fprintAuth = if hostName == "framework" then true else false;
+        enableGnomeKeyring = true;
+      };
+      login = {
+        enableGnomeKeyring = true;
+      };
     };
 
     systemd.sleep.extraConfig = ''
@@ -217,11 +222,11 @@ with host;
             };
             listener = [
               {
-                timeout = 300;
+                timeout = 900;
                 on-timeout = "${lockScript.outPath} lock";
               }
               {
-                timeout = 1800;
+                timeout = 2700;
                 on-timeout = "${lockScript.outPath} suspend";
               }
             ];

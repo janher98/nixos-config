@@ -50,8 +50,8 @@ in
       discord
       spotify
 
-      gnome.gnome-keyring
-      gnome.seahorse
+      #gnome.gnome-keyring
+      #gnome.seahorse
       libsecret
       #polkit
       
@@ -99,10 +99,11 @@ in
         inherit (pkgs) system;
       }).fwupd;
     };
-    gnome = {
-      gnome-keyring.enable = true;
-    };
+    #gnome = {
+    #  gnome-keyring.enable = true;
+    #};
   };
+  #security.pam.services.gnomekey.enableGnomeKeyring = true;
 
 
   nixpkgs.overlays = [                          # Overlay pulls latest version of Discord

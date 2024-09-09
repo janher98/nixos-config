@@ -11,6 +11,7 @@
 #
 
 [
+  ./accounts.nix
   ./alacritty.nix
   ./eww.nix
   ./firefox.nix

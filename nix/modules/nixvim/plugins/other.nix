@@ -11,6 +11,7 @@
       #cmp.enable = true;
       cmp-pandoc-nvim.enable = true;
       fidget.enable = true;
+      persistence.enable = true;
       which-key = {
         enable = true;
       };

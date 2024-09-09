@@ -4,6 +4,7 @@
     ./keymaps.nix
     ./plugins/alpha.nix
     ./plugins/autosession.nix
+    ./plugins/image.nix
     ./plugins/lsp.nix
     ./plugins/markdownprev.nix
     #./plugins/neorg.nix
