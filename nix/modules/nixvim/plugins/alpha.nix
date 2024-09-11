@@ -11,7 +11,7 @@
           }
           {
             opts = {
-              hl = "Type";
+              hl = "keyword";
               position = "center";
             };
             type = "text";

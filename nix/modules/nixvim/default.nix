@@ -4,6 +4,7 @@
     ./keymaps.nix
     ./plugins/alpha.nix
     ./plugins/autosession.nix
+    ./plugins/cmp.nix
     ./plugins/image.nix
     ./plugins/lsp.nix
     ./plugins/markdownprev.nix
@@ -36,6 +37,8 @@
       smartindent = true;
       tabstop = 2;
       number = true;
+      swapfile = false; 
+      wrap = true;
     };
 
     extraConfigLua = ''
