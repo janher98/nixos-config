@@ -5,10 +5,12 @@
         enable = true;
         nixvimInjections = true;
         folding = false;
-        indent = true;
         nixGrammars = true;
-        ensureInstalled = "all";
-        incrementalSelection.enable = true;
+        settings = {
+          incrementalSelection.enable = true;
+          ensureInstalled = "all";
+          indent.enable = true;
+        };
       };
       treesitter-refactor = {
         enable = true;

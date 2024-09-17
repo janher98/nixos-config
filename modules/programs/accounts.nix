@@ -3,8 +3,8 @@
 {
   config = lib.mkIf (host.hostName == "framework") {
     environment.systemPackages = with pkgs; [
-      gnome.gnome-control-center
-      gnome.seahorse
+      gnome-control-center
+      seahorse
     ];
     
     services.gnome.gnome-keyring.enable = true;
@@ -14,7 +14,7 @@
     home-manager.users.${vars.user} = {
       xdg.desktopEntries.gnome-control-center = {
         name = "Gnome Control Center";
-        exec = "env XDG_CURRENT_DESKTOP=GNOME ${pkgs.gnome.gnome-control-center}/bin/gnome-control-center";
+        exec = "env XDG_CURRENT_DESKTOP=GNOME ${pkgs.gnome-control-center}/bin/gnome-control-center";
       };
     };
   };

@@ -3,7 +3,7 @@
 #  Enable with "hyprland.enable = true;"
 #
 
-{ config, lib, system, pkgs, unstable, hyprland, vars, host, ... }:
+{ config, lib, system, pkgs, stable, hyprland, vars, host, ... }:
 
 let
   colors = import ../theming/colors.nix;
@@ -449,8 +449,8 @@ with host;
               exec-once = [
                 "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
                 "${pkgs.hyprlock}/bin/hyprlock"
-                "${unstable.waybar}/bin/waybar"
-                "${unstable.eww}/bin/eww daemon"
+                "${pkgs.waybar}/bin/waybar"
+                "${pkgs.eww}/bin/eww daemon"
                 #"$HOME/.config/eww/scripts/eww"        # When running eww as a bar
                 "${pkgs.swaynotificationcenter}/bin/swaync"
                 "${pkgs.blueman}/bin/blueman-applet"

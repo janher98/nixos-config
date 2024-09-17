@@ -3,7 +3,6 @@
     plugins = {
       alpha = {
         enable = true;
-        iconsEnabled = true; # installs nvim-web-devicons.
         layout = [
           {
             type = "padding";

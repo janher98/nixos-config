@@ -11,8 +11,8 @@
 #      file.".config/wall.mp4".source = ./wall.mp4;
       pointerCursor = {                     # System-Wide Cursor
         gtk.enable = true;
-  #      #name = "Dracula-cursors";
-        name = "Catppuccin-Latte-Light-Cursors";
+        #name = "latteLight";
+        name = "catppuccin-latte-light-cursors";
   #      #package = pkgs.dracula-theme;
         package = pkgs.catppuccin-cursors.latteLight;
         size = 16;

@@ -2,7 +2,7 @@
 #  Bar
 #
 
-{ config, lib, pkgs, unstable, vars, host, ...}:
+{ config, lib, pkgs, stable, vars, host, ...}:
 
 with host;
 let
@@ -60,14 +60,14 @@ let
 in
 {
   config = lib.mkIf (config.wlwm.enable) {
-    environment.systemPackages = with unstable; [
+    environment.systemPackages = with pkgs; [
       waybar
     ];
 
     home-manager.users.${vars.user} = {
       programs.waybar = {
         enable = true;
-        package = unstable.waybar;
+        package = pkgs.waybar;
         systemd ={
           enable = true;
           target = "sway-session.target";
@@ -371,7 +371,7 @@ in
             "custom/menu" = {
               format = "";
               #format = "<span font='16'></span>";
-              on-click = ''${unstable.eww}/bin/eww open --toggle menu --screen 0'';
+              on-click = ''${pkgs.eww}/bin/eww open --toggle menu --screen 0'';
               on-click-right = "${pkgs.wofi}/bin/wofi --show drun";
               tooltip = false;
             };
@@ -457,7 +457,7 @@ in
               #format = "{%H:%M}";
               tooltip = false;
               tooltip-format = "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>";
-              on-click = "${unstable.eww}/bin/eww open --toggle calendar --screen 0";
+              on-click = "${pkgs.eww}/bin/eww open --toggle calendar --screen 0";
             };
             cpu = {
               format = " {usage}% 󰍛";
@@ -500,7 +500,7 @@ in
               tooltip-format = "{desc}, {volume}%";
               on-click = "${pkgs.pamixer}/bin/pamixer -t";
               #on-click-right = "${pkgs.pamixer}/bin/pamixer --default-source -t";
-              on-click-right = ''${unstable.eww}/bin/eww open --toggle audio_menu --screen 0'';
+              on-click-right = ''${pkgs.eww}/bin/eww open --toggle audio_menu --screen 0'';
               on-click-middle = "${pkgs.pavucontrol}/bin/pavucontrol";
             };
             "pulseaudio#microphone" = {

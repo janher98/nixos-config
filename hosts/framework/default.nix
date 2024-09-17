@@ -1,4 +1,4 @@
-{config, pkgs, unstable, pkgs_2305, ...}:
+{config, pkgs, stable, ...}:
 let
   lock-false = {
     Value = false;
@@ -38,7 +38,7 @@ in
   };
 
 
-  hardware.opengl.enable = true; # when using QEMU KVM
+  hardware.graphics.enable = true; # when using QEMU KVM
 
   hyprland.enable = true;                       # Window Manager
   #gnome.enable = true;
@@ -47,7 +47,6 @@ in
   environment = {
     systemPackages = with pkgs; [               # System-Wide Packages
       #fwupd
-      discord
       spotify
 
       #gnome.gnome-keyring
@@ -67,10 +66,12 @@ in
       
       #firefox-wayland           # Browser
       thunderbird
-    ]++ 
-    (with unstable; [
-      # Apps
       anki-bin
+    ]++ 
+    (with stable; [
+      # Apps
+      vscode
+      discord
 #      firefox-wayland           # Browser
 #      thunderbird
       #fastfetch         # Neofetch replacement

@@ -2,7 +2,7 @@
 #  Bash
 #
 
-{ pkgs, vars, unstable, ... }:
+{ pkgs, vars, stable, ... }:
 
 {
   users.users.${vars.user} = {
@@ -12,7 +12,7 @@
   environment.systemPackages = with pkgs; [
     starship
   ]++
-  (with unstable; [
+  (with stable; [
     fastfetch         # Neofetch replacement
   ]); 
 

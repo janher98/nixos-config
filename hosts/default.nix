@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, nixvim, hyprland, vars, grub2-themes, ... }:
+{ lib, inputs, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, nixvim, hyprland, vars, grub2-themes, ... }:
 
 let 
   system = "x86_64-linux";
@@ -8,7 +8,7 @@ let
     config.allowUnfree = true;
   };
 
-  unstable = import nixpkgs-unstable {
+  stable = import nixpkgs-stable {
     inherit system;
     config.allowUnfree = true;
   };
@@ -19,7 +19,7 @@ in
   framework = lib.nixosSystem {
     inherit system;
     specialArgs = { 
-      inherit inputs system unstable hyprland vars; 
+      inherit inputs system stable hyprland vars; 
       host = {
         hostName = "framework";
         mainMonitor = "eDP-1";
@@ -47,7 +47,7 @@ in
   server = lib.nixosSystem {
     inherit system;
     specialArgs = { 
-      inherit inputs system unstable hyprland vars; 
+      inherit inputs system stable hyprland vars; 
       host = {
         hostName = "server";
       };
@@ -70,7 +70,7 @@ in
   vm = lib.nixosSystem {
     inherit system;
     specialArgs = { 
-      inherit inputs system unstable hyprland vars; 
+      inherit inputs system stable hyprland vars; 
       host = {
         hostName = "nixos-vm";
       };

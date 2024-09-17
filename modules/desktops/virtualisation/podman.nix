@@ -2,12 +2,12 @@
 #  Podman
 #
 
-{ config, unstable, vars, ... }:
+{ config, pkgs, vars, ... }:
 
 {
   users.groups.docker.members = [ "${vars.user}" ];
 
-  environment.systemPackages = with unstable; [
+  environment.systemPackages = with pkgs; [
     podman-compose
     distrobox
   ];

@@ -2,7 +2,7 @@
 #  Shell
 #
 
-{ pkgs, vars, unstable, ... }:
+{ pkgs, vars, ... }:
 
 {
   users.users.${vars.user} = {

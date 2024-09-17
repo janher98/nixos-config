@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, unstable, ... }:
+{ config, pkgs, stable, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ] ++
@@ -15,7 +15,7 @@
   };
   #networking.hostName = "server"; # Define your hostname.
 
-  hardware.opengl.enable = true; # when using QEMU KVM
+  hardware.graphics.enable = true; # when using QEMU KVM
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget

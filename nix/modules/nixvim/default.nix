@@ -1,4 +1,4 @@
-{ pkgs, nixvim, inputs, ... }:
+{ pkgs, stable, nixvim, inputs, ... }:
 {
   imports = [
     ./keymaps.nix
@@ -21,6 +21,7 @@
 #  ];
   programs.nixvim = {
     enable = true;
+    #package = pkgs.neovim-unwrapped;
 
     # Theme
     colorschemes.catppuccin = {
@@ -43,7 +44,7 @@
 
     extraConfigLua = ''
       local Terminal = require('toggleterm.terminal').Terminal
-      local lazygit = Terminal:new({
+      local lazygit = Terminal:new({ 
 		    cmd = "lazygit",
 		    hidden = true,
 		    direction = "float",

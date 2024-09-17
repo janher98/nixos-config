@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ config, lib, pkgs, unstable, inputs, vars, ... }:
+{ config, lib, pkgs, stable, inputs, vars, ... }:
 
 {
   imports = (
@@ -55,8 +55,8 @@
   ];
   
   # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  # sound.enable = true;
+  # hardware.pulseaudio.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${vars.user} = {
@@ -86,6 +86,7 @@
       usbutils          # Manage USB
       wget              # Retriever
       lshw
+      imagemagick
       
 
       # Video/Audio
@@ -98,7 +99,7 @@
       vlc               # Media Player
 
       # File Management
-      gnome.file-roller # Archive Manager
+      file-roller # Archive Manager
       okular            # PDF Viewer
       pcmanfm           # File Browser
       p7zip             # Zip Encryption
@@ -112,7 +113,7 @@
       # - ./<host>/default.nix
       # - ../modules
       ]++
-      (with unstable; [
+      (with stable; [
         # Apps
         #firefox-wayland           # Browser
       ]);
