@@ -15,6 +15,8 @@
       treesitter-refactor = {
         enable = true;
       };
+      rainbow-delimiters.enable = true;
+      otter.enable = true;
     };
   };
 }
