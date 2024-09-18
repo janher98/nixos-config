@@ -2,11 +2,11 @@
 {
   #imports = [
   #  ./nixvim.nix
-  #];  
+  #];
   home.packages = with pkgs; [
     nitch
     starship
-    
+
     ripgrep # Better `grep`
     fd
     sd
@@ -22,16 +22,15 @@
 
     # Dev
     tmate
-
     git
     lazygit
   ];
 
-  
+
   programs = {
     zsh = {
       enable = true;
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       enableCompletion = true;
       history.size = 100000;
@@ -42,8 +41,8 @@
       };
       initExtra = ''
         autoload -U promptinit; promptinit
-        
-        eval "$(starship init zsh)"
+        export TERM=xterm
+        #eval "$(starship init zsh)"
         # Hook direnv
         #emulate zsh -c "$(direnv hook zsh)"
         nitch

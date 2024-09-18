@@ -3,10 +3,9 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    kitty
-    asciidoctor
+    #kitty
   ];
-  
+
   gtk.font = {                               # Fonts
     package = with pkgs; [
       source-code-pro

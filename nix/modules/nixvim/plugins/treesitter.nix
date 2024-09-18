@@ -7,6 +7,7 @@
         folding = false;
         nixGrammars = true;
         settings = {
+          highlight.enable = true;
           incrementalSelection.enable = true;
           ensureInstalled = "all";
           indent.enable = true;
