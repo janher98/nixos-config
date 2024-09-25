@@ -1,3 +1,4 @@
 [
+  ./acme.nix
   ./nextcloud.nix
 ]

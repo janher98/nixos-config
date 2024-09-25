@@ -7,7 +7,7 @@
 {
   imports = [ ./hardware-configuration.nix ] ++
            ( import ../../modules/desktops/virtualisation ++
-             import ../../modules/serverfunctions);
+             import ../../modules/server);
 
   # Bootloader.
   boot.loader = {
@@ -22,12 +22,6 @@
   #  wget
     qemu
   ];
-  security.acme = {
-    acceptTerms = true;
-    certs = {
-      ${config.services.nextcloud.hostName}.email = "62447852+janher98@users.noreply.github.com";
-    };
-  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
