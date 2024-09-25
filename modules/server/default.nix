@@ -1,0 +1,3 @@
+[
+  ./nextcloud.nix
+]
