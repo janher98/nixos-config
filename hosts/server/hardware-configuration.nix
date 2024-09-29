@@ -12,6 +12,18 @@
     initrd = {
       availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usbhid" "usb_storage" "sd_mod" ];
       kernelModules = [ ];
+      postDeviceCommands = lib.mkAfter ''
+        zfs rollback -r rpool/local/root@blank
+      '';
+      #network = {
+      #  enable = true;
+      #  ssh = {
+      #    enable = true;
+      #    port = 2222;
+      #    hostKeys = [ /path/to/ssh_host_rsa_key ];
+      #    authorizedKeys = [ "ssh-rsa AAAA..." ];
+      #  };
+      #};
     };
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
@@ -22,20 +34,34 @@
     };
   };
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/b09c6312-f2ae-4dd6-96ac-8ff0722beec2";
-      fsType = "ext4";
-    };
-
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/9A79-79AD";
+    { device = "/dev/disk/by-uuid/2907-CE57";
       fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022"];
     };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/488bd0a5-8a28-4ba4-8ee1-0644ba5990a5"; }
-    ];
+  fileSystems."/" =
+    { device = "rpool/local/root";
+      fsType = "zfs";
+    };
 
+  fileSystems."/nix" =
+    { device = "rpool/local/nix";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home" =
+    { device = "rpool/safe/home";
+      fsType = "zfs";
+    };
+
+  fileSystems."/persist" =
+    { device = "rpool/safe/persist";
+      fsType = "zfs";
+    };
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/657d1138-1036-4c8c-b71d-5f5bbc1e5fcf"; }
+    ];
   #  fileSystems."/mnt/nextcloud" = {
   #  device = "nextcloud";
   #  fsType = "zfs";

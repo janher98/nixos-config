@@ -11,7 +11,15 @@
 
   # Bootloader.
   boot.loader = {
-    systemd-boot.enable = true;
+    grub = {
+      enable = true;
+      zfsSupport = true;
+      efiSupport = true;
+      efiInstallAsRemovable = true;
+      mirroredBoots = [
+        { devices = [ "nodev"]; path = "/boot"; }
+      ];
+    };
     efi.canTouchEfiVariables = true;
   };
   #networking.hostName = "server"; # Define your hostname.
@@ -22,6 +30,10 @@
   #  wget
     qemu
   ];
+  services.zfs = {
+    autoScrub.enable = true;
+    trim.enable = true;
+  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
