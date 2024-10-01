@@ -14,10 +14,12 @@ sudo mkswap -L swap /dev/nvme0n1p3
 ```
 ### Zpools
 ```bash
+sudo zpool import rpool
+sudo zpool destroy rpool
 sudo zpool create -O mountpoint=none -O xattr=sa -O acltype=posixacl -o ashift=12 rpool /dev/nvme0n1p2
 sudo zfs create -p -o mountpoint=legacy rpool/local/root
 sudo zfs snapshot rpool/local/root@blank
-sudo zfs create -p -o mountpoint=legacy rpool/local/nixos
+sudo zfs create -p -o mountpoint=legacy rpool/local/nix
 sudo zfs create -p -o mountpoint=legacy rpool/safe/home
 sudo zfs create -p -o mountpoint=legacy rpool/safe/persist
 ```
