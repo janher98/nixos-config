@@ -28,9 +28,9 @@ sudo swapon /dev/nvme0n1p3
 sudo mount -t zfs rpool/local/root /mnt
 sudo mkdir -p /mnt/boot /mnt/nix /mnt/home /mnt/persist
 sudo mount /dev/disk/by-label/boot /mnt/boot
-mount -t zfs rpool/local/nix /mnt/nix
-mount -t zfs rpool/safe/home /mnt/home
-mount -t zfs rpool/safe/persist /mnt/persist
+sudo mount -t zfs rpool/local/nix /mnt/nix
+sudo mount -t zfs rpool/safe/home /mnt/home
+sudo mount -t zfs rpool/safe/persist /mnt/persist
 ```
 ### Installing
 ```bash
