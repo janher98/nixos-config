@@ -12,18 +12,9 @@
     initrd = {
       availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usbhid" "usb_storage" "sd_mod" ];
       kernelModules = [ ];
-      postDeviceCommands = lib.mkAfter ''
-        zfs rollback -r rpool/local/root@blank
-      '';
-      #network = {
-      #  enable = true;
-      #  ssh = {
-      #    enable = true;
-      #    port = 2222;
-      #    hostKeys = [ /path/to/ssh_host_rsa_key ];
-      #    authorizedKeys = [ "ssh-rsa AAAA..." ];
-      #  };
-      #};
+      #postDeviceCommands = lib.mkAfter ''
+      #  zfs rollback -r rpool/local/root@blank
+      #'';
     };
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
@@ -35,7 +26,7 @@
   };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/2907-CE57";
+    { device = "/dev/disk/by-uuid/DB20-85CF";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022"];
     };
