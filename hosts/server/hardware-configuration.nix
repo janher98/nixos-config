@@ -51,7 +51,7 @@
       fsType = "zfs";
     };
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/657d1138-1036-4c8c-b71d-5f5bbc1e5fcf"; }
+    [ { device = "/dev/disk/by-uuid/35d37062-0e00-41e6-ad7f-642bbfe21794"; }
     ];
   #  fileSystems."/mnt/nextcloud" = {
   #  device = "nextcloud";
