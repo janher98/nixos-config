@@ -26,12 +26,13 @@ with lib;
     };
 
     services = {
+      libinput.enable = true;
       xserver = {
         enable = true;
-
-        layout = "de";
-        xkbOptions = "eurosign:e";
-        libinput.enable = true;
+        xkb = {
+          layout = "de";
+          options = "eurosign:e";
+        };
         modules = [ pkgs.xf86_input_wacom ];
         wacom.enable = true;
 
@@ -39,20 +40,19 @@ with lib;
         desktopManager.gnome.enable = true;             # Desktop Environment
       };
       udev.packages = with pkgs; [
-        gnome.gnome-settings-daemon
+        gnome-settings-daemon
       ];
     };
 
     environment = {
       systemPackages = with pkgs; [                     # System-Wide Packages
-        gnome.adwaita-icon-theme
-        gnome.dconf-editor
-        gnome.gnome-tweaks
+        adwaita-icon-theme
+        dconf-editor
+        gnome-tweaks
       ];
       gnome.excludePackages = (with pkgs; [             # Ignored Packages
         gnome-tour
         gedit
-      ]) ++ (with pkgs.gnome; [
         atomix
         epiphany
         geary
@@ -99,17 +99,14 @@ with lib;
             "horizontal-workspace-indicator@tty2.io"
             "bluetooth-quick-connect@bjarosze.gmail.com"
             "battery-indicator@jgotti.org"
-            "gsconnect@andyholmes.github.io"
             "pip-on-top@rafostar.github.com"
             "forge@jmmaranan.com"
-            # "dash-to-dock@micxgx.gmail.com"           # Alternative Dash-to-Panel
-            # "fullscreen-avoider@noobsai.github.com"   # Dash-to-Panel Incompatable
           ];
         };
 #
         "org/gnome/desktop/interface" = {
           color-scheme = "prefer-light";
-          enable-hot-corners = false;
+          enable-hot-corners = true;
           clock-show-weekday = true;
           # gtk-theme = "adwaita-dark";
         };

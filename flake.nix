@@ -1,9 +1,9 @@
 {
   description = "A very basic flake";
-  
+
   inputs = {
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable"; 
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
@@ -34,29 +34,29 @@
     };
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, nixvim, nixgl, hyprland, grub2-themes, ...}: 
-    let 
+  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, nixvim, nixgl, hyprland, grub2-themes, ...}:
+    let
       vars = {                                                              # Variables Used In Flake
-        user = "jan";
+        user = "asr";
         location = "$HOME/.setup";
         terminal = "kitty";
         editor = "nvim";
       };
-    in 
+    in
     {
       nixosConfigurations = (                                               # NixOS Configurations
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs nixpkgs-stable nixos-hardware home-manager nixvim hyprland vars grub2-themes; 
+          inherit inputs nixpkgs nixpkgs-stable nixos-hardware home-manager nixvim hyprland vars grub2-themes;
         }
       );
-        
+
       homeConfigurations = (                                                # Nix Configurations
         import ./nix {
           inherit (nixpkgs) lib;
           inherit inputs nixpkgs nixpkgs-stable home-manager nixvim vars;
         }
       );
-      
+
     };
 }

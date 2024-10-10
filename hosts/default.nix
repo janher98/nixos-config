@@ -1,8 +1,8 @@
 { lib, inputs, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, nixvim, hyprland, vars, grub2-themes, ... }:
 
-let 
+let
   system = "x86_64-linux";
-     
+
   pkgs = import nixpkgs {
     inherit system;
     config.allowUnfree = true;
@@ -14,12 +14,12 @@ let
   };
 
   lib = nixpkgs.lib;
-in 
+in
 {
   framework = lib.nixosSystem {
     inherit system;
-    specialArgs = { 
-      inherit inputs system stable hyprland vars; 
+    specialArgs = {
+      inherit inputs system stable hyprland vars;
       host = {
         hostName = "framework";
         mainMonitor = "eDP-1";
@@ -27,7 +27,7 @@ in
         thirdMonitor = "DP-9";
       };
     };
-    modules = [ 
+    modules = [
       ./configuration.nix
       ./framework
       nixos-hardware.nixosModules.framework-13-7040-amd
@@ -46,13 +46,13 @@ in
   };
   server = lib.nixosSystem {
     inherit system;
-    specialArgs = { 
-      inherit inputs system stable hyprland vars; 
+    specialArgs = {
+      inherit inputs system stable hyprland vars;
       host = {
         hostName = "server";
       };
     };
-    modules = [ 
+    modules = [
       ./configuration.nix
       ./server
       nixvim.nixosModules.nixvim
@@ -67,16 +67,39 @@ in
       }
     ];
   };
+  nuc = lib.nixosSystem {
+    inherit system;
+    specialArgs = {
+      inherit inputs system stable hyprland vars;
+      host = {
+        hostName = "nuc";
+      };
+    };
+    modules = [
+      ./configuration.nix
+      ./nuc
+      nixvim.nixosModules.nixvim
+      home-manager.nixosModules.home-manager {
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+        #  users.${vars.user} = {
+        #    imports = [ ./home.nix ];
+        #  };
+        };
+      }
+    ];
+  };
   vm = lib.nixosSystem {
     inherit system;
-    specialArgs = { 
-      inherit inputs system stable hyprland vars; 
+    specialArgs = {
+      inherit inputs system stable hyprland vars;
       host = {
         hostName = "nixos-vm";
       };
     };
-    modules = [ 
-      ./configuration.nix 
+    modules = [
+      ./configuration.nix
       ./vm
       home-manager.nixosModules.home-manager {
         home-manager = {
