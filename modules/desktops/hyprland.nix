@@ -70,7 +70,6 @@ with host;
         #swayidle        # Idle Daemon
         #swaylock        # Lock Screen
         hyprcursor
-        hyprpaper
         wl-clipboard    # Clipboard
         wlr-randr       # Monitor Settings
         xwayland # X session
@@ -80,7 +79,7 @@ with host;
         bash
       ];
     };
-    
+
     programs.regreet = {
       enable = false;
       settings = {
@@ -143,7 +142,7 @@ with host;
       trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
     };                                        # Cachei
 
-    home-manager.users.${vars.user} = 
+    home-manager.users.${vars.user} =
       let
         lid = "LID";
         lockScript = pkgs.writeShellScript "lock-script" ''
@@ -232,20 +231,11 @@ with host;
             ];
           };
         };
-        services.hyprpaper = {
-          enable = false;
-          settings = {
-            ipc = true;
-            splash = false;
-            preload = "$HOME/.config/wall.png";
-            wallpaper = ",$HOME/.config/wall.png";
-          };
-        };
         wayland.windowManager.hyprland = with colors.scheme.catppuccin_latte; {
           enable = true;
           package = hyprland.packages.${pkgs.system}.hyprland;
           xwayland.enable = true;
-          settings = { 
+          settings = {
             general = {
               border_size = 3;
               gaps_in = 2;
@@ -275,7 +265,7 @@ with host;
                 "${toString thirdMonitor},2560x1440@60,4064x0,1"
                 #${toString secondMonitor},2560x1440@60,0x0,1"
                 #${toString thirdMonitor},2560x1440@60,2560x0,1"
-              ] else [ 
+              ] else [
                 "${toString mainMonitor},1920x1200@60,0x0,1"
               ]);
             workspace =
@@ -310,7 +300,7 @@ with host;
                   "workspaces, 1, 4, default"
                   "borderangle, 1, 20, rotate, loop"
                 ];
-              }; 
+              };
 
               input = {
                 kb_layout = "de";
@@ -326,7 +316,7 @@ with host;
                       middle_button_emulation=true;
                       tap-to-click=true;
                   } else { };
-                
+
               };
             gestures =
               if hostName == "framework" then {
@@ -379,12 +369,12 @@ with host;
               "SUPER,right,movefocus,r"
               "SUPER,up,movefocus,u"
               "SUPER,down,movefocus,d"
-        
+
               "SUPERSHIFT,left,movewindow,l"
               "SUPERSHIFT,right,movewindow,r"
               "SUPERSHIFT,up,movewindow,u"
               "SUPERSHIFT,down,movewindow,d"
-              
+
               "ALT,1,workspace,1"
               "ALT,2,workspace,2"
               "ALT,3,workspace,3"
@@ -492,10 +482,10 @@ with host;
           '';
           executable = true;
         };
-#        ".config/hypr/script/swww.sh" = {
-#          source = ../../config/hypr/scripts/swww.sh;
-#          executable = true;
-#        };
+        ".config/hypr/script/swww.sh" = {
+          source = ../../config/hypr/scripts/swww.sh;
+          executable = true;
+        };
       };
     };
   };

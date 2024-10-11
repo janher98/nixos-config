@@ -21,8 +21,8 @@
     };
     #efi.canTouchEfiVariables = true;
   };
-  #networking.hostName = "server"; # Define your hostname.
   gnome.enable = true;
+  #hyprland.enable = true;
 
   hardware.graphics.enable = true; # when using QEMU KVM
   environment.systemPackages = with pkgs; [

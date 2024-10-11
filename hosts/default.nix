@@ -73,6 +73,7 @@ in
       inherit inputs system stable hyprland vars;
       host = {
         hostName = "nuc";
+        #mainMonitor = "HDMI-A-1";
       };
     };
     modules = [

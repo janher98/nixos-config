@@ -12,9 +12,9 @@
     initrd = {
       availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usbhid" "usb_storage" "sd_mod" ];
       kernelModules = [ ];
-      #postDeviceCommands = lib.mkAfter ''
-      #  zfs rollback -r rpool/local/root@blank
-      #'';
+      postDeviceCommands = lib.mkAfter ''
+        zfs rollback -r rpool/local/root@blank
+      '';
     };
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
@@ -50,29 +50,7 @@
     { device = "rpool/safe/persist";
       fsType = "zfs";
     };
-#  swapDevices =
-#    [ { device = "/dev/disk/by-uuid/35d37062-0e00-41e6-ad7f-642bbfe21794"; }
-#    ];
-  #  fileSystems."/mnt/nextcloud" = {
-  #  device = "nextcloud";
-  #  fsType = "zfs";
-  #};
-  #fileSystems."/mnt/backup" = {
-  #  device = "Backup_data";
-  #  fsType = "zfs";
-  #};
-  #
-  #fileSystems."/mnt/NAS" = {
-  #  device = "NAS_data";
-  #  fsType = "zfs";
-  #};
 
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networkings
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  # networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp2s0.useDHCP = lib.mkDefault true;
   networking = with host; {
     hostName = hostName;
     hostId = "3da9ba0f";

@@ -16,18 +16,18 @@ let
     ];
   modules-left = with config.programs;
     if hyprland.enable == true then [
-      "custom/menu" 
-      "cpu" 
-      "temperature" 
-      "memory" 
-      #"disk" 
+      "custom/menu"
+      "cpu"
+      "temperature"
+      "memory"
+      #"disk"
       #"custom/weather"
     ] else if sway.enable == true then [
       "sway/workspaces" "sway/window" "sway/mode"
     ] else [];
 
-  modules-center = [ 
-    "hyprland/workspaces" 
+  modules-center = [
+    "hyprland/workspaces"
     #"clock"
     #"custom/cycle_wall"
     #"custom/lock";
@@ -35,21 +35,22 @@ let
 
   modules-right =
     if hostName == "framework" then [
-      #"cpu" "memory" "custom/pad" 
+      #"cpu" "memory" "custom/pad"
       "tray"
       #"network"
-      "battery" 
-      #"custom/pad" 
-      "backlight" 
-      #"custom/pad" 
-      "pulseaudio" 
+      #"bluetooth"
+      "battery"
+      #"custom/pad"
+      "backlight"
+      #"custom/pad"
+      "pulseaudio"
       #"pulseaudio#microphone"
-      #"custom/pad" 
-      "clock" 
+      #"custom/pad"
+      "clock"
       #"tray"
       #"custom/power"
     ] else [
-      "cpu" "memory" "custom/pad" "battery" "custom/pad" "backlight" "custom/pad" "pulseaudio" "custom/pad" "clock" "tray"
+       "tray" "battery" "bluetooth" "network" "backlight" "pulseaudio" "clock"
     ];
 
   sinkBuiltIn="Built-in Audio Analog Stereo";
@@ -74,7 +75,7 @@ in
         };
 
         style = ''
-          /*Cattppuccin latte theme*/ 
+          /*Cattppuccin latte theme*/
 
           @define-color base   #eff1f5;
           @define-color mantle #e6e9ef;
@@ -130,7 +131,7 @@ in
           window#waybar.hidden {
               opacity: 0.5;
           }
-            
+
           tooltip {
               background: rgba(0, 0, 0, 0.6);
               border-radius: 10px;
@@ -160,7 +161,7 @@ in
               background-color: @surface0;
               border: 1px solid @text;
               border-radius: 10px;
-            
+
           }
 
           #workspaces button {
@@ -168,21 +169,21 @@ in
               color: @lavender;
               margin-right: 5px;
           }
-            
+
           #workspaces button.active {
               color: @teal;
               border-radius: 15px 15px 15px 15px;
           }
-            
+
           #workspaces button.focused {
               color: @lavender;
           }
-            
+
           #workspaces button.urgent {
               color: #11111b;
               border-radius: 10px;
           }
-                
+
           #workspaces button:hover {
               color: @lavender;
               border-radius: 15px;
@@ -191,6 +192,7 @@ in
           #clock,
           #battery,
           #cpu,
+          #bluetooth,
           #memory,
           #disk,
           #temperature,
@@ -204,7 +206,6 @@ in
           #window,
           #idle_inhibitor,
           #mpd,
-          #bluetooth,
           #taskbar,
           #taskbar button,
           #workspaces,
@@ -213,21 +214,8 @@ in
           #custom-menu,
           #custom-cycle_wall,
           #custom-power,
-          #custom-spotify,
-          #custom-weather,
-          #custom-power,
           #custom-lock,
           #custom-sink
-          #custom-weather.severe,
-          #custom-weather.sunnyDay,
-          #custom-weather.clearNight,
-          #custom-weather.cloudyFoggyDay,
-          #custom-weather.cloudyFoggyNight,
-          #custom-weather.rainyDay,
-          #custom-weather.rainyNight,
-          #custom-weather.showyIcyDay,
-          #custom-weather.snowyIcyNight,
-          #custom-weather.default, 
           #idle_inhibitor {
             color:  @text;
             padding: 0px 10px;
@@ -237,7 +225,7 @@ in
           #clock {
               color: @blue;
             }
-          
+
           #network {
               color: @red;
           }
@@ -254,9 +242,12 @@ in
               color: @yellow;
             }
 
+          #bluetooth {
+            color: @blue;
+          }
           #pulseaudio {
               color: @mauve;
-          } 
+          }
 
           #cpu {
               color: @peach;
@@ -365,7 +356,7 @@ in
             modules-right = modules-right;
 
             "custom/pad" = {
-              format = "      ";
+              format = " ";
               tooltip = false;
             };
             "custom/menu" = {
@@ -433,6 +424,7 @@ in
                 warning = 30;
                 critical = 15;
               };
+              format-icons = ["" "" "" "" ""];
               format = "{icon} {capacity}%";
               format-charging = " {capacity}%";
               format-plugged = " {capacity}%";
@@ -441,20 +433,20 @@ in
               format-time = "{H}h {M}min";
               tooltip = true;
               tooltip-format = "{timeTo} {power}w";
-              format-icons = ["" "" "" "" ""];
               #max-length = 25;
             };
             bluetooth = {
-                format = "";
-                format-disabled = "";
-                format-connected = " {num_connections}";
+                format-on = "󰂯";
+                format-off="󰂲";
+                format-connected = "󰂯 {num_connections}";
+                on-click = "blueman-manager";
                 tooltip-format = " {device_alias}";
                 tooltip-format-connected ="{device_enumerate}";
                 tooltip-format-enumerate-connected = " {device_alias}";
               };
             clock = {
-              format = "{:%H:%M %p}";
-              #format = "{%H:%M}";
+              #format = "{:%H:%M %p}";
+              format = "{:%H:%M}";
               tooltip = false;
               tooltip-format = "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>";
               on-click = "${pkgs.eww}/bin/eww open --toggle calendar --screen 0";
@@ -478,10 +470,12 @@ in
               on-click-right = "foot --title btop sh -c 'btop'";
             };
             network = {
-              format-wifi = "";
+              format-icons = ["󰤯" "󰤯" "󰤟" "󰤢" "󰤨"];
+              format-wifi = "{icon}";
               format-ethernet = "󰈀";
               format-linked = "󱘖 {ifname} (No IP)";
-              format-disconnected = "";
+              format-disconnected = "󰤮";
+              on-click = "nm-connection-editor";
               tooltip-format-wifi = "{essid} ({signalStrength}%) {ipaddr}/{cidr}";
               tooltip-format-ethernet = "{ifname} 󰈁";
               tooltip-format-disconnected = "󰈂 Disconnected";
@@ -517,33 +511,6 @@ in
               format = "{temperatureC}°C {icon}";
               format-icons = "󰈸";
             };
-            "custom/cycle_wall" = {
-              format = " ";
-              tooltip = true;
-              tooltip-format = "Change wallpaper";
-              on-click = "$HOME/.config/waybar/scripts/Wallpaper.sh";
-
-            };
-            "custom/power" = {
-              format = "  ";
-              tooltip = false;
-              #on-click = "sh -c '(sleep 0.5s; wlogout --protocol layer-shell)' & disown";
-              #on-click = "$HOME/.config/hypr/scripts/WofiPower.sh";
-              #on-click-right = "$HOME//.config/hypr/scripts/ChangeBlur.sh";
-            };
-              
-            "custom/weather" = {
-              format = "{}";
-              format-alt = "{alt}: {}";
-              format-alt-click = "click";
-              interval = 360;
-              return-type = "json";
-              exec = "$HOME/.config/waybar/scripts/Weather.sh";
-              #"exec = "$HOME//.config/hypr/scripts/Weather.py";
-              exec-if = "ping wttr.in -c1";
-              tooltip = true;
-            };
-
             "custom/sink" = {
               format = "{}";
               exec = "$HOME/.config/waybar/scripts/sink.sh";
@@ -592,10 +559,6 @@ in
             fi
             exit 0
           '';
-          executable = true;
-        };
-        ".config/waybar/scripts/Weather.sh" = {
-          source = ../../config/hypr/scripts/Weather.sh;
           executable = true;
         };
       };
