@@ -12,19 +12,20 @@
   boot.loader = {
     grub = {
       enable = true;
-      zfsSupport = true;
       efiSupport = true;
       efiInstallAsRemovable = true;
       mirroredBoots = [
         { devices = [ "nodev"]; path = "/boot"; }
       ];
     };
-    #efi.canTouchEfiVariables = true;
+   # efi.canTouchEfiVariables = true;
+   # efi.SysMountPoint = "/boot/efi";
+
   };
   gnome.enable = true;
   #hyprland.enable = true;
 
-  hardware.graphics.enable = true; # when using QEMU KVM
+  #hardware.graphics.enable = true; # when using QEMU KVM
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
@@ -36,10 +37,6 @@
       enable = true;
       defaultWindowManager = "gnome-session";
       openFirewall = true;
-    };
-    zfs = {
-      autoScrub.enable = true;
-      trim.enable = true;
     };
   };
   # List services that you want to enable:

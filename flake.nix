@@ -37,7 +37,7 @@
   outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, nixvim, nixgl, hyprland, grub2-themes, ...}:
     let
       vars = {                                                              # Variables Used In Flake
-        user = "asr";
+        user = "jan";
         location = "$HOME/.setup";
         terminal = "kitty";
         editor = "nvim";

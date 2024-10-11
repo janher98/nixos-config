@@ -12,48 +12,93 @@
     initrd = {
       availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usbhid" "usb_storage" "sd_mod" ];
       kernelModules = [ ];
-      postDeviceCommands = lib.mkAfter ''
-        zfs rollback -r rpool/local/root@blank
+      postDeviceCommands = pkgs.lib.mkBefore ''
+        mkdir -p /mnt
+
+        # We first mount the btrfs root to /mnt
+        # so we can manipulate btrfs subvolumes.
+        mount -o subvol=/ /dev/mapper/enc /mnt
+
+        # While we're tempted to just delete /root and create
+        # a new snapshot from /root-blank, /root is already
+        # populated at this point with a number of subvolumes,
+        # which makes `btrfs subvolume delete` fail.
+        # So, we remove them first.
+        #
+        # /root contains subvolumes:
+        # - /root/var/lib/portables
+        # - /root/var/lib/machines
+        #
+        # I suspect these are related to systemd-nspawn, but
+        # since I don't use it I'm not 100% sure.
+        # Anyhow, deleting these subvolumes hasn't resulted
+        # in any issues so far, except for fairly
+        # benign-looking errors from systemd-tmpfiles.
+        btrfs subvolume list -o /mnt/root |
+        cut -f9 -d' ' |
+        while read subvolume; do
+          echo "deleting /$subvolume subvolume..."
+          btrfs subvolume delete "/mnt/$subvolume"
+        done &&
+        echo "deleting /root subvolume..." &&
+        btrfs subvolume delete /mnt/root
+
+        echo "restoring blank /root subvolume..."
+        btrfs subvolume snapshot /mnt/root-blank /mnt/root
+
+        # Once we're done rolling back to a blank snapshot,
+        # we can unmount /mnt and continue on the boot process.
+        umount /mnt
       '';
     };
-    kernelModules = [ "kvm-amd" ];
+    kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
-    supportedFilesystems = [ "zfs" ];
-    zfs = {
-      forceImportRoot = false;
-      #extraPools = [ "nextcloud" "NAS_data" "Backup_data"];
-    };
+    supportedFilesystems = [ "btrfs" ];
   };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/3A31-3202";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022"];
-    };
-
   fileSystems."/" =
-    { device = "rpool/local/root";
-      fsType = "zfs";
-    };
-
-  fileSystems."/nix" =
-    { device = "rpool/local/nix";
-      fsType = "zfs";
+    { device = "/dev/disk/by-uuid/9fbd0b86-b498-4a44-b3bb-87936ede4640";
+      fsType = "btrfs";
+      options = [ "subvol=root" ];
     };
 
   fileSystems."/home" =
-    { device = "rpool/safe/home";
-      fsType = "zfs";
+    { device = "/dev/disk/by-uuid/9fbd0b86-b498-4a44-b3bb-87936ede4640";
+      fsType = "btrfs";
+      options = [ "subvol=home" ];
+    };
+
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/9fbd0b86-b498-4a44-b3bb-87936ede4640";
+      fsType = "btrfs";
+      options = [ "subvol=nix" ];
     };
 
   fileSystems."/persist" =
-    { device = "rpool/safe/persist";
-      fsType = "zfs";
+    { device = "/dev/disk/by-uuid/9fbd0b86-b498-4a44-b3bb-87936ede4640";
+      fsType = "btrfs";
+      options = [ "subvol=persist" ];
     };
+
+  fileSystems."/var/log" =
+    { device = "/dev/disk/by-uuid/9fbd0b86-b498-4a44-b3bb-87936ede4640";
+      fsType = "btrfs";
+      options = [ "subvol=log" ];
+      neededForBoot = true;
+    };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/BAD1-1838";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
+
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/0d2ec145-23d3-4f9c-ada8-a971906ee40c"; }
+    ];
 
   networking = with host; {
     hostName = hostName;
-    hostId = "3da9ba0f";
     networkmanager.enable = true;
     interfaces.enp86s0.ipv4 = {
       addresses = [
@@ -72,5 +117,5 @@
   # networking.interfaces.wlp3s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
