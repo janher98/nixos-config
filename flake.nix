@@ -32,9 +32,14 @@
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";
     };
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, nixvim, nixgl, hyprland, grub2-themes, ...}:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, nixvim, nixgl, hyprland, grub2-themes, disko, ...}:
     let
       vars = {                                                              # Variables Used In Flake
         user = "jan";
@@ -47,7 +52,7 @@
       nixosConfigurations = (                                               # NixOS Configurations
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs nixpkgs-stable nixos-hardware home-manager nixvim hyprland vars grub2-themes;
+          inherit inputs nixpkgs nixpkgs-stable nixos-hardware home-manager nixvim hyprland vars grub2-themes disko;
         }
       );
 

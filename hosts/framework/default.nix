@@ -10,7 +10,8 @@ let
   };
 in
 {
-  imports = [ ./hardware-configuration.nix ] ++
+  imports = [ ./hardware-configuration.nix 
+              ./disko.nix] ++
            ( import ../../modules/desktops/virtualisation );
 
   # Use the systemd-boot EFI boot loader.
@@ -25,7 +26,8 @@ in
       grub = {
         enable = true;
         efiSupport = true;
-        device = "nodev";
+        efiInstallAsRemovable = true;
+        #device = "nodev";
       }; 
       grub2-theme = {
        enable = true;
@@ -76,6 +78,9 @@ in
 #      thunderbird
       #fastfetch         # Neofetch replacement
     ]);
+    etc = {
+      "NetworkManager/system-connections".source = "/persist/etc/NetworkManager/system-connections";
+    };
   }; 
 
 
