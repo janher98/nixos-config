@@ -438,7 +438,7 @@ with host;
 
               exec-once = [
                 "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-                "${pkgs.hyprlock}/bin/hyprlock"
+              #"${pkgs.hyprlock}/bin/hyprlock"
                 "${pkgs.waybar}/bin/waybar"
                 "${pkgs.eww}/bin/eww daemon"
                 #"$HOME/.config/eww/scripts/eww"        # When running eww as a bar

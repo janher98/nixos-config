@@ -10,7 +10,7 @@ let
   };
 in
 {
-  imports = [ ./hardware-configuration.nix 
+  imports = [ ./hardware-configuration.nix
               ./disko.nix] ++
            ( import ../../modules/desktops/virtualisation );
 
@@ -19,16 +19,16 @@ in
     loader = {
       #systemd-boot.enable = true;
       efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
+        #canTouchEfiVariables = true;
+        #efiSysMountPoint = "/boot/efi";
       };
       timeout = 2;
       grub = {
         enable = true;
         efiSupport = true;
         efiInstallAsRemovable = true;
-        #device = "nodev";
-      }; 
+        device = "nodev";
+      };
       grub2-theme = {
        enable = true;
         theme = "tela";
@@ -55,21 +55,21 @@ in
       #gnome.seahorse
       libsecret
       #polkit
-      
+
       #texlive.combined.scheme-full
 
-      vscode 
+      vscode
       nextcloud-client
-      
+
       kitty
       dolphin
 
-      android-tools 
-      
+      android-tools
+
       #firefox-wayland           # Browser
       thunderbird
       anki-bin
-    ]++ 
+    ]
     (with stable; [
       # Apps
       vscode
@@ -81,8 +81,12 @@ in
     etc = {
       "NetworkManager/system-connections".source = "/persist/etc/NetworkManager/system-connections";
     };
-  }; 
-
+  };
+  systemd.tmpfiles.rules = [
+    "L /var/lib/NetworkManager/secret_key - - - - /persist/var/lib/NetworkManager/secret_key"
+    "L /var/lib/NetworkManager/seen-bssids - - - - /persist/var/lib/NetworkManager/seen-bssids"
+    "L /var/lib/NetworkManager/timestamps - - - - /persist/var/lib/NetworkManager/timestamps"
+  ];
 
 #  flatpak = {                                   # Flatpak Packages (see module options)
 #    extraPackages = [
@@ -92,7 +96,7 @@ in
 #    ];
 #  };
 #
-  flatpak.enable = true;                    # Enable Flatpak (see module options)  
+  flatpak.enable = true;                    # Enable Flatpak (see module options)
 
   services = {
     fwupd = {
@@ -123,4 +127,3 @@ in
     })
   ];
 }
-
