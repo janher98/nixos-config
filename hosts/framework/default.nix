@@ -17,23 +17,12 @@ in
   # Use the systemd-boot EFI boot loader.
   boot = {
     loader = {
-      #systemd-boot.enable = true;
+      systemd-boot.enable = true;
       efi = {
-        #canTouchEfiVariables = true;
+        canTouchEfiVariables = true;
         #efiSysMountPoint = "/boot/efi";
       };
       timeout = 2;
-      grub = {
-        enable = true;
-        efiSupport = true;
-        efiInstallAsRemovable = true;
-        device = "nodev";
-      };
-      grub2-theme = {
-       enable = true;
-        theme = "tela";
-        footer = true;
-      };
     };
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [ "module_blacklist=hid_sensor_hub" ];
@@ -64,15 +53,12 @@ in
       kitty
       dolphin
 
-      android-tools
 
       #firefox-wayland           # Browser
       thunderbird
       anki-bin
-    ]
-    (with stable; [
+    ] ++ (with stable; [
       # Apps
-      vscode
       discord
 #      firefox-wayland           # Browser
 #      thunderbird
@@ -82,11 +68,11 @@ in
       "NetworkManager/system-connections".source = "/persist/etc/NetworkManager/system-connections";
     };
   };
-  systemd.tmpfiles.rules = [
-    "L /var/lib/NetworkManager/secret_key - - - - /persist/var/lib/NetworkManager/secret_key"
-    "L /var/lib/NetworkManager/seen-bssids - - - - /persist/var/lib/NetworkManager/seen-bssids"
-    "L /var/lib/NetworkManager/timestamps - - - - /persist/var/lib/NetworkManager/timestamps"
-  ];
+  #systemd.tmpfiles.rules = [
+  #  "L /var/lib/NetworkManager/secret_key - - - - /persist/var/lib/NetworkManager/secret_key"
+  #  "L /var/lib/NetworkManager/seen-bssids - - - - /persist/var/lib/NetworkManager/seen-bssids"
+  #  "L /var/lib/NetworkManager/timestamps - - - - /persist/var/lib/NetworkManager/timestamps"
+  #];
 
 #  flatpak = {                                   # Flatpak Packages (see module options)
 #    extraPackages = [
