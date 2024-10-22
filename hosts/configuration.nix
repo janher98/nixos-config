@@ -62,7 +62,7 @@
   users.users.${vars.user} = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "audio" "camera" "dialout" ]; # Enable ‘sudo’ for the user.
-    passwordFile = "/persist/passwords/${vars.user}";
+    hashedPasswordFile = "/persist/passwords/${vars.user}";
   };
   users.mutableUsers = false;
 
