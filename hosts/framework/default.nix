@@ -17,7 +17,7 @@ in
   # Use the systemd-boot EFI boot loader.
   boot = {
     loader = {
-      systemd-boot.enable = true;
+      #systemd-boot.enable = true;
       efi = {
         canTouchEfiVariables = true;
         #efiSysMountPoint = "/boot/efi";
@@ -26,6 +26,10 @@ in
     };
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [ "module_blacklist=hid_sensor_hub" ];
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/etc/secureboot";
+    };
   };
 
 
@@ -37,22 +41,23 @@ in
 
   environment = {
     systemPackages = with pkgs; [               # System-Wide Packages
-      #fwupd
+      fwupd
       spotify
 
       #gnome.gnome-keyring
       #gnome.seahorse
       libsecret
       #polkit
-
+      sbctl
       #texlive.combined.scheme-full
 
       vscode
       nextcloud-client
 
       kitty
-      dolphin
+      nautilus
 
+      prismlauncher
 
       #firefox-wayland           # Browser
       thunderbird
@@ -64,15 +69,7 @@ in
 #      thunderbird
       #fastfetch         # Neofetch replacement
     ]);
-    etc = {
-      "NetworkManager/system-connections".source = "/persist/etc/NetworkManager/system-connections";
-    };
   };
-  #systemd.tmpfiles.rules = [
-  #  "L /var/lib/NetworkManager/secret_key - - - - /persist/var/lib/NetworkManager/secret_key"
-  #  "L /var/lib/NetworkManager/seen-bssids - - - - /persist/var/lib/NetworkManager/seen-bssids"
-  #  "L /var/lib/NetworkManager/timestamps - - - - /persist/var/lib/NetworkManager/timestamps"
-  #];
 
 #  flatpak = {                                   # Flatpak Packages (see module options)
 #    extraPackages = [

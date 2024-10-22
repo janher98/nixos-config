@@ -1,15 +1,7 @@
+{pkgs, ...}:
 {
   # For impermanence
-  boot.initrd.systemd.services.rollback = {
-    description = "Rollback BTRFS root subvolume to a pristine state";
-    unitConfig.DefaultDependencies = "no";
-    serviceConfig.Type = "oneshot";
-    wantedBy = [ "initrd.target" ];
-    after = [ "systemd-cryptsetup@crypted.service" ];
-    before = [ "sysroot.mount" ];
-
-    script = ''
-#      vgchange -ay pool
+  boot.initrd.postDeviceCommands = pkgs.lib.mkBefore ''
         mkdir -p /btrfs_tmp
         mount /dev/pool/root /btrfs_tmp
 
@@ -34,13 +26,12 @@
       btrfs subvolume create /btrfs_tmp/root
       umount /btrfs_tmp
     '';
-  };
 
-  #fileSystems = {
-  #  "/persist" = {
-  #    neededForBoot = true;
-  #  };
-  #};
+  fileSystems = {
+    "/persist" = {
+      neededForBoot = true;
+    };
+  };
 
   disko.devices = {
     disk = {

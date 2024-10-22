@@ -225,7 +225,7 @@ with host;
                 on-timeout = "${lockScript.outPath} lock";
               }
               {
-                timeout = 2700;
+                timeout = 1800;
                 on-timeout = "${lockScript.outPath} suspend";
               }
             ];

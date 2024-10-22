@@ -29,17 +29,21 @@
         url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       };
 
-    grub2-themes = {
-      url = "github:vinceliuice/grub2-themes";
+    impermanence = {
+      url = "github:nix-community/impermanence";
     };
 
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, nixvim, nixgl, hyprland, grub2-themes, disko, ...}:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, nixvim, nixgl, hyprland, impermanence, disko, lanzaboote, ...}:
     let
       vars = {                                                              # Variables Used In Flake
         user = "jan";
@@ -52,7 +56,7 @@
       nixosConfigurations = (                                               # NixOS Configurations
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs nixpkgs-stable nixos-hardware home-manager nixvim hyprland vars grub2-themes disko;
+          inherit inputs nixpkgs nixpkgs-stable nixos-hardware home-manager nixvim hyprland vars impermanence disko lanzaboote;
         }
       );
 

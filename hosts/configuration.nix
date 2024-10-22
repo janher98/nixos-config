@@ -28,13 +28,13 @@
     #  LC_TELEPHONE = "de_DE.UTF-8";
       LC_MONETARY = "de_DE.UTF-8";
     };
-  };  
+  };
   console = {
     font = "Lat2-Terminus16";
     keyMap = "de";
   #   useXkbConfig = true; # use xkbOptions in tty.
   };
-  
+
   security = {
     polkit.enable = true; #to enable sway
     sudo.wheelNeedsPassword =  false;
@@ -53,7 +53,7 @@
       ];
     })
   ];
-  
+
   # Enable sound.
   # sound.enable = true;
   # hardware.pulseaudio.enable = true;
@@ -62,7 +62,9 @@
   users.users.${vars.user} = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "audio" "camera" "dialout" ]; # Enable ‘sudo’ for the user.
+    passwordFile = "/persist/passwords/${vars.user}";
   };
+  users.mutableUsers = false;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -87,7 +89,7 @@
       wget              # Retriever
       lshw
       imagemagick
-      
+
 
       # Video/Audio
       alsa-utils        # Audio Control
@@ -117,11 +119,28 @@
         # Apps
         #firefox-wayland           # Browser
       ]);
+    persistence."/persist" = {
+      enable = true;  # NB: Defaults to true, not needed
+      hideMounts = true;
+      directories = [
+        "/var/log"
+        "/var/lib/bluetooth"
+        "/var/lib/nixos"
+        "/var/lib/systemd/coredump"
+        "/etc/NetworkManager/system-connections"
+        "/etc/secureboot"
+        { directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o="; }
+      ];
+      files = [
+        "/etc/machine-id"
+        { file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
+      ];
+    };
   };
 #              nixpkgs.config.permittedInsecurePackages = [
 #                "electron-19.1.9"
 #              ];
-  
+
   programs = {
     dconf.enable = true;
   };
@@ -174,4 +193,3 @@
     };
   };
 }
-
