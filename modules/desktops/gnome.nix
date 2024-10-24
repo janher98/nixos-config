@@ -71,19 +71,9 @@ with lib;
         "org/gnome/shell" = {
           favorite-apps = [
             "org.gnome.settings.desktop"
-            "alacritty.desktop"
+            "kitty.desktop"
             "firefox.desktop"
-            "emacs.desktop"
             "org.gnome.nautilus.desktop"
-            "com.obsproject.studio.desktop"
-            "plexmediaplayer.desktop"
-            "smartcode-stremio.desktop"
-            "discord.desktop"
-            "steam.desktop"
-            "retroarch.desktop"
-            "com.parsecgaming.parsec.desktop"
-            "org.remmina.remmina.desktop"
-            "virt-manager.desktop"
             # "blueman-manager.desktop"
             # "pavucontrol.desktop"
           ];

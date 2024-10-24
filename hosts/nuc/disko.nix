@@ -1,4 +1,6 @@
+{pkgs, ...}:
 {
+
   fileSystems = {
     "/persist" = {
       neededForBoot = true;
@@ -36,17 +38,12 @@
               };
             };
 
-            luks = {
+            lvm = {
               size = "100%";
 
               content = {
-                type = "luks";
-                name = "crypted";
-
-                content = {
                   type = "lvm_pv";
                   vg   = "pool";
-                };
               };
             };
           };

@@ -5,18 +5,19 @@
 { config, pkgs, stable, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ] ++
+  imports = [ ./hardware-configuration.nix
+              ./disko.nix ] ++
            ( import ../../modules/desktops/virtualisation );
 
   # Bootloader.
-  boot.loader = {
-    grub = {
+  boot = {
+    loader = {
+      efi.canTouchEfiVariables = true;
+      timeout = 2;
+    };
+    lanzaboote = {
       enable = true;
-      efiSupport = true;
-      efiInstallAsRemovable = true;
-      mirroredBoots = [
-        { devices = [ "nodev"]; path = "/boot"; }
-      ];
+      pkiBundle = "/etc/secureboot";
     };
    # efi.canTouchEfiVariables = true;
    # efi.SysMountPoint = "/boot/efi";

@@ -58,6 +58,9 @@ in
       ./configuration.nix
       ./server
       nixvim.nixosModules.nixvim
+      impermanence.nixosModules.impermanence
+      disko.nixosModules.disko
+      lanzaboote.nixosModules.lanzaboote
       home-manager.nixosModules.home-manager {
         home-manager = {
           useGlobalPkgs = true;
@@ -82,6 +85,9 @@ in
       ./configuration.nix
       ./nuc
       nixvim.nixosModules.nixvim
+      impermanence.nixosModules.impermanence
+      disko.nixosModules.disko
+      lanzaboote.nixosModules.lanzaboote
       home-manager.nixosModules.home-manager {
         home-manager = {
           useGlobalPkgs = true;

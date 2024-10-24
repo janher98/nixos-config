@@ -110,6 +110,7 @@
       unrar             # Rar Files
       zip               # Zip
 
+      sbctl
       #(python3.withPackages(ps: with ps; [ pip dbus-python numpy ]))
       # Other Packages Found @
       # - ./<host>/default.nix

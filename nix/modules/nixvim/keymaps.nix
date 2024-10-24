@@ -40,25 +40,26 @@
       }
       # Move to window using the <ctrl> hjkl keys
       {
-        key = "<C>h";
+        mode = ["n"];
+        key = "<C-h>";
         action = "<C-w>h";
         options.desc = "Go to left window";
       }
       {
         mode = ["n"];
-        key = "<C>j";
+        key = "<C-j>";
         action = "<C-w>j";
         options.desc = "Go to lower window";
       }
       {
         mode = ["n"];
-        key = "<C>k";
+        key = "<C-k>";
         action = "<C-w>k";
         options.desc = "Go to upper window";
       }
       {
         mode = ["n"];
-        key = "<C>l";
+        key = "<C-l>";
         action = "<C-w>l";
         options.desc = "Go to right window";
       }
@@ -143,7 +144,13 @@
         action = "<cmd>e #<cr>";
         options.desc = "Switch to Other Buffer";
       }
-      # Clear search with <esc>
+      {
+        mode = ["n"];
+        key = "<leader>bd";
+        action = "<cmd>bd<cr>";
+        options.desc = "Close Current Buffer";
+      }
+      # Clear search with <escr
       {
         mode = ["n" "i"];
         key = "<esc>";
@@ -204,7 +211,7 @@
         action = "<cmd>copen<cr>";
         options.desc = "Quickfix List";
       }
-      # Terminal mappings 
+      # Terminal mappings
       {
         mode = ["t"];
         key = "<esc><esc>";

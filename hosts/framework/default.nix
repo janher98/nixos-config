@@ -48,7 +48,6 @@ in
       #gnome.seahorse
       libsecret
       #polkit
-      sbctl
       #texlive.combined.scheme-full
 
       vscode
