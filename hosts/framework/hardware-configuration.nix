@@ -22,6 +22,48 @@
     useDHCP = lib.mkDefault true;
     networkmanager.enable = true;  # Easiest to use and most distros use this by default.
     hostName = hostName; # Define your hostname.
+    firewall = {
+      allowedUDPPorts = [ 51820 ]; # Clients and peers can use the same port, see listenport
+    };
+    wireguard.interfaces = {
+    #wg-quick.interfaces = {
+    # "wg0" is the network interface name. You can name the interface arbitrarily.
+      wg0 = {
+        # Determines the IP address and subnet of the client's end of the tunnel interface.
+        #address = [ "192.168.234.24/24" "fe80::5a47:caff:fe72:24d/64"];
+        #dns = [ "192.168.234.8" "fe80::5a47:caff:fe72:24c"];
+        #ips = [ "192.168.234.24/24"];
+        ips = [ "10.100.0.2/24" ];
+
+        # Path to the private key file.
+        #
+        # Note: The private key can also be included inline via the privateKey option,
+        # but this makes the private key world-readable; thus, using privateKeyFile is
+        # recommended.
+        privateKeyFile = "/home/jan/wireguard-keys/private";
+        mtu = 1280;
+
+        peers = [
+          # For a client configuration, one peer entry for the server will suffice.
+
+          {
+            # Public key of the server (not a file path).
+            publicKey = "HU/RXRvLPyQyV6tj/BMesCacIi39kz4aHAaTXIDLXz0=";
+
+            # Forward all the traffic via VPN.
+            allowedIPs = [ "0.0.0.0/0" ];
+            # Or forward only particular subnets
+            #allowedIPs = [ "10.100.0.1" "91.108.12.0/22" ];
+
+            # Set this to the server IP and port.
+            endpoint = "torumon.duckdns.com:51820"; # ToDo: route to endpoint not automatically configured https://wiki.archlinux.org/index.php/WireGuard#Loop_routing https://discourse.nixos.org/t/solved-minimal-firewall-setup-for-wireguard-client/7577
+
+            # Send keepalives every 25 seconds. Important to keep NAT tables alive.
+            persistentKeepalive = 25;
+          }
+        ];
+      };
+    };
   };
   # networking.interfaces.wlp1s0.useDHCP = lib.mkDefault true;
 
