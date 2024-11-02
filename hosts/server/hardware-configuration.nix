@@ -49,6 +49,22 @@
   fileSystems."/persist" =
     { device = "rpool/safe/persist";
       fsType = "zfs";
+      neededForBoot = true;
+    };
+
+  fileSystems."/nextcloud" =
+    { device = "nextpool/data";
+      fsType = "zfs";
+    };
+
+  fileSystems."/backup" =
+    { device = "backpool/data";
+      fsType = "zfs";
+    };
+
+  fileSystems."/nasdata" =
+    { device = "naspool/data";
+      fsType = "zfs";
     };
   swapDevices =
     [ { device = "/dev/disk/by-uuid/35d37062-0e00-41e6-ad7f-642bbfe21794"; }

@@ -47,9 +47,9 @@
         dbuser = "nextcloud";
         dbhost = "/run/postgresql"; # nextcloud will add /.s.PGSQL.5432 by itself
         dbname = "nextcloud";
-        dbpassFile = "/var/nextcloud-db-pass";
+        dbpassFile = "/persist/nextcloud-db-pass";
 
-        adminpassFile = "/var/nextcloud-admin-pass";
+        adminpassFile = "/persist/nextcloud-admin-pass";
         adminuser = "admin";
       };
       #maxUploadSize = "1G"; # Adjust for max upload sizei

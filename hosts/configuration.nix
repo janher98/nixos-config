@@ -111,6 +111,7 @@
       zip               # Zip
 
       sbctl
+      wireguard-tools
       #(python3.withPackages(ps: with ps; [ pip dbus-python numpy ]))
       # Other Packages Found @
       # - ./<host>/default.nix
@@ -133,7 +134,7 @@
         { directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o="; }
       ];
       files = [
-        "/etc/machine-id"
+        #"/etc/machine-id"
         { file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
       ];
     };
