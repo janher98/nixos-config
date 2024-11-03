@@ -112,6 +112,7 @@
 
       sbctl
       wireguard-tools
+      nfs-utils
       #(python3.withPackages(ps: with ps; [ pip dbus-python numpy ]))
       # Other Packages Found @
       # - ./<host>/default.nix

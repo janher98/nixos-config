@@ -13,6 +13,11 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
+  fileSystems."/mnt/nasdata" = {
+    device = "192.168.234.8:/nasdata";
+    fsType = "nfs";
+    options = [ "x-systemd.automount" "noauto" "x-gvfs-show"];
+  };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
