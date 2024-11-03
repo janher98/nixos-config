@@ -15,6 +15,7 @@
            forceSSL = true;
            ## LetsEncrypt
            enableACME = true;
+           listenAddresses = ["192.168.234.8"];
         };
       };
     };
@@ -22,6 +23,7 @@
       enable = true;
       hostName = "somedomain.com";
       package = pkgs.nextcloud29;
+      home = "/nextcloud";
       # Enable built-in virtual host management
       # Takes care of somewhat complicated setup
       # See here: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/web-apps/nextcloud.nix#L529

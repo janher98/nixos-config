@@ -65,6 +65,7 @@
   fileSystems."/nasdata" =
     { device = "naspool/data";
       fsType = "zfs";
+      options = [ "bind" ];
     };
   swapDevices =
     [ { device = "/dev/disk/by-uuid/35d37062-0e00-41e6-ad7f-642bbfe21794"; }
@@ -99,10 +100,18 @@
           address = "192.168.234.8";
           prefixLength = 24;
         }
+        {
+          address = "192.168.234.10";
+          prefixLength = 24;
+        }
       ];
     };
     defaultGateway.address = "192.168.234.1";
-    firewall.allowedTCPPorts = [ 80 443 ];
+    firewall = {
+      enable = true;
+      allowPing = true;
+      allowedTCPPorts = [ 80 443 2049 4000 4001 4002 ];
+    };
     nameservers = [
       "1.1.1.1"
     ];

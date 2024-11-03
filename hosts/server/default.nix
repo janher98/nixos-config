@@ -30,6 +30,51 @@
   #  wget
     qemu
   ];
+  services = {
+    nfs.server = {
+      enable = true;
+      lockdPort = 4001; #following for nfv3, requiring fixed ports
+      mountdPort = 4002;
+      statdPort = 4000;
+      extraNfsdConfig = '''';
+      exports = ''
+        /nasdata 192.168.234.0/24(rw,nohide,insecure,no_subtree_check)
+      '';
+    };
+    samba = {
+      enable = true;
+      openFirewall = true;
+      settings = {
+        global = {
+        "workgroup" = "WORKGROUP";
+        "server string" = "smbnix";
+        "netbios name" = "smbnix";
+        "security" = "user";
+        #"use sendfile" = "yes";
+        #"max protocol" = "smb2";
+        # note: localhost is the ipv6 localhost ::1
+        "hosts allow" = "192.168.234. 127.0.0.1 localhost";
+        "hosts deny" = "0.0.0.0/0";
+        "guest account" = "nobody";
+        "map to guest" = "bad user";
+      };
+      "public" = {
+        "path" = "/nasdata";
+        "browseable" = "yes";
+        "read only" = "no";
+        "guest ok" = "yes";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+          #"force user" = "jan";
+          #"force group" = "jan";
+        };
+      };
+    };
+    samba-wsdd = {
+      enable = true;
+      openFirewall = true;
+    };
+  };
   #services.zfs = {
   #  autoScrub.enable = true;
   #  trim.enable = true;
