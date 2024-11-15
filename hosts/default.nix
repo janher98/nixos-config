@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, nixvim, hyprland, vars, impermanence, disko, lanzaboote, ... }:
+{ lib, inputs, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, nixvim, hyprland, vars, impermanence, disko, lanzaboote, nix-minecraft, ... }:
 
 let
   system = "x86_64-linux";
@@ -61,6 +61,7 @@ in
       impermanence.nixosModules.impermanence
       disko.nixosModules.disko
       lanzaboote.nixosModules.lanzaboote
+      nix-minecraft.nixosModules.minecraft-servers
       home-manager.nixosModules.home-manager {
         home-manager = {
           useGlobalPkgs = true;
