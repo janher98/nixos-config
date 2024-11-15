@@ -41,9 +41,13 @@
       url = "github:nix-community/lanzaboote/v0.4.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+    };
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, nixvim, nixgl, hyprland, impermanence, disko, lanzaboote, ...}:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, nixvim, nixgl, hyprland, impermanence, disko, lanzaboote, nix-minecraft, ...}:
     let
       vars = {                                                              # Variables Used In Flake
         user = "jan";
@@ -56,7 +60,7 @@
       nixosConfigurations = (                                               # NixOS Configurations
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs nixpkgs-stable nixos-hardware home-manager nixvim hyprland vars impermanence disko lanzaboote;
+          inherit inputs nixpkgs nixpkgs-stable nixos-hardware home-manager nixvim hyprland vars impermanence disko lanzaboote nix-minecraft;
         }
       );
 

@@ -12,7 +12,7 @@
     environment.systemPackages = with pkgs; [
     starship
     nitch
-  ]; 
+  ];
 
   programs = {
     zsh = {
@@ -28,15 +28,17 @@
       };
 
       shellInit = ''
-        # Spaceship
-        # source ${pkgs.spaceship-prompt}/share/zsh/site-functions/prompt_spaceship_setup
-        autoload -U promptinit; promptinit
-        
-        eval "$(starship init zsh)"
-        # Hook direnv
-        #emulate zsh -c "$(direnv hook zsh)"
-        nitch
-        #eval "$(direnv hook zsh)"
+        if [[ $- == *i* ]]; then
+          # Spaceship
+          # source ${pkgs.spaceship-prompt}/share/zsh/site-functions/prompt_spaceship_setup
+          autoload -U promptinit; promptinit
+
+          eval "$(starship init zsh)"
+          # Hook direnv
+          #emulate zsh -c "$(direnv hook zsh)"
+          nitch
+          #eval "$(direnv hook zsh)"
+        fi
       '';                                       # Theming
     };
   };

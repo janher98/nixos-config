@@ -3,11 +3,13 @@
     plugins = {
       auto-session = {
         enable = true;
-        autoRestore.enabled = false;
-        autoSave.enabled = true;
-        autoSession = {
+        #autoRestore.enabled = false;
+        #autoSave.enabled = true;
+        settings = {
           enabled = true;
-          createEnabled = true;
+          presets = true;
+          auto_restore = true;
+          auto_save = true;
         };
       };
     };

@@ -22,8 +22,8 @@
     nextcloud = {
       enable = true;
       hostName = "somedomain.com";
-      package = pkgs.nextcloud29;
-      home = "/nextcloud";
+      package = pkgs.nextcloud30;
+      home = "/nextcloud/nextcloud";
       # Enable built-in virtual host management
       # Takes care of somewhat complicated setup
       # See here: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/web-apps/nextcloud.nix#L529
@@ -47,7 +47,7 @@
         # Nextcloud PostegreSQL database configuration, recommended over using SQLite
         dbtype = "pgsql";
         dbuser = "nextcloud";
-        dbhost = "/run/postgresql"; # nextcloud will add /.s.PGSQL.5432 by itself
+        #dbhost = "/run/postgresql"; # nextcloud will add /.s.PGSQL.5432 by itself
         dbname = "nextcloud";
         dbpassFile = "/persist/nextcloud-db-pass";
 
@@ -58,7 +58,7 @@
     };
     postgresql = {
       enable = true;
-
+      dataDir = "/nextcloud/postgresql";
       # Ensure the database, user, and permissions always exist
       ensureDatabases = [ "nextcloud" ];
       ensureUsers = [

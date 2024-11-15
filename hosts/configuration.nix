@@ -61,7 +61,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${vars.user} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" "audio" "camera" "dialout" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" "video" "audio" "camera" "dialout" "nextcloud" "postgres" ]; # Enable ‘sudo’ for the user.
     hashedPasswordFile = "/persist/passwords/${vars.user}";
   };
   users.mutableUsers = false;
@@ -152,6 +152,7 @@
 #    printing.enable = true;         #CUPS
     openssh = {                             # SSH
       enable = true;
+      settings.PasswordAuthentication = true;
 #      allowSFTP = true;                     # SFTP
 #      extraConfig = ''
 #        HostKeyAlgorithms +ssh-rsa

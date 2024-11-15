@@ -19,6 +19,7 @@
       trim.enable = true;
       trouble.enable = true; #todo customize settings
       wtf.enable = true;
+      web-devicons.enable = true;
       which-key = {
         enable = true;
       };
