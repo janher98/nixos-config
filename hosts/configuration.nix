@@ -112,6 +112,7 @@
 
       sbctl
       wireguard-tools
+      traceroute
       nfs-utils
       #(python3.withPackages(ps: with ps; [ pip dbus-python numpy ]))
       # Other Packages Found @
@@ -130,12 +131,12 @@
         "/var/lib/bluetooth"
         "/var/lib/nixos"
         "/var/lib/systemd/coredump"
+        "/var/lib/flatpak/"
         "/etc/NetworkManager/system-connections"
         "/etc/secureboot"
         { directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o="; }
       ];
       files = [
-        #"/etc/machine-id"
         { file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
       ];
     };
