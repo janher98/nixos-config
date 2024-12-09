@@ -47,11 +47,12 @@
     source-code-pro
     font-awesome                            # Icons
     corefonts                               # MS
-    (nerdfonts.override {                   # Nerdfont Icons override
-      fonts = [
-        "FiraCode"
-      ];
-    })
+    nerd-fonts.fira-code
+    #(nerdfonts.override {                   # Nerdfont Icons override
+    #  fonts = [
+    #    "FiraCode"
+    #  ];
+    #})
   ];
 
   # Enable sound.

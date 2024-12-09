@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, nixvim, hyprland, vars, impermanence, disko, lanzaboote, nix-minecraft, ... }:
+{ lib, inputs, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, nixvim, vars, impermanence, disko, lanzaboote, nix-minecraft, ... }:
 
 let
   system = "x86_64-linux";
@@ -19,7 +19,7 @@ in
   framework = lib.nixosSystem {
     inherit system;
     specialArgs = {
-      inherit inputs system stable hyprland vars;
+      inherit inputs system stable vars;
       host = {
         hostName = "framework";
         mainMonitor = "eDP-1";
@@ -49,7 +49,7 @@ in
   server = lib.nixosSystem {
     inherit system;
     specialArgs = {
-      inherit inputs system stable hyprland vars;
+      inherit inputs system stable vars;
       host = {
         hostName = "server";
       };
@@ -76,7 +76,7 @@ in
   nuc = lib.nixosSystem {
     inherit system;
     specialArgs = {
-      inherit inputs system stable hyprland vars;
+      inherit inputs system stable vars;
       host = {
         hostName = "nuc";
         #mainMonitor = "HDMI-A-1";
@@ -103,7 +103,7 @@ in
   vm = lib.nixosSystem {
     inherit system;
     specialArgs = {
-      inherit inputs system stable hyprland vars;
+      inherit inputs system stable vars;
       host = {
         hostName = "nixos-vm";
       };

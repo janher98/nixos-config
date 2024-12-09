@@ -25,9 +25,9 @@
     #  url = "github:hyprwm/Hyprland";                                     # Requires "hyprland.nixosModules.default" to be added the host modules
     #  inputs.nixpkgs.follows = "nixpkgs-unstable";
     #};
-    hyprland = {
-        url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-      };
+    #hyprland = {
+    #    url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    #  };
 
     impermanence = {
       url = "github:nix-community/impermanence";
@@ -47,7 +47,7 @@
     };
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, nixvim, nixgl, hyprland, impermanence, disko, lanzaboote, nix-minecraft, ...}:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, nixvim, nixgl, impermanence, disko, lanzaboote, nix-minecraft, ...}:
     let
       vars = {                                                              # Variables Used In Flake
         user = "jan";
@@ -60,7 +60,7 @@
       nixosConfigurations = (                                               # NixOS Configurations
         import ./hosts {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs nixpkgs-stable nixos-hardware home-manager nixvim hyprland vars impermanence disko lanzaboote nix-minecraft;
+          inherit inputs nixpkgs nixpkgs-stable nixos-hardware home-manager nixvim vars impermanence disko lanzaboote nix-minecraft;
         }
       );
 

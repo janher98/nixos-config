@@ -3,7 +3,7 @@
 #  Enable with "hyprland.enable = true;"
 #
 
-{ config, lib, system, pkgs, stable, hyprland, vars, host, ... }:
+{ config, lib, system, pkgs, stable, vars, host, ... }:
 
 let
   colors = import ../theming/colors.nix;
@@ -114,7 +114,7 @@ with host;
     programs = {
       hyprland = {                            # Window Manager
         enable = true;
-        package = hyprland.packages.${pkgs.system}.hyprland;
+        #package = hyprland.packages.${pkgs.system}.hyprland;
         #nvidiaPatches = if hostName == "work" then true else false;
       };
     };
@@ -158,9 +158,9 @@ with host;
         '';
       in
       {
-        imports = [
-          hyprland.homeManagerModules.default
-        ];
+        #imports = [
+        #  hyprland.homeManagerModules.default
+        #];
         programs.hyprlock = {
           enable = true;
           settings = {
@@ -233,7 +233,7 @@ with host;
         };
         wayland.windowManager.hyprland = with colors.scheme.catppuccin_latte; {
           enable = true;
-          package = hyprland.packages.${pkgs.system}.hyprland;
+
           xwayland.enable = true;
           settings = {
             general = {
@@ -254,7 +254,7 @@ with host;
                 blur = {
                   enabled = true;
                 };
-                drop_shadow = false;
+              #drop_shadow = false;
             };
             monitor = [
                     ",preferred,auto,1,mirror,${toString mainMonitor}"
