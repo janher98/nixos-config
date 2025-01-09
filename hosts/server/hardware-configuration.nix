@@ -106,11 +106,15 @@
         }
       ];
     };
-    defaultGateway.address = "192.168.234.1";
+    defaultGateway = {
+      address = "192.168.234.1";
+      interface = "enp2s0";
+    };
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [ 80 443 2049 4000 4001 4002 ];
+      allowedTCPPorts = [ 53 80 443 2049 4000 4001 4002 ];
+      allowedUDPPorts = [ 53 51820];
     };
     nameservers = [
       "1.1.1.1"
