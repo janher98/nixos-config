@@ -15,10 +15,10 @@
         # You can select any ip and port, just make sure to open firewalls where needed
         address = "192.168.234.10:80";
       };
-      #users = [{
-      #    name = "admin";
-      #    password = "$2y$19$r2pXQ3rfgZkAZFNqFrKcbOCrjLxGhe3NMmSuR7pzVrKqEV6Vinj/G"; # admin
-      #}];
+      users = [{
+          name = "admin";
+          password = "$2y$19$r2pXQ3rfgZkAZFNqFrKcbOCrjLxGhe3NMmSuR7pzVrKqEV6Vinj/G"; # admin
+      }];
       dns = {
         bootstrap_dns = [ "1.1.1.1" ];
         upstream_dns = [
@@ -44,36 +44,37 @@
             "facebook"
             "instagram"
             "youtube"
+            "nebula"
           ];
           schedule = {
             timezone = "Europe/Berlin";
              mon = {
-               start = "0h";
-               end = "16h";
+               start = "15h";
+               end = "21h";
              };
              tue = {
-               start = "0h";
-               end = "16h";
+               start = "15h";
+               end = "21h";
              };
              wed = {
-               start = "0h";
-               end = "16h";
+               start = "15h";
+               end = "21h";
              };
-             thu = {
-               start = "0h";
-               end = "16h";
+           thu = {
+               start = "15h";
+               end = "21h";
              };
              fri = {
-               start = "0h";
-               end = "16h";
+               start = "15h";
+               end = "22h";
              };
              sat = {
-               start = "0h";
-               end = "14h";
+               start = "14h";
+               end = "22h";
              };
              sun = {
-               start = "0h";
-               end = "14h";
+               start = "14h";
+               end = "21h";
              };
           };
         };
