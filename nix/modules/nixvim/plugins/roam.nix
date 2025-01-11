@@ -1,4 +1,4 @@
-{pkgs, ...}: 
+{pkgs, ...}:
 let
   vim-roam = pkgs.vimUtils.buildVimPlugin {
     name = "vim-roam";
@@ -22,9 +22,8 @@ in{
   programs.nixvim = {
     extraPlugins = [
       #vim-roam
-      wikivim
+      #wikivim
       #pkgs.vimPlugins.fzf
       ];
   };
 }
-
