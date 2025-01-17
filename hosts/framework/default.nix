@@ -43,7 +43,7 @@ in
     systemPackages = with pkgs; [               # System-Wide Packages
       fwupd
       spotify
-
+      gnucash
       #gnome.gnome-keyring
       #gnome.seahorse
       libsecret

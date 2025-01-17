@@ -19,10 +19,10 @@ with lib;
   config = mkIf (config.gnome.enable) {
     programs = {
 #      zsh.enable = true;
-      kdeconnect = {                                    # GSConnect
-        enable = true;
-        package = pkgs.gnomeExtensions.gsconnect;
-      };
+      #kdeconnect = {                                    # GSConnect
+      #  enable = true;
+      #  package = pkgs.gnomeExtensions.gsconnect;
+      #};
     };
 
     services = {
@@ -36,7 +36,10 @@ with lib;
         modules = [ pkgs.xf86_input_wacom ];
         wacom.enable = true;
 
-        displayManager.gdm.enable = true;               # Display Manager
+        displayManager.gdm = {
+          enable = true;                                # Display Manager
+          autoSuspend = false;
+        };
         desktopManager.gnome.enable = true;             # Desktop Environment
       };
       udev.packages = with pkgs; [
@@ -70,27 +73,27 @@ with lib;
       dconf.settings = {
         "org/gnome/shell" = {
           favorite-apps = [
-            "org.gnome.settings.desktop"
+            "settings.desktop"
             "kitty.desktop"
             "firefox.desktop"
-            "org.gnome.nautilus.desktop"
+            "nautilus.desktop"
             # "blueman-manager.desktop"
             # "pavucontrol.desktop"
           ];
           disable-user-extensions = false;
           enabled-extensions = [
-            "trayiconsreloaded@selfmade.pl"
-            "blur-my-shell@aunetx"
-            "drive-menu@gnome-shell-extensions.gcampax.github.com"
-            "dash-to-panel@jderose9.github.com"
-            "just-perfection-desktop@just-perfection"
-            "caffeine@patapon.info"
-            "clipboard-indicator@tudmotu.com"
-            "horizontal-workspace-indicator@tty2.io"
-            "bluetooth-quick-connect@bjarosze.gmail.com"
-            "battery-indicator@jgotti.org"
-            "pip-on-top@rafostar.github.com"
-            "forge@jmmaranan.com"
+            #"trayiconsreloaded@selfmade.pl"
+            #"blur-my-shell@aunetx"
+            #"drive-menu@gnome-shell-extensions.gcampax.github.com"
+            #"dash-to-panel@jderose9.github.com"
+            #"just-perfection-desktop@just-perfection"
+            #"caffeine@patapon.info"
+            #"clipboard-indicator@tudmotu.com"
+            #"horizontal-workspace-indicator@tty2.io"
+            #"bluetooth-quick-connect@bjarosze.gmail.com"
+            #"battery-indicator@jgotti.org"
+            #"pip-on-top@rafostar.github.com"
+            #"forge@jmmaranan.com"
           ];
         };
 #
@@ -100,12 +103,6 @@ with lib;
           clock-show-weekday = true;
           # gtk-theme = "adwaita-dark";
         };
-    #    # "org/gnome/desktop/session" = {               # Not Working
-    #    #   idle-delay = "uint32 900";
-    #    # };
-    #    "org/gnome/desktop/privacy" = {
-    #      report-technical-problems = "false";
-    #    };
         "org/gnome/desktop/calendar" = {
           show-weekdate = true;
         };
@@ -154,111 +151,26 @@ with lib;
         };
 #
         "org/gnome/settings-daemon/plugins/power" = {
-          sleep-interactive-ac-type = "nothing";
+          sleep-inactive-ac-type = "nothing";
+          sleep-inactive-ac-timeout = 0;
+          power-button-action = "nothing";
         };
-    #    "org/gnome/settings-daemon/plugins/media-keys" = {
-    #      custom-keybindings = [
-    #        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
-    #        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
-    #        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
-    #      ];
-    #    };
-    #    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-    #      binding = "<super>return";
-    #      command = "alacritty";
-    #      name = "open-terminal";
-    #    };
-    #    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-    #      binding = "<super>t";
-    #      command = "emacs";
-    #      name = "open-editor";
-    #    };
-    #    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
-    #      binding = "<super>e";
-    #      command = "nautilus";
-    #      name = "open-file-browser";
-    #    };
-#
-    #    "org/gnome/shell/extension/dash-to-panel" = {   # Set Manually
-    #      panel-position = ''{"0":"top","1":"top"}'';
-    #      panel-sizes = ''{"0":24,"1":24}'';
-    #      panel-element-positions-monitors-sync = true;
-    #      appicon-margin = 0;
-    #      appicon-padding = 4;
-    #      dot-position = "top";
-    #      dot-style-focused = "solid";
-    #      dot-style-unfocused = "dots";
-    #      animate-appicon-hover = true;
-    #      animate-appicon-hover-animation-travel = "{'simple': 0.14999999999999999, 'ripple': 0.40000000000000002, 'plank': 0.0}";
-    #      isolate-monitors = true;
-    #    };
-    #    "org/gnome/shell/extensions/just-perfection" = {
-    #      theme = true;
-    #      activities-button = false;
-    #      app-menu = false;
-    #      clock-menu-position = 1;
-    #      clock-menu-position-offset = 7;
-    #    };
-    #    "org/gnome/shell/extensions/caffeine" = {
-    #      enable-fullscreen = true;
-    #      restore-state = true;
-    #      show-indicator = true;
-    #      show-notification = false;
-    #    };
-    #    "org/gnome/shell/extensions/blur-my-shell" = {
-    #      brightness = 0.9;
-    #    };
-    #    "org/gnome/shell/extensions/blur-my-shell/panel" = {
-    #      customize = true;
-    #      sigma = 0;
-    #    };
-    #    "org/gnome/shell/extensions/blur-my-shell/overview" = {
-    #      customize = true;
-    #      sigma = 0;
-    #    };
-    #    "org/gnome/shell/extensions/horizontal-workspace-indicator" = {
-    #      widget-position = "left";
-    #      widget-orientation = "horizontal";
-    #      icons-style = "circles";
-    #    };
-    #    "org/gnome/shell/extensions/bluetooth-quick-connect" = {
-    #      show-battery-icon-on = true;
-    #      show-battery-value-on = true;
-    #    };
-    #    "org/gnome/shell/extensions/pip-on-top" = {
-    #      stick = true;
-    #    };
-    #    "org/gnome/shell/extensions/forge" = {
-    #      window-gap-size = 8;
-    #      dnd-center-layout = "stacked";
-    #    };
-    #    "org/gnome/shell/extensions/forge/keybindings" = { # Set Manually
-    #      focus-border-toggle = true;
-    #      float-always-on-top-enabled = true;
-    #      window-focus-up = ["<super>up"];
-    #      window-focus-down = ["<super>down"];
-    #      window-focus-left = ["<super>left"];
-    #      window-focus-right = ["<super>right"];
-    #      window-move-up = ["<shift><super>up"];
-    #      window-move-down = ["<shift><super>down"];
-    #      window-move-left = ["<shift><super>left"];
-    #      window-move-right = ["<shift><super>right"];
-    #      window-swap-last-active = ["@as []"];
-    #      window-toggle-float = ["<shift><super>f"];
-    #    };
-    #    # "org/gnome/shell/extensions/dash-to-dock" = { # If Dock Preferred
-    #    #   multi-monitor = true;
-    #    #   dock-fixed = true;
-    #    #   dash-max-icon-size = 16;
-    #    #   custom-theme-shrink = true;
-    #    #   transparency-mode = "fixed";
-    #    #   background-opacity = 0.0;
-    #    #   show-apps-at-top = true;
-    #    #   show-trash = true;
-    #    #   hot-keys = false;
-    #    #   click-action = "previews";
-    #    #   scroll-action = "cycle-windows";
-    #    # };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+          binding = "<super>return";
+          command = "kitty";
+          name = "open-terminal";
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+          binding = "<super>t";
+          command = "nvim";
+          name = "open-editor";
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
+          binding = "<super>e";
+          command = "nautilus";
+          name = "open-file-browser";
+        };
+
       };
 #
       home.packages = with pkgs; [

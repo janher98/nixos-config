@@ -90,6 +90,7 @@
       wget              # Retriever
       lshw
       imagemagick
+      tree
 
 
       # Video/Audio
