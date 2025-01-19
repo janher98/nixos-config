@@ -9,12 +9,21 @@
     shell = pkgs.zsh;
   };
 
-    environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     starship
     nitch
   ];
 
   programs = {
+    direnv = {
+      enable = true;
+      loadInNixShell = true;
+      direnvrcExtra = "";
+      nix-direnv = {
+        enable = true;
+        package = pkgs.nix-direnv;
+      };
+    };
     zsh = {
       enable = true;
       autosuggestions.enable = true;
@@ -37,7 +46,7 @@
           # Hook direnv
           #emulate zsh -c "$(direnv hook zsh)"
           nitch
-          #eval "$(direnv hook zsh)"
+          eval "$(direnv hook zsh)"
         fi
       '';                                       # Theming
     };
